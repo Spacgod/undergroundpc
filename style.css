@@ -2475,3 +2475,120 @@ header .container {
         letter-spacing: 1px;
     }
 }
+/* --- Responsive Navigation Styles --- */
+
+/* Ensure header elements are correctly positioned for desktop */
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* Adjust padding as needed for your design */
+}
+
+/* Default desktop navigation: horizontal display */
+.header-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.header-nav ul li {
+    margin-left: 30px; /* Spacing between desktop menu items */
+}
+
+.header-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.header-nav ul li a:hover {
+    color: #ff8a65; /* Hover color for menu items */
+}
+
+/* Hide the shop button and menu toggle on desktop by default */
+.shop-btn {
+    display: block; /* Visible on desktop */
+}
+
+.menu-toggle {
+    display: none; /* Hidden on desktop */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001; /* Ensure it's above other content when menu is open */
+}
+
+/* Mobile-specific styles using a media query */
+@media (max-width: 768px) {
+    /* Adjust logo positioning for mobile to ensure it's clickable */
+    .site-logo {
+        position: relative;
+        z-index: 1002;
+    }
+
+    /* Hide desktop-specific shop button on mobile */
+    .shop-btn {
+        display: none;
+    }
+
+    /* Show hamburger menu toggle on mobile */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Mobile navigation overlay styling */
+    .header-nav {
+        position: fixed; /* Fixed position relative to viewport */
+        top: 0;
+        left: -100%; /* Start off-screen to the left */
+        width: 70%; /* Width of the mobile menu */
+        max-width: 300px; /* Optional: set a max width */
+        height: 100%; /* Full height of the viewport */
+        background-color: #222; /* Dark background for mobile menu */
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        transition: left 0.3s ease-in-out; /* Smooth slide transition */
+        z-index: 1000;
+        padding-top: 80px; /* Space for the fixed header content */
+        overflow-y: auto; /* Enable scrolling if menu content is long */
+    }
+
+    /* When 'active' class is added by JS, slide menu into view */
+    .header-nav.active {
+        left: 0;
+    }
+
+    /* Stack menu items vertically on mobile */
+    .header-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .header-nav ul li {
+        margin: 15px 0; /* Vertical spacing between mobile menu items */
+        width: 100%;
+    }
+
+    .header-nav ul li a {
+        display: block; /* Make links full width for easier tapping */
+        padding: 10px 0;
+        font-size: 1.3em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+    }
+
+    .header-nav ul li:last-child a {
+        border-bottom: none; /* No border for the last item */
+    }
+}
+
+/* Prevents body scrolling when mobile menu is open */
+body.no-scroll {
+    overflow: hidden;
+}
