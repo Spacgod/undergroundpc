@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming PC Elite - UndergroundPC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> <style>
+        /* Specific styles for product details page */
+        .product-detail-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            color: #eee;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: left; /* Align text to left */
+        }
+        .product-detail-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start; /* Align items to the top */
+        }
+        .product-detail-image {
+            flex: 1 1 45%; /* Image takes roughly half width */
+            max-width: 500px; /* Max width for image */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .product-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .product-detail-info {
+            flex: 1 1 50%; /* Info takes other half */
+        }
+        .product-detail-info h2 {
+            font-size: 3em;
+            color: #ff5722;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .product-detail-info p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        .specs-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        .specs-list li {
+            background-color: rgba(255, 255, 255, 0.05); /* Light transparent background for list items */
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 1.05em;
+            border-left: 3px solid #ff5722; /* Accent border */
+            display: flex;
+            justify-content: space-between; /* Align key and value */
+            align-items: center;
+        }
+        .specs-list li strong {
+            color: #fff;
+            margin-right: 15px;
+            flex-shrink: 0; /* Prevent strong from shrinking */
+        }
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* Responsive adjustments for product details */
+        @media (max-width: 768px) {
+            .product-detail-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .product-detail-image,
+            .product-detail-info {
+                flex: 1 1 100%; /* Stack on small screens */
+                max-width: 100%;
+            }
+            .product-detail-info {
+                text-align: center;
+            }
+            .specs-list li {
+                flex-direction: column; /* Stack key and value on very small screens */
+                align-items: flex-start;
+                padding: 10px 15px;
+            }
+            .specs-list li strong {
+                margin-bottom: 5px;
+            }
+            .product-detail-info h2 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail-section">
+            <div class="container">
+                <div class="product-detail-content">
+                    <div class="product-detail-image">
+                        <img src="images/coming-soon.png" alt="Gaming PC Elite - High Performance Build">
+                    </div>
+                    <div class="product-detail-info">
+                        <h2>Gaming PC Elite</h2>
+                        <p>We will upload a gaming rig soon</p>
+                        <p>for now go follow our social medias</p>
+
+                        <h3>Specifications:</h3>
+                        <ul class="specs-list">
+                            <li><strong>Processor:</strong> AMD Ryzen 9 7950X3D</li>
+                            <li><strong>Graphics Card:</strong> NVIDIA GeForce RTX 4090</li>
+                            <li><strong>RAM:</strong> 64GB DDR5 (6000MHz)</li>
+                            <li><strong>Storage:</strong> 2TB NVMe PCIe Gen5 SSD + 4TB HDD</li>
+                            <li><strong>Motherboard:</strong> ASUS ROG Crosshair X670E Hero</li>
+                            <li><strong>Power Supply:</strong> 1000W 80+ Platinum Modular</li>
+                            <li><strong>Cooling:</strong> 360mm AIO Liquid Cooler</li>
+                            <li><strong>Case:</strong> Lian Li O11 Dynamic EVO (Black)</li>
+                            <li><strong>Operating System:</strong> Windows 11 Pro</li>
+                        </ul>
+                        <a href="index.html#shop" class="btn btn-primary">Back to Shop</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="index.html#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="#">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

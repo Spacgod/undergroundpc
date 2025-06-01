@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UndergroundPC - High-Performance Custom PCs</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pc-builder-css.css">
+    <style>
+        /* Basic styling for the message box - copied from previous interaction for consistency */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            text-align: center;
+        }
+        .message-box.success {
+            background-color: #4CAF50;
+        }
+        .message-box.error {
+            background-color: #f44336;
+        }
+        .message-box button {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .message-box button:hover {
+            background-color: #eee;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Additional styles for new sections to ensure basic layout if not in style.css */
+        .hero-home {
+            background: url('background.png') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+        /* Removed ::before for hero-home */
+        .hero-home h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+        .hero-home p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hero-home .btn {
+            padding: 12px 25px;
+            font-size: 1.1em;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #333; /* Default for light backgrounds */
+        }
+
+        .features-grid, .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .product-card, .feature-card { /* Apply consistent styling for cards */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for cards */
+            backdrop-filter: blur(5px); /* Optional: adds a frosted glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            color: white; /* Default text color for cards on dark background */
+        }
+        .product-card:hover, .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .product-card h3, .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: white; /* Ensure headings are white */
+        }
+        .product-card p, .feature-card p {
+            color: white; /* Ensure text is white */
+        }
+        .feature-card i {
+            font-size: 3em;
+            color: #ff8a65; /* Lighter orange for icons on dark background */
+            margin-bottom: 20px;
+        }
+        /* Updated button styles for sections with background.png */
+        .product-card .btn,
+        .about-home .btn,
+        .cta-section .btn {
+            background-color: #555555; /* Changed to #555555 */
+            color: white; /* Text color for readability on dark button */
+            border: 2px solid white;
+        }
+        .product-card .btn:hover,
+        .about-home .btn:hover,
+        .cta-section .btn:hover {
+            background-color: #333333; /* Darker grey for hover */
+            color: white;
+            border-color: #333333;
+        }
+
+
+        /* Updated styles for sections with background.png */
+        .featured-products, /* Added featured-products here */
+        .why-choose-us,
+        .about-home {
+            background: url('background.png') no-repeat center center/cover;
+            position: relative;
+            z-index: 1;
+            color: white; /* Ensure text is readable on dark background */
+        }
+        /* Removed ::before for these sections to remove the overlay */
+        .featured-products .section-title,
+        .why-choose-us .section-title,
+        .about-home .section-title {
+            color: white; /* Ensure titles are white on dark background */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* Enhanced CTA Section */
+        .cta-section {
+            background: url('background.png') no-repeat center center/cover;
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center;
+            padding: 100px 20px; /* Increased padding */
+            border-radius: 15px; /* Slightly more rounded */
+            margin: 60px auto; /* Increased margin */
+            max-width: 1200px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3); /* More prominent shadow */
+        }
+        .cta-section h2 {
+            font-size: 3.2em; /* Larger font size */
+            margin-bottom: 25px; /* Increased margin */
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+        }
+        .cta-section p {
+            font-size: 1.3em; /* Larger font size */
+            margin-bottom: 50px; /* Increased margin */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        /* .cta-section .btn styles are now grouped above */
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-home h1 {
+                font-size: 2.5em;
+            }
+            .hero-home p {
+                font-size: 1em;
+            }
+            .section-title {
+                font-size: 2em;
+            }
+            .cta-section h2 {
+                font-size: 2em;
+            }
+            .cta-section p {
+                font-size: 1em;
+            }
+            .cta-section .btn {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li> </ul>
+            </nav>
+            <a href="#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero-home" class="hero-home reveal-on-scroll" role="region" aria-labelledby="hero-home-title">
+            <div class="container">
+                <h1 id="hero-home-title" class="reveal-item">UndergroundPC</h1>
+                <p class="reveal-item">Crafted for gamers, creators, and professionals. Experience unparalleled performance and reliability.</p>
+                <a href="#shop" class="btn btn-primary reveal-item">Shop Pre-Built PCs</a>
+                <a href="custom-builds.html" class="btn btn-secondary reveal-item">Build Your Own PC</a>
+            </div>
+        </section>
+
+        <section class="featured-products section-padding reveal-on-scroll" id="shop" role="region" aria-labelledby="featured-products-title">
+            <div class="container">
+                <h2 id="featured-products-title" class="section-title reveal-item">Featured PC Products</h2>
+                <div class="product-grid">
+                    <div class="product-card reveal-item">
+                        <img src="images/coming-soon.png" alt="PC Product 1">
+                        <h3>Gaming PC </h3>
+                        <p>coming soon</p>
+                        <a href="product-details.html" class="btn btn-secondary">View Details</a>
+                    </div>
+                    <div class="product-card reveal-item">
+                        <img src="images/coming-soon.png" alt="PC Product 2">
+                        <h3>Creator Workstation</h3>
+                        <p>coming soon</p>
+                        <a href="product-details2.html" class="btn btn-secondary">View Details</a>
+                    </div>
+                    <div class="product-card reveal-item">
+                        <img src="images/coming-soon.png" alt="PC Product 3">
+                        <h3>Compact Gaming Rig</h3>
+                        <p>coming</p>
+                        <a href="product-details3.html" class="btn btn-secondary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-choose-us section-padding about-home reveal-on-scroll" role="region" aria-labelledby="why-choose-us-title">
+            <div class="container">
+                <h2 id="why-choose-us-title" class="section-title reveal-item">Why Choose UndergroundPC?</h2>
+                <div class="features-grid">
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Expert Craftsmanship</h3>
+                        <p>Every PC is meticulously assembled and rigorously tested by our experienced technicians.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Unrivaled Quality</h3>
+                        <p>We use only top-tier components from trusted brands to ensure lasting performance.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-headset"></i>
+                        <h3>Dedicated Support</h3>
+                        <p>Our team is here to assist you every step of the way, from selection to after-sales.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <h3>Competitive Pricing</h3>
+                        <p>Get premium performance without breaking the bank. Value and power combined.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section reveal-on-scroll" role="region" aria-labelledby="custom-build-cta-title">
+            <div class="container">
+                <h2 id="custom-build-cta-title" class="reveal-item">Can't Find Your Perfect PC?</h2>
+                <p class="reveal-item">Design your dream machine from the ground up with our intuitive PC Builder. Choose every component to match your exact needs and budget.</p>
+                <a href="custom-builds.html" class="btn btn-primary reveal-item">Start Your Custom Build</a>
+            </div>
+        </section>
+
+        <section id="about-us" class="about-home section-padding reveal-on-scroll" role="region" aria-labelledby="about-us-home-title">
+            <div class="container">
+                <h2 id="about-us-home-title" class="section-title reveal-item">About UndergroundPC</h2>
+                <div class="about-content">
+                    <p class="reveal-item">At UndergroundPC, we're passionate about bringing high-performance computing to everyone. From cutting-edge gaming rigs to powerful workstations, we build systems that empower your digital life.</p>
+                    <p class="reveal-item">Our commitment to quality, customer satisfaction, and innovation drives everything we do. Learn more about our journey and values.</p>
+                    <a href="about-us.html" class="btn btn-secondary reveal-item">Learn More About Us</a>
+                </div>
+            </div>
+        </section>
+
+        </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="site-logo footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li> </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="#">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="success-message-box" class="message-box hidden">
+        <p id="success-message-content"></p>
+        <button onclick="document.getElementById('success-message-box').classList.add('hidden');">OK</button>
+    </div>
+
+    <div id="error-message-box" class="message-box hidden">
+        <p id="error-message-content"></p>
+        <button onclick="document.getElementById('error-message-box').classList.add('hidden');">OK</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // This script handles the contact form submission on the index.html page
+        // This specific script is now redundant as the contact form section has been removed.
+        // However, keeping the structure in case a contact form is re-added or for other global scripts.
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const form = event.target;
+                    const formData = new FormData(form);
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            // Assuming showMessageBox is defined in script.js or globally
+                            if (typeof showMessageBox === 'function') {
+                                showMessageBox('success', 'Your message has been sent successfully! We will get back to you soon.');
+                            } else {
+                                console.log('Message sent successfully!');
+                            }
+                            form.reset(); // Clear the form
+                        } else {
+                            const data = await response.json();
+                            let errorMessage = 'An error occurred during submission. Please try again.';
+                            if (data.errors) {
+                                errorMessage = `Submission failed: ${data.errors.map(e => e.message).join(', ')}`;
+                            }
+                            if (typeof showMessageBox === 'function') {
+                                showMessageBox('error', errorMessage);
+                            } else {
+                                console.error('Error:', errorMessage);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Network error or problem submitting the form:', error);
+                        if (typeof showMessageBox === 'function') {
+                            showMessageBox('error', 'Network error or problem submitting the form. Please check your internet connection and try again.');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
