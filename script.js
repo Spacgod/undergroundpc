@@ -6,6 +6,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamically gather component select and display elements
     const componentSelects = {}; // Stores references to <select> elements
     const selectedComponentDisplays = {}; // Stores references to <div> where selection is shown
+      // --- Mobile Navigation Toggle ---
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+    const navLinks = document.querySelectorAll('#main-nav ul li a'); // Select all navigation links
+
+    if (menuToggle && mainNav) {
+        menuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active'); // Toggle 'active' class on main navigation
+            // Toggle aria-expanded for accessibility (informs screen readers)
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            // Toggle 'no-scroll' class on body to prevent background scrolling
+            document.body.classList.toggle('no-scroll');
+        });
+        // Existing Intersection Observer for reveal-on-scroll (ensure this is present)
+    const revealElements = document.querySelectorAll('.reveal-on-scroll');
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of the item is visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target); // Stop observing once revealed
+            }
+        });
+    }, observerOptions);
+        // Close menu when a navigation link is clicked (for seamless navigation)
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active'); // Hide the navigation
+                menuToggle.setAttribute('aria-expanded', 'false'); // Reset aria-expanded
+                document.body.classList.remove('no-scroll'); // Re-enable body scrolling
+            });
+        });
+    }
+
 
     document.querySelectorAll('.component-select').forEach(selectElement => {
         const category = selectElement.id.split('-')[0];
