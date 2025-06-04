@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pc-builder-css.css">
     <style>
-        /* Basic styling for the message box - copied from previous interaction for consistency */
+        /* General Utility & Message Box */
         .message-box {
             position: fixed;
             top: 50%;
@@ -56,175 +56,362 @@
             border-width: 0;
         }
 
-        /* Additional styles for new sections to ensure basic layout if not in style.css */
-        .hero-home {
-            background: url('background.png') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-            padding: 100px 20px;
-            min-height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-        /* Removed ::before for hero-home */
-        .hero-home h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-        .hero-home p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero-home .btn {
-            padding: 12px 25px;
-            font-size: 1.1em;
-        }
-
+        /* Section Layout & Typography */
         .section-padding {
             padding: 80px 0;
         }
         .section-title {
             text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 50px;
-            color: #333; /* Default for light backgrounds */
+            font-size: 2.8em; /* Slightly larger title */
+            margin-bottom: 60px; /* More spacing */
+            color: #fff; /* White for dark background sections */
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8); /* Stronger shadow for titles */
         }
 
-        .features-grid, .contact-grid {
+        /* Grid Layouts */
+        .features-grid, .product-grid, .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             text-align: center;
         }
-        .product-card, .feature-card { /* Apply consistent styling for cards */
-            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white for cards */
-            backdrop-filter: blur(5px); /* Optional: adds a frosted glass effect */
+
+        /* Card Styling (Product & Feature) */
+        .product-card, .feature-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-            color: white; /* Default text color for cards on dark background */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+            color: white;
+            display: flex; /* Use flexbox for internal alignment */
+            flex-direction: column;
+            justify-content: space-between; /* Pushes button to bottom */
+            position: relative; /* For absolute positioning of hover info */
+            overflow: hidden; /* Clip hover info within card bounds */
         }
         .product-card:hover, .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px); /* More pronounced lift */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
         }
-        .product-card img {
+        /* Hide original content on hover */
+        .product-card:hover .product-main-content {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .product-main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .product-main-content img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
             margin-bottom: 15px;
         }
-        .product-card h3, .feature-card h3 {
-            font-size: 1.5em;
+        .product-main-content h3 {
+            font-size: 1.6em; /* Slightly larger heading */
             margin-bottom: 15px;
-            color: white; /* Ensure headings are white */
+            color: white;
         }
-        .product-card p, .feature-card p {
-            color: white; /* Ensure text is white */
+        .product-main-content p {
+            color: #e0e0e0; /* Slightly lighter text for readability */
+            flex-grow: 1; /* Allows text to take available space */
+            margin-bottom: 20px; /* Space before button */
         }
+
         .feature-card i {
-            font-size: 3em;
-            color: #ff8a65; /* Lighter orange for icons on dark background */
+            font-size: 3.5em; /* Larger icons */
+            color: #e82c2c; /* A brighter, more impactful red */
             margin-bottom: 20px;
         }
-        /* Updated button styles for sections with background.png */
-        .product-card .btn,
-        .about-home .btn,
-        .cta-section .btn {
-            background-color: #555555; /* Changed to #555555 */
-            color: white; /* Text color for readability on dark button */
-            border: 2px solid white;
-        }
-        .product-card .btn:hover,
-        .about-home .btn:hover,
-        .cta-section .btn:hover {
-            background-color: #333333; /* Darker grey for hover */
+
+        /* Button Styling - Specific to sections with background.png */
+        .btn-primary {
+            background-color: #e82c2c; /* Original primary red */
             color: white;
-            border-color: #333333;
+            border: 2px solid #e82c2c;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #ff3f3f; /* Lighter red on hover */
+            border-color: #ff3f3f;
+        }
+
+        .btn-secondary {
+            background-color: transparent; /* Transparent background */
+            color: white;
+            border: 2px solid white; /* White border */
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Slight white fill on hover */
+            border-color: white;
         }
 
 
-        /* Updated styles for sections with background.png */
-        .featured-products, /* Added featured-products here */
+        /* Section Backgrounds & Overlays */
+        .hero-home,
+        .featured-products,
         .why-choose-us,
-        .about-home {
-            background: url('background.png') no-repeat center center/cover;
-            position: relative;
-            z-index: 1;
-            color: white; /* Ensure text is readable on dark background */
-        }
-        /* Removed ::before for these sections to remove the overlay */
-        .featured-products .section-title,
-        .why-choose-us .section-title,
-        .about-home .section-title {
-            color: white; /* Ensure titles are white on dark background */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-        }
-
-        /* Enhanced CTA Section */
+        .about-home,
         .cta-section {
             background: url('background.png') no-repeat center center/cover;
             position: relative;
             z-index: 1;
             color: white;
+        }
+
+        /* Hero Section Specifics */
+        .hero-home {
             text-align: center;
-            padding: 100px 20px; /* Increased padding */
-            border-radius: 15px; /* Slightly more rounded */
-            margin: 60px auto; /* Increased margin */
-            max-width: 1200px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3); /* More prominent shadow */
+            padding: 120px 20px; /* Increased padding */
+            min-height: 600px; /* Taller hero */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .cta-section h2 {
-            font-size: 3.2em; /* Larger font size */
-            margin-bottom: 25px; /* Increased margin */
-            color: white;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+        .hero-home h1 {
+            font-size: 4em; /* Larger title */
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.9); /* More prominent shadow */
         }
-        .cta-section p {
-            font-size: 1.3em; /* Larger font size */
-            margin-bottom: 50px; /* Increased margin */
+        .hero-home p {
+            font-size: 1.3em; /* Larger text */
+            margin-bottom: 40px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
         }
-        /* .cta-section .btn styles are now grouped above */
+        .hero-home .btn {
+            margin: 0 10px; /* Spacing between buttons */
+        }
+
+        /* CTA Section Specifics */
+        .cta-section {
+            text-align: center;
+            padding: 120px 20px; /* More padding */
+            border-radius: 15px;
+            margin: 80px auto; /* More margin around the section */
+            max-width: 1200px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4); /* Stronger shadow */
+            overflow: hidden; /* Ensures content stays within rounded corners */
+        }
+        .cta-section h2 {
+            font-size: 3.5em; /* Larger font size */
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
+        }
+        .cta-section p {
+            font-size: 1.4em; /* Larger font size */
+            margin-bottom: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* About Us Section Specifics */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-content p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+        .about-content .btn {
+            margin-top: 30px;
+        }
+
+        /* Product Card Hover Info - New Styles for the game stats overlay */
+        .product-hover-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95); /* Darker overlay for better text visibility */
+            color: white;
+            visibility: hidden; /* Initially hidden */
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute items with space, push button to bottom */
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .product-card:hover .product-hover-info {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .fps-image-container {
+            position: relative;
+            width: 90%; /* Adjust width of each game image container */
+            max-width: 220px; /* Max width to keep them from getting too big */
+            margin-bottom: 10px; /* Space between game stat blocks */
+            overflow: hidden; /* Ensure text stays within bounds if it goes outside */
+            border-radius: 8px; /* Rounded corners for image containers */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4); /* Shadow for pop-out effect */
+        }
+        .fps-image-container:last-of-type {
+            margin-bottom: 0; /* No margin after the last one */
+        }
+
+        .fps-image-container img {
+            width: 100%;
+            height: 100px; /* Fixed height for consistency */
+            object-fit: cover; /* Cover the container without distortion */
+            display: block; /* Remove extra space below image */
+        }
+
+        .fps-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for text */
+            padding: 8px 5px;
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.2;
+            color: white;
+            display: flex; /* Use flex to align elements horizontally */
+            flex-direction: column; /* Stack text vertically */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fps-overlay .game-name {
+            font-weight: 600;
+            color: #d1d1d1; /* Lighter grey for game name */
+            font-size: 1em;
+            margin-bottom: 2px;
+        }
+
+        .fps-overlay .fps {
+            font-weight: 700;
+            font-size: 1.3em; /* Larger FPS number */
+            color: #4CAF50; /* Green color for FPS */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            margin-bottom: 2px;
+        }
+
+        .fps-overlay .settings-text {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #b0b0b0; /* Slightly lighter grey for settings */
+        }
+
+        .tested-on-text {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            margin-top: 15px; /* Space between last game and this text */
+            text-align: center;
+        }
+        /* Style for the button inside hover info */
+        .product-hover-info .btn-secondary {
+            margin-top: 15px; /* Add some space above the button */
+        }
 
 
-        /* Responsive adjustments */
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-home h1 {
+                font-size: 3.2em;
+            }
+            .hero-home p {
+                font-size: 1.1em;
+            }
+            .section-title {
+                font-size: 2.2em;
+            }
+            .cta-section h2 {
+                font-size: 2.8em;
+            }
+            .cta-section p {
+                font-size: 1.2em;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-home h1 {
-                font-size: 2.5em;
+                font-size: 2.8em;
             }
             .hero-home p {
                 font-size: 1em;
             }
+            .hero-home .btn {
+                display: block;
+                margin: 15px auto;
+            }
+            .section-padding {
+                padding: 60px 0;
+            }
             .section-title {
-                font-size: 2em;
+                font-size: 1.8em;
+                margin-bottom: 40px;
+            }
+            .product-card, .feature-card {
+                padding: 25px;
+            }
+            .product-card h3, .feature-card h3 {
+                font-size: 1.4em;
+            }
+            .feature-card i {
+                font-size: 3em;
+            }
+            .cta-section {
+                padding: 80px 20px;
+                margin: 50px auto;
             }
             .cta-section h2 {
-                font-size: 2em;
+                font-size: 2.2em;
+                margin-bottom: 20px;
             }
             .cta-section p {
                 font-size: 1em;
+                margin-bottom: 40px;
             }
-            .cta-section .btn {
-                padding: 15px 30px;
-                font-size: 1.1em;
+            .btn-primary, .btn-secondary {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .fps-image-container {
+                max-width: 180px; /* Adjust for smaller screens */
+            }
+            .fps-overlay .fps {
+                font-size: 1.1em; /* Smaller FPS for mobile */
             }
         }
     </style>
 </head>
 <body>
-
     <header>
         <div class="container">
             <a href="index.html" class="site-logo">UndergroundPC</a>
@@ -234,7 +421,8 @@
                     <li><a href="#shop">Shop</a></li>
                     <li><a href="custom-builds.html">Custom Builds</a></li>
                     <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li> </ul>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
             </nav>
             <a href="#shop" class="btn btn-primary shop-btn">Shop Now</a>
             <button class="menu-toggle" aria-label="Toggle navigation menu">
@@ -255,25 +443,125 @@
 
         <section class="featured-products section-padding reveal-on-scroll" id="shop" role="region" aria-labelledby="featured-products-title">
             <div class="container">
-                <h2 id="featured-products-title" class="section-title reveal-item">Featured PC Products</h2>
+                <h2 id="featured-products-title" class="section-title reveal-item">Ready To Ship PC</h2>
                 <div class="product-grid">
-                    <div class="product-card reveal-item">
-                        <img src="images/coming-soon.png" alt="PC Product 1">
-                        <h3>Gaming PC </h3>
-                        <p>coming soon</p>
-                        <a href="product-details.html" class="btn btn-secondary">View Details</a>
+                    <div class="product-card reveal-item"
+                         data-game1-name="Fortnite" data-game1-fps="135" data-game1-image="images/fn.png"
+                         data-game2-name="counter strike 2" data-game2-fps="140" data-game2-settings="High" data-game2-image="images/cs-2.png"
+                         data-game3-name="Call of Duty" data-game3-fps="190" data-game3-settings="Ultra" data-game3-image="images/cod.png"
+                         data-tested-on="Tested at high or ultra settings on 1080p">
+                        <div class="product-main-content">
+                            <img src="images/coming-soon.png" alt="High-Performance Gaming PC">
+                            <h3>Coming soon: gaming PC</h3>
+                            <p>Experience cutting-edge performance with our latest gaming rigs, designed for immersive gameplay.</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <div class="fps-image-container">
+                                <img src="" alt="Game 1 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Game 2 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Game 3 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    
+                                </div>
+                            </div>
+                            <div class="tested-on-text"></div>
+                            <a href="product-details.html" class="btn btn-secondary">View Details</a>
+                        </div>
                     </div>
-                    <div class="product-card reveal-item">
-                        <img src="images/coming-soon.png" alt="PC Product 2">
-                        <h3>Creator Workstation</h3>
-                        <p>coming soon</p>
-                        <a href="product-details2.html" class="btn btn-secondary">View Details</a>
+
+                    <div class="product-card reveal-item"
+                         data-game1-name="Blender" data-game1-fps="18s Render" data-game1-image="images/bd.png"
+                         data-game2-name="Premiere Pro" data-game2-fps="4min Export" data-game2-image="images/premiere.png"
+                         data-game3-name="AutoCAD" data-game3-fps="Smooth"  data-game3-image="images/autocad.png"
+                         data-tested-on="Optimized for professional workloads">
+                        <div class="product-main-content">
+                            <img src="images/coming-soon.png" alt="Professional Creator Workstation PC">
+                            <h3>Coming soon: workstation</h3>
+                            <p>Unleash your creativity with powerful workstations optimized for demanding design and rendering tasks.</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <div class="fps-image-container">
+                                <img src="" alt="App 1 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span>
+                                    
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="App 2 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span>
+
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="App 3 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span>
+                            
+                                </div>
+                            </div>
+                            <div class="tested-on-text"></div>
+                            <a href="product-details2.html" class="btn btn-secondary">View Details</a>
+                        </div>
                     </div>
-                    <div class="product-card reveal-item">
-                        <img src="images/coming-soon.png" alt="PC Product 3">
-                        <h3>Compact Gaming Rig</h3>
-                        <p>coming</p>
-                        <a href="product-details3.html" class="btn btn-secondary">View Details</a>
+
+                    <div class="product-card reveal-item"
+                         data-game1-name="Rocket League" data-game1-fps="240" data-game1-settings="High" data-game1-image="images/rl.png"
+                         data-game2-name="Minecraft" data-game2-fps="180" data-game2-settings="Shaders" data-game2-image="images/mc.png"
+                         data-game3-name="CS2" data-game3-fps="150" data-game3-settings="Medium" data-game3-image="images/cs-2.png"
+                         data-tested-on="Compact power, big performance">
+                        <div class="product-main-content">
+                            <img src="images/coming-soon.png" alt="Compact Gaming PC Rig">
+                            <h3>Coming soon: micro ATX PC </h3>
+                            <p>Big power in a small form factor. Perfect for limited spaces without compromising on performance.</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <div class="fps-image-container">
+                                <img src="" alt="Game 1 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Game 2 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Game 3 Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    
+                                </div>
+                            </div>
+                            <div class="tested-on-text"></div>
+                            <a href="product-details3.html" class="btn btn-secondary">View Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -286,22 +574,22 @@
                     <div class="feature-card reveal-item">
                         <i class="fas fa-cogs"></i>
                         <h3>Expert Craftsmanship</h3>
-                        <p>Every PC is meticulously assembled and rigorously tested by our experienced technicians.</p>
+                        <p>Every PC is meticulously assembled and rigorously tested by our experienced technicians, ensuring flawless performance.</p>
                     </div>
                     <div class="feature-card reveal-item">
                         <i class="fas fa-shield-alt"></i>
                         <h3>Unrivaled Quality</h3>
-                        <p>We use only top-tier components from trusted brands to ensure lasting performance.</p>
+                        <p>We use only top-tier components from trusted brands, guaranteeing exceptional performance and long-term reliability.</p>
                     </div>
                     <div class="feature-card reveal-item">
                         <i class="fas fa-headset"></i>
                         <h3>Dedicated Support</h3>
-                        <p>Our team is here to assist you every step of the way, from selection to after-sales.</p>
+                        <p>Our expert team is here to assist you every step of the way, from personalized selection to comprehensive after-sales support.</p>
                     </div>
                     <div class="feature-card reveal-item">
                         <i class="fas fa-hand-holding-usd"></i>
                         <h3>Competitive Pricing</h3>
-                        <p>Get premium performance without breaking the bank. Value and power combined.</p>
+                        <p>Get premium performance without breaking the bank. We combine cutting-edge technology with unbeatable value.</p>
                     </div>
                 </div>
             </div>
@@ -310,7 +598,7 @@
         <section class="cta-section reveal-on-scroll" role="region" aria-labelledby="custom-build-cta-title">
             <div class="container">
                 <h2 id="custom-build-cta-title" class="reveal-item">Can't Find Your Perfect PC?</h2>
-                <p class="reveal-item">Design your dream machine from the ground up with our intuitive PC Builder. Choose every component to match your exact needs and budget.</p>
+                <p class="reveal-item">Design your dream machine from the ground up with our intuitive PC Builder. Choose every component to match your exact needs and budget, and let us bring your vision to life.</p>
                 <a href="custom-builds.html" class="btn btn-primary reveal-item">Start Your Custom Build</a>
             </div>
         </section>
@@ -319,14 +607,13 @@
             <div class="container">
                 <h2 id="about-us-home-title" class="section-title reveal-item">About UndergroundPC</h2>
                 <div class="about-content">
-                    <p class="reveal-item">At UndergroundPC, we're passionate about bringing high-performance computing to everyone. From cutting-edge gaming rigs to powerful workstations, we build systems that empower your digital life.</p>
-                    <p class="reveal-item">Our commitment to quality, customer satisfaction, and innovation drives everything we do. Learn more about our journey and values.</p>
+                    <p class="reveal-item">At UndergroundPC, we're passionate about bringing high-performance computing to everyone. From cutting-edge gaming rigs to powerful workstations, we build systems that empower your digital life, whether you're gaming, creating, or working.</p>
+                    <p class="reveal-item">Our unwavering commitment to quality, customer satisfaction, and continuous innovation drives everything we do. Discover how our dedication translates into superior performance and a seamless experience for you.</p>
                     <a href="about-us.html" class="btn btn-secondary reveal-item">Learn More About Us</a>
                 </div>
             </div>
         </section>
-
-        </main>
+    </main>
 
     <footer class="main-footer">
         <div class="container">
@@ -342,7 +629,8 @@
                             <li><a href="about-us.html">About Us</a></li>
                             <li><a href="#shop">Shop All</a></li>
                             <li><a href="custom-builds.html">Custom Builds</a></li>
-                            <li><a href="contact.html">Contact</a></li> </ul>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
                     </nav>
                 </div>
                 <div class="footer-col">
@@ -350,7 +638,7 @@
                     <nav class="footer-nav">
                         <ul>
                             <li><a href="faq.html">FAQs</a></li>
-                            <li><a href="#">Shipping & Returns</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
                             <li><a href="privacy-policy.html">Privacy Policy</a></li>
                         </ul>
                     </nav>
@@ -381,9 +669,6 @@
 
     <script src="script.js"></script>
     <script>
-        // This script handles the contact form submission on the index.html page
-        // This specific script is now redundant as the contact form section has been removed.
-        // However, keeping the structure in case a contact form is re-added or for other global scripts.
         document.addEventListener('DOMContentLoaded', () => {
             const contactForm = document.getElementById('contact-form');
             if (contactForm) {
@@ -430,6 +715,64 @@
                     }
                 });
             }
+
+            // JavaScript for Product Hover Effect
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const mainContent = card.querySelector('.product-main-content');
+                    const hoverInfo = card.querySelector('.product-hover-info');
+
+                    if (mainContent && hoverInfo) {
+                        // Populate data for each of the 3 game performance displays
+                        const fpsImageContainers = hoverInfo.querySelectorAll('.fps-image-container');
+                        for (let i = 1; i <= 3; i++) {
+                            const gameName = card.dataset[`game${i}Name`];
+                            const fps = card.dataset[`game${i}Fps`];
+                            const settings = card.dataset[`game${i}Settings`];
+                            const image = card.dataset[`game${i}Image`];
+
+                            if (fpsImageContainers[i - 1]) {
+                                const imgElement = fpsImageContainers[i - 1].querySelector('img');
+                                const gameNameElement = fpsImageContainers[i - 1].querySelector('.game-name');
+                                const fpsElement = fpsImageContainers[i - 1].querySelector('.fps');
+                                const settingsElement = fpsImageContainers[i - 1].querySelector('.settings');
+
+                                if (imgElement) imgElement.src = image || ''; // Set image source
+                                if (gameNameElement) gameNameElement.textContent = gameName || '';
+                                if (fpsElement) fpsElement.textContent = fps || '';
+                                if (settingsElement) settingsElement.textContent = settings || '';
+                            }
+                        }
+
+                        // Populate the general tested-on text
+                        const testedOnTextElement = hoverInfo.querySelector('.tested-on-text');
+                        if (testedOnTextElement) {
+                            testedOnTextElement.textContent = card.dataset.testedOn || '';
+                        }
+
+                        // Hide main content and show hover info
+                        mainContent.style.opacity = '0';
+                        mainContent.style.visibility = 'hidden';
+                        hoverInfo.style.visibility = 'visible';
+                        hoverInfo.style.opacity = '1';
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    const mainContent = card.querySelector('.product-main-content');
+                    const hoverInfo = card.querySelector('.product-hover-info');
+
+                    if (mainContent && hoverInfo) {
+                        // Hide hover info and show main content
+                        hoverInfo.style.opacity = '0';
+                        hoverInfo.style.visibility = 'hidden';
+                        mainContent.style.visibility = 'visible';
+                        mainContent.style.opacity = '1';
+                    }
+                });
+            });
         });
     </script>
 </body>
