@@ -1,14 +1,3 @@
-/*
- * style.css - Modern Dark Theme for PC Builder Website
- *
- * This stylesheet provides a sleek, dark aesthetic with vibrant orange accents
- * for a custom PC building application. It includes responsive design principles
- * and attention to detail for a polished user experience.
- */
-
-/* ==========================================================================
-   1. Basic Reset & Core Styles
-   ========================================================================== */
 body {
     font-family: var(--font-body);
     line-height: 1.6;
@@ -18,14 +7,18 @@ body {
     box-sizing: border-box; /* Global box-sizing for consistent layouts */
     scroll-behavior: smooth; /* Smooth scrolling for internal anchor links */
 
-    /* --- Background Pattern Styles --- */
-    background-image: url('images/image_bb1dfe.png'); /* Path to your repeating background image */
-    background-size: auto;                            /* Use original size of the pattern */
-    background-repeat: repeat;                        /* Tile the image across the background */
-    background-attachment: fixed;                     /* Keeps the pattern fixed during scroll */
-    background-position: center center;               /* Initial positioning of the pattern */
-    background-color: var(--color-dark-gray);         /* Fallback solid color if image fails to load */
-}
+    /* --- CSS Generated Grid Background Styles --- */
+    background-color: var(--color-dark-gray); /* The main dark gray background color */
+    background-image:
+        /* Horizontal lines: 1px light gray line, then 29px transparent space, repeating every 30px */
+        repeating-linear-gradient(0deg, var(--color-light-gray) 0, var(--color-light-gray) 1px, transparent 1px, transparent 30px),
+        /* Vertical lines: 1px light gray line, then 29px transparent space, repeating every 30px */
+        repeating-linear-gradient(90deg, var(--color-light-gray) 0, var(--color-light-gray) 1px, transparent 1px, transparent 30px);
+    background-size: 30px 30px; /* Defines the size of each repeating square (grid cell) */
+    background-position: center center; /* Centers the pattern */
+    background-attachment: fixed; /* Keeps the grid fixed when the user scrolls */
+    background-repeat: repeat; /* Ensures the pattern repeats across the entire background */
+}   
 
 /* Universal box-sizing inheritance for all elements */
 *, *::before, *::after {
@@ -37,18 +30,19 @@ body {
    ========================================================================== */
 :root {
     /* Colors */
-    --color-dark-gray: #1a1a1a;
-    --color-darker-gray: #111111;
-    --color-light-gray: #aaaaaa;
-    --color-text-on-dark: #eeeeee;
-    --color-orange-primary: #ff5722; /* A vibrant, eye-catching orange */
-    --color-orange-dark: #e64a19;   /* Darker shade for hover states/accents */
+    --text-color: #ffffff;
+    --color-dark-gray: #161616;
+    --color-darker-gray: #0f0f0f;
+    --color-light-gray: #3c3c3c;
+    --color-text-on-dark: #c5baba;
+    --color-red-primary: linear-gradient(to right, #820303, #5d045d); /* Red to Purple blend */
+    --color-red-dark: #d10000;   /* Darker shade for hover states/accents */
     --color-green-compatible: #4CAF50; /* Green for success/compatibility */
-    --color-red-incompatible: #f44336;  /* Red for errors/incompatibility */
+    --color-red-incompatible: #9d160c;  /* Red for errors/incompatibility */
     --color-white: #ffffff;             /* Pure white for strong contrast */
     --color-black-transparent: rgba(0, 0, 0, 0.3); /* For subtle shadows */
-    --color-orange-transparent: rgba(255, 87, 34, 0.4); /* For primary button shadows */
-    --color-orange-transparent-dark: rgba(255, 87, 34, 0.6); /* For primary button hover shadows */
+    --color-red-transparent: rgba(255, 87, 34, 0.4); /* For primary button shadows */
+    --color-red-transparent-dark: rgba(209, 7, 7, 0.6); /* For primary button hover shadows */
 
     /* Fonts */
     --font-heading: 'Montserrat', sans-serif; /* Bold and modern font for headings */
@@ -89,7 +83,7 @@ section {
 .section-title {
     font-family: var(--font-heading);
     font-size: 2.8em;
-    color: var(--color-orange-primary);
+    color: var(--color-red-primary);
     text-align: center;
     margin-bottom: calc(var(--spacing-lg) + 20px); /* Adjust spacing below title */
     position: relative;
@@ -104,7 +98,7 @@ section {
     transform: translateX(-50%);
     width: 80px;
     height: 4px;
-    background-color: var(--color-orange-dark);
+    background-color: var(--color-red-dark);
     border-radius: var(--border-radius-sm);
 }
 
@@ -129,15 +123,15 @@ section {
 }
 
 .btn-primary {
-    background-color: var(--color-orange-primary);
+    background: var(--color-red-primary); /* Use background for gradient */
     color: var(--color-white);
-    box-shadow: 0 4px 10px var(--color-orange-transparent);
+    box-shadow: 0 4px 10px var(--color-red-transparent);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-orange-dark);
+    background-color: var(--color-red-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px var(--color-orange-transparent-dark);
+    box-shadow: 0 6px 15px var(--color-red-transparent-dark);
 }
 
 .btn-primary:focus-visible { /* For keyboard navigation accessibility */
@@ -154,13 +148,13 @@ section {
 
 .btn-secondary:hover {
     background-color: var(--color-dark-gray);
-    border-color: var(--color-orange-primary);
+    border-color: var(--color-red-primary);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly darker shadow on hover */
 }
 
 .btn-secondary:focus-visible { /* For keyboard navigation accessibility */
-    outline: 2px solid var(--color-orange-primary);
+    outline: 2px solid var(--color-red-primary);
     outline-offset: 3px;
 }
 
@@ -199,8 +193,7 @@ header h1 {
 }
 
 header h1 a {
-    /* Changed from original color to orange primary */
-    color: var(--color-orange-primary); /* Ensures company name is orange */
+    color: var(--color-red-primary); /* Ensures company name is red */
     text-decoration: none;
     transition: color var(--transition-speed-normal) var(--transition-ease);
 }
@@ -210,9 +203,8 @@ header h1 a:focus-visible {
     color: var(--color-white);
 }
 
-/* Changed .logo to .site-logo in HTML, ensure this matches if needed */
 .site-logo {
-    color: var(--color-orange-primary); /* Explicitly set color for site logo */
+    color: var(--color-red-primary); /* Explicitly set color for site logo */
     text-decoration: none;
     font-family: var(--font-heading);
     font-size: 1.8em;
@@ -248,7 +240,7 @@ header nav ul li a {
 
 header nav ul li a:hover,
 header nav ul li a:focus-visible {
-    color: var(--color-orange-primary);
+    color: var(--color-red-primary);
 }
 
 /* Underline effect on hover/focus */
@@ -259,7 +251,7 @@ header nav ul li a::after {
     bottom: 0;
     width: 0; /* Starts hidden */
     height: 3px;
-    background-color: var(--color-orange-primary);
+    background-color: var(--color-red-primary);
     transition: width var(--transition-speed-normal) var(--transition-ease);
 }
 
@@ -327,7 +319,7 @@ header nav ul li a:focus-visible::after {
 }
 
 .component-category-card:hover {
-    border-color: var(--color-orange-primary);
+    border-color: var(--color-red-primary);
     transform: translateY(-3px); /* Subtle lift effect */
 }
 
@@ -364,7 +356,7 @@ header nav ul li a:focus-visible::after {
 
 .component-select:focus {
     outline: none; /* Remove default outline */
-    border-color: var(--color-orange-primary);
+    border-color: var(--color-red-primary);
     box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5); /* Custom focus outline */
 }
 
@@ -387,7 +379,7 @@ header nav ul li a:focus-visible::after {
 
 .selected-component-display .component-name {
     font-weight: 700;
-    color: var(--color-orange-primary); /* Highlight selected component name */
+    color: var(--color-red-primary); /* Highlight selected component name */
 }
 
 /* ==========================================================================
@@ -445,7 +437,7 @@ header nav ul li a:focus-visible::after {
 
 .build-summary-list li span {
     font-weight: 700;
-    color: var(--color-orange-primary); /* Highlight the component name */
+    color: var(--color-red-primary); /* Highlight the component name */
 }
 
 .build-summary-list li .summary-price {
@@ -490,7 +482,7 @@ header nav ul li a:focus-visible::after {
 .total-price-display {
     font-family: var(--font-heading);
     font-size: 2.8em; /* Prominent size for the total price */
-    color: var(--color-orange-primary);
+    color: var(--color-red-primary);
     text-align: right;
     margin-top: 30px;
     padding-top: 20px;
@@ -525,7 +517,7 @@ header nav ul li a:focus-visible::after {
 
 .about-content p {
     font-size: 1.1em;
-    color: var(--color-light-gray);
+    color: var(--text-color);
     margin-bottom: var(--spacing-md);
 }
 
@@ -566,7 +558,7 @@ header nav ul li a:focus-visible::after {
 .contact-form-card h3, .contact-info-card h3 {
     font-family: var(--font-heading);
     font-size: 1.6em;
-    color: var(--color-orange-primary);
+    color: var(--color-red-primary);
     margin-bottom: 25px;
 }
 
@@ -600,7 +592,7 @@ header nav ul li a:focus-visible::after {
 .contact-form input[type="email"]:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: var(--color-orange-primary);
+    border-color: var(--color-red-primary);
     box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5);
 }
 
@@ -632,7 +624,7 @@ header nav ul li a:focus-visible::after {
 }
 
 .contact-info-card p i {
-    color: var(--color-orange-primary);
+    color: var(--color-red-primary);
     margin-right: var(--spacing-sm);
     font-size: 1.2em;
 }
@@ -643,7 +635,7 @@ header nav ul li a:focus-visible::after {
    ========================================================================== */
 .main-footer {
     background-color: var(--color-darker-gray); /* Dark background matching header */
-    color: var(--color-light-gray); /* Light grey text for readability */
+    color: var(--text-color); /* Light grey text for readability */
     padding: 60px 0; /* More vertical padding */
     font-size: 0.95em;
     border-top: 1px solid rgba(238, 238, 238, 0.1); /* Subtle line at the top */
@@ -668,7 +660,7 @@ header nav ul li a:focus-visible::after {
 }
 
 .main-footer .brand-info p {
-    color: var(--color-light-gray); /* Slightly lighter for description */
+    color: var(--text-color); /* Slightly lighter for description */
     line-height: 1.7;
 }
 
@@ -676,7 +668,7 @@ header nav ul li a:focus-visible::after {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1.1em;
-    color: var(--color-orange-primary); /* Orange for footer headings */
+    color: var(--color-red-primary); /* Red for footer headings */
     margin-bottom: var(--spacing-md);
 }
 
@@ -691,13 +683,13 @@ header nav ul li a:focus-visible::after {
 }
 
 .main-footer .footer-nav ul li a {
-    color: var(--color-light-gray); /* Link color */
+    color: var(--text-color); /* Link color */
     text-decoration: none;
     transition: color var(--transition-speed-normal) var(--transition-ease);
 }
 
 .main-footer .footer-nav ul li a:hover {
-    color: var(--color-orange-primary); /* Orange on hover */
+    color: var(--color-red-primary); /* Red on hover */
     text-decoration: underline; /* Add underline on hover for clarity */
 }
 
@@ -714,7 +706,7 @@ header nav ul li a:focus-visible::after {
 }
 
 .main-footer .social-links a:hover {
-    color: var(--color-orange-primary); /* Orange on hover */
+    color: var(--color-red-primary); /* Red on hover */
 }
 
 .main-footer .copyright {
@@ -733,12 +725,10 @@ header nav ul li a:focus-visible::after {
     section {
         padding: var(--spacing-lg) 0; /* Reduce section padding on smaller screens */
     }
-
     .section-title {
         font-size: 2em; /* Smaller section titles */
         margin-bottom: var(--spacing-lg);
     }
-
     /* Header adjustments */
     header .container {
         flex-direction: column;
@@ -754,7 +744,6 @@ header nav ul li a:focus-visible::after {
     header .btn { /* If there's a button directly in header */
         margin-top: var(--spacing-md);
     }
-
     /* Hero section adjustments */
     .hero-content h2 {
         font-size: 2.5em;
@@ -762,23 +751,19 @@ header nav ul li a:focus-visible::after {
     .hero-content p {
         font-size: 1em;
     }
-
     /* Builder grid adjustments */
     .builder-grid {
         grid-template-columns: 1fr; /* Stack columns on smaller screens */
         gap: var(--spacing-lg);
     }
-
     .build-summary-area {
         position: static; /* Remove sticky on mobile for better scroll experience */
         top: auto;
     }
-
     /* Contact section adjustments */
     .contact-grid {
         grid-template-columns: 1fr; /* Stack contact columns */
     }
-
     /* Footer adjustments */
     .main-footer .footer-grid {
         grid-template-columns: 1fr; /* Stack footer columns on smaller screens */
@@ -788,29 +773,24 @@ header nav ul li a:focus-visible::after {
         justify-content: center; /* Center social icons when stacked */
     }
 }
-
 @media (max-width: 480px) {
     /* Further reduce padding on very small screens */
     .container {
         padding: 0 var(--spacing-sm);
     }
-
     .btn {
         padding: 12px 25px;
         font-size: 1em;
     }
-
     .hero-content h2 {
         font-size: 2em;
     }
     .hero-content p {
         font-size: 0.9em;
     }
-
     .component-category-card {
         padding: var(--spacing-md);
     }
-
     .build-summary-card {
         padding: var(--spacing-md);
     }
@@ -868,26 +848,6 @@ header nav ul li a:focus-visible::after {
     color: #666;
     line-height: 1.6;
 }
-/* General Body and Layout */
-body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    background-image: url('images/image_bb1dfe.png'); /* Set your background image here */
-    background-size: cover; /* Cover the entire area */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-attachment: fixed; /* Keep image fixed when scrolling */
-    background-position: center center; /* Center the image */
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
 /* Header/Navigation Bar */
 header {
     background-color: rgba(51, 51, 51, 0.95); /* Slightly transparent dark background */
@@ -898,37 +858,31 @@ header {
     top: 0;
     z-index: 1000; /* Ensure it stays on top */
 }
-
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
 .site-logo {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 1.8em;
-    color: #ff5722; /* Updated: The requested color */
+    color: var(--color-red-primary); /* Using the updated variable */
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
 .site-logo:hover {
-    color: #ff7043; /* Updated: Lighter orange on hover */
+    color: #7b0707; /* Lighter red on hover */
 }
-
 .header-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
 }
-
 .header-nav ul li {
     margin-left: 30px;
 }
-
 .header-nav ul li a {
     color: #fff;
     text-decoration: none;
@@ -937,11 +891,9 @@ header .container {
     padding: 5px 0;
     position: relative; /* For underline effect */
 }
-
 .header-nav ul li a:hover {
-    color: #ff6600;
+    color: #d80404;
 }
-
 /* Underline effect for navigation */
 .header-nav ul li a::after {
     content: '';
@@ -950,18 +902,16 @@ header .container {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: #ff6600;
+    background-color: var(--color-red-primary); /* Using the updated variable */
     transition: width 0.3s ease-in-out;
 }
-
 .header-nav ul li a:hover::after {
     width: 100%;
 }
-
 /* Primary Button Style */
 .btn-primary {
     display: inline-block;
-    background-color: #ff6600;
+    background: var(--color-red-primary); /* Using background for gradient */
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -971,12 +921,10 @@ header .container {
     border: none;
     cursor: pointer;
 }
-
 .btn-primary:hover {
-    background-color: #e65c00;
+    background-color: #e00404;
     transform: translateY(-2px);
 }
-
 /* Secondary Button Style (for product cards) */
 .btn-secondary {
     display: inline-block;
@@ -990,1562 +938,170 @@ header .container {
     border: none;
     cursor: pointer;
 }
-
 .btn-secondary:hover {
     background-color: #777;
     transform: translateY(-2px);
 }
-
-
 /* Featured Products Section */
 .featured-products {
-    padding: 80px 0; /* More vertical space */
+    padding: 80px 0;
     text-align: center;
-    background-color: rgba(249, 249, 249, 0.92); /* Light background for contrast, with transparency */
-    /* margin-top: 20px; */ /* Removed as banner provides separation */
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 50px;
+    background-color: #1a1a1a; /* Dark background */
+    color: #eeeeee; /* Light text */
 }
-
-.featured-products h2 {
-    font-size: 3em; /* Larger heading */
-    margin-bottom: 50px;
-    color: #222;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider cards */
-    gap: 40px; /* More space between cards */
-    justify-content: center;
-    align-items: stretch; /* Ensure cards of same height */
-}
-
-.product-card {
-    background-color: #fff;
-    border-radius: 12px; /* More rounded corners */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* Stronger shadow */
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    text-align: center;
-    padding-bottom: 25px; /* More padding at the bottom */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push button to bottom */
-    border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
-}
-
-.product-card:hover {
-    transform: translateY(-8px) scale(1.02); /* More pronounced lift and slight scale */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
-}
-
-.product-card img {
-    width: 100%;
-    height: 220px; /* Slightly taller images */
-    object-fit: cover;
-    display: block;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee; /* Subtle separator */
-}
-
-.product-card h3 {
-    font-size: 1.7em; /* Larger product titles */
-    margin-top: 0;
-    margin-bottom: 12px;
-    color: #333;
-    padding: 0 15px;
-}
-
-.product-card p {
-    font-size: 1em;
-    color: #555;
-    line-height: 1.7;
-    padding: 0 20px; /* More horizontal padding */
-    margin-bottom: 25px; /* Space before button */
-    flex-grow: 1; /* Allow paragraph to take up available space */
-}
-
-
-/* Footer */
-.main-footer {
-    background-color: #222;
-    color: #eee;
-    padding: 50px 0;
-    font-size: 0.9em;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.main-footer .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px; /* More space between columns */
-}
-
-.footer-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.footer-col {
-    flex: 1;
-    min-width: 220px; /* Slightly wider min-width for columns */
-    margin-bottom: 20px;
-}
-
-.footer-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 2em; /* Slightly larger footer logo */
-    color: #ff6600; /* Orange primary */
-    text-decoration: none;
-    display: block;
-    margin-bottom: 20px;
-    transition: color 0.3s ease;
-}
-
-.footer-logo:hover {
-    color: #ffd4b3;
-}
-
-.footer-col h3 {
-    color: #ff6600; /* Orange primary */
-    margin-bottom: 25px; /* More space below heading */
-    font-size: 1.3em; /* Slightly larger headings */
+.hero-home,
+.featured-products,
+.why-choose-us,
+.about-home,
+.cta-section {
+    background: url('images/background.png') no-repeat center center/cover;
     position: relative;
-}
-
-/* Simple underline for footer headings */
-.footer-col h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 40px;
-    height: 3px;
-    background-color: #ff6600;
-    border-radius: 2px;
-}
-
-.footer-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-nav ul li {
-    margin-bottom: 12px; /* More space between list items */
-}
-
-.footer-nav ul li a {
-    color: #eee;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-nav ul li a:hover {
-    color: #ff6600;
-}
-
-.social-links a {
-    color: #eee;
-    font-size: 1.8em; /* Larger social icons */
-    margin-right: 20px; /* More space between icons */
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #ff6600;
-}
-
-.copyright {
-    width: 100%;
-    text-align: center;
-    border-top: 1px solid #444;
-    padding-top: 25px; /* More padding */
-    margin-top: 40px; /* More margin */
-    color: #bbb;
-    font-size: 0.85em;
-}
-
-/* Hamburger Menu Toggle */
-.menu-toggle {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.8em;
-    cursor: pointer;
-    display: none; /* Hidden by default on larger screens */
-    z-index: 1001; /* Ensure it's above other elements */
-}
-
-/* Shop Now button specific styles for desktop to position it */
-.shop-btn {
-    margin-left: auto; /* Push to the right */
-}
-
-/* New Main Slide Banner Section */
-.main-slide-banner {
-    padding: 100px 0; /* Adjust height as needed */
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark overlay for text visibility */
-    color: #fff; /* Default text color */
-    margin-bottom: 40px; /* Space between banner and products */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px; /* Minimum height for the banner */
-    border-bottom: 2px solid #ff5722; /* A subtle bottom border */
-}
-
-.main-slide-banner h1 {
-    font-size: 5em; /* Large text */
-    color: #ff5722; /* The requested color */
-    font-weight: 700;
-    text-shadow: 0 0 15px rgba(255, 87, 34, 0.7), 0 0 30px rgba(255, 87, 34, 0.4); /* Glowing effect */
-    letter-spacing: 5px; /* Spacing between letters */
-    animation: fadeIn 2s ease-in-out; /* Simple fade-in animation */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* Responsive Adjustments */
-@media (max-width: 900px) { /* Adjust breakpoint as needed */
-    .header-nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px; /* Adjust based on header height */
-        left: 0;
-        width: 100%;
-        background-color: rgba(51, 51, 51, 0.98);
-        padding: 20px 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-    }
-
-    .header-nav.active {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .header-nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .header-nav ul li {
-        margin: 10px 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    .header-nav ul li a {
-        display: block;
-        padding: 10px 20px;
-        color: #ff6600; /* Highlighted color for mobile links */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
-    }
-
-    .header-nav ul li:last-child a {
-        border-bottom: none;
-    }
-
-    .header-nav ul li a:hover {
-        background-color: rgba(255, 102, 0, 0.1);
-        color: #fff;
-    }
-
-    .menu-toggle {
-        display: block; /* Show hamburger on smaller screens */
-        margin-left: 20px; /* Space from shop button */
-    }
-
-    .shop-btn {
-        margin-left: auto; /* Keep it on the right if needed */
-    }
-
-    .main-slide-banner {
-        padding: 80px 0;
-        min-height: 250px;
-    }
-    .main-slide-banner h1 {
-        font-size: 3.5em;
-        letter-spacing: 3px;
-    }
-}
-
-@media (max-width: 768px) {
-    header .container {
-        flex-wrap: wrap; /* Allow items to wrap */
-        justify-content: space-between;
-    }
-
-    .site-logo {
-        margin-right: auto; /* Push logo to left */
-    }
-
-    .shop-btn {
-        order: 1; /* Place shop button first in flex order */
-        margin-left: 0; /* Remove auto margin */
-    }
-
-    .menu-toggle {
-        order: 2; /* Place toggle second */
-        margin-left: 15px;
-    }
-
-    .featured-products {
-        padding: 60px 0;
-    }
-
-    .featured-products h2 {
-        font-size: 2.2em;
-        margin-bottom: 40px;
-    }
-
-    .product-grid {
-        grid-template-columns: 1fr; /* Stack cards on small screens */
-        gap: 30px;
-    }
-
-    .main-footer .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-col {
-        min-width: unset;
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .footer-col h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .social-links {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .main-slide-banner {
-        padding: 60px 0;
-        min-height: 200px;
-    }
-    .main-slide-banner h1 {
-        font-size: 2.5em;
-        letter-spacing: 2px;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Further reduce padding on very small screens */
-    .container {
-        padding: 0 15px;
-    }
-
-    .site-logo {
-        font-size: 1.5em;
-    }
-
-    .btn-primary {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-
-    .menu-toggle {
-        font-size: 1.5em;
-    }
-
-    .featured-products h2 {
-        font-size: 1.8em;
-    }
-
-    .product-card h3 {
-        font-size: 1.4em;
-    }
-
-    .product-card p {
-        font-size: 0.9em;
-    }
-
-    .main-slide-banner {
-        padding: 40px 0;
-        min-height: 150px;
-    }
-    .main-slide-banner h1 {
-        font-size: 1.8em;
-        letter-spacing: 1px;
-    }
-}
-body {
-    /* ... other styles ... */
-    background-image: url('images/image_bb1dfe.png'); /* Path to your repeating background image */
-    background-size: auto;                            /* Use original size of the pattern */
-    background-repeat: repeat;                        /* Tile the image across the background */
-    background-attachment: fixed;                     /* Keeps the pattern fixed during scroll */
-    background-position: center center;               /* Initial positioning of the pattern */
-    background-color: var(--color-dark-gray);         /* Fallback solid color if image fails to load */
-}
-/* General Basic Variables (if not already defined elsewhere) */
-:root {
-    --color-dark-gray: #333;
-    --font-body: 'Roboto', sans-serif;
-    --color-text-on-dark: #eee;
-    --spacing-sm: 10px;
-    --spacing-md: 20px;
-    --spacing-lg: 30px;
-}
-
-/* General Body and Layout */
-/* General Basic Variables (if not already defined elsewhere) */
-:root {
-    --color-dark-gray: #333;
-    --font-body: 'Roboto', sans-serif;
-    --color-text-on-dark: #eee;
-    --spacing-sm: 10px;
-    --spacing-md: 20px;
-    --spacing-lg: 30px;
-}
-
-/* General Body and Layout */
-body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #eee; /* Default text color for the body, assuming dark background */
-    background-image: url('images/background.png'); /* UPDATED: Changed to background.png */
-    background-size: cover; /* Ensure it covers the entire area */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: fixed; /* Keep image fixed when scrolling */
-    background-position: center center; /* Center the image */
-    background-color: #000; /* Dark fallback if image fails or for areas not covered */
-    line-height: 1.6;
-    box-sizing: border-box; /* Global box-sizing for consistent layouts */
-    scroll-behavior: smooth; /* Smooth scrolling for internal anchor links */
-}
-
-*, *::before, *::after {
-    box-sizing: inherit; /* Inherit box-sizing */
-}
-
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header/Navigation Bar */
-header {
-    background-color: rgba(51, 51, 51, 0.95); /* Slightly transparent dark background */
-    color: #fff;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    position: sticky; /* Make header sticky */
-    top: 0;
-    z-index: 1000; /* Ensure it stays on top */
-}
-
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.site-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1.8em;
-    color: #ff5722; /* The requested color */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.site-logo:hover {
-    color: #ff7043; /* Lighter orange on hover */
-}
-
-.header-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.header-nav ul li {
-    margin-left: 30px;
-}
-
-.header-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-    padding: 5px 0;
-    position: relative; /* For underline effect */
-}
-
-.header-nav ul li a:hover {
-    color: #ff6600;
-}
-
-/* Underline effect for navigation */
-.header-nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #ff6600;
-    transition: width 0.3s ease-in-out;
-}
-
-.header-nav ul li a:hover::after {
-    width: 100%;
-}
-
-/* Primary Button Style */
-.btn-primary {
-    display: inline-block;
-    background-color: #ff6600;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #e65c00;
-    transform: translateY(-2px);
-}
-
-/* Secondary Button Style (for product cards) */
-.btn-secondary {
-    display: inline-block;
-    background-color: #555;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-secondary:hover {
-    background-color: #777;
-    transform: translateY(-2px);
-}
-
-
-/* New Main Slide Banner Section */
-.main-slide-banner {
-    padding: 100px 0; /* Adjust height as needed */
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent dark overlay */
-    color: #fff; /* Default text color */
-    margin-bottom: 40px; /* Space between banner and products */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px; /* Minimum height for the banner */
-    border-bottom: 2px solid #ff5722; /* A subtle bottom border */
-}
-
-.main-slide-banner h1 {
-    font-size: 5em; /* Large text */
-    color: #ff5722; /* The requested color */
-    font-weight: 700;
-    text-shadow: 0 0 15px rgba(255, 87, 34, 0.7), 0 0 30px rgba(255, 87, 34, 0.4); /* Glowing effect */
-    letter-spacing: 5px; /* Spacing between letters */
-    animation: fadeIn 2s ease-in-out; /* Simple fade-in animation */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Featured Products Section */
-.featured-products {
-    padding: 80px 0; /* More vertical space */
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
-    margin-top: 0; /* Removed previous margin-top as banner provides separation */
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow due to transparency */
-    margin-bottom: 50px;
-    color: #eee; /* Set general text color for this section to light */
-}
-
-.featured-products h2 {
-    font-size: 3em; /* Larger heading */
-    margin-bottom: 50px;
-    color: #ff5722; /* Use accent color for heading */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider cards */
-    gap: 40px; /* More space between cards */
-    justify-content: center;
-    align-items: stretch; /* Ensure cards of same height */
-}
-
-.product-card {
-    background-color: rgba(255, 255, 255, 0.1); /* Very transparent white for cards */
-    border-radius: 12px; /* More rounded corners */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    text-align: center;
-    padding-bottom: 25px; /* More padding at the bottom */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push button to bottom */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border */
-}
-
-.product-card:hover {
-    transform: translateY(-8px) scale(1.02); /* More pronounced lift and slight scale */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
-}
-
-.product-card img {
-    width: 100%;
-    height: 220px; /* Slightly taller images */
-    object-fit: cover;
-    display: block;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee; /* Subtle separator */
-}
-
-.product-card h3 {
-    font-size: 1.7em; /* Larger product titles */
-    margin-top: 0;
-    margin-bottom: 12px;
-    color: #fff; /* White for product titles */
-    padding: 0 15px;
-}
-
-.product-card p {
-    font-size: 1em;
-    color: #ccc; /* Lighter grey for product descriptions */
-    line-height: 1.7;
-    padding: 0 20px; /* More horizontal padding */
-    margin-bottom: 25px; /* Space before button */
-    flex-grow: 1; /* Allow paragraph to take up available space */
-}
-
-
-/* Footer */
-.main-footer {
-    background-color: #222;
-    color: #eee;
-    padding: 50px 0;
-    font-size: 0.9em;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.main-footer .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px; /* More space between columns */
-}
-
-.footer-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.footer-col {
-    flex: 1;
-    min-width: 220px; /* Slightly wider min-width for columns */
-    margin-bottom: 20px;
-}
-
-.footer-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 2em; /* Slightly larger footer logo */
-    color: #ff6600; /* Orange primary */
-    text-decoration: none;
-    display: block;
-    margin-bottom: 20px;
-    transition: color 0.3s ease;
-}
-
-.footer-logo:hover {
-    color: #ffd4b3;
-}
-
-.footer-col h3 {
-    color: #ff6600; /* Orange primary */
-    margin-bottom: 25px; /* More space below heading */
-    font-size: 1.3em; /* Slightly larger headings */
-    position: relative;
-}
-
-/* Simple underline for footer headings */
-.footer-col h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 40px;
-    height: 3px;
-    background-color: #ff6600;
-    border-radius: 2px;
-}
-
-.footer-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-nav ul li {
-    margin-bottom: 12px; /* More space between list items */
-}
-
-.footer-nav ul li a {
-    color: #eee;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-nav ul li a:hover {
-    color: #ff6600;
-}
-
-.social-links a {
-    color: #eee;
-    font-size: 1.8em; /* Larger social icons */
-    margin-right: 20px; /* More space between icons */
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #ff6600;
-}
-
-.copyright {
-    width: 100%;
-    text-align: center;
-    border-top: 1px solid #444;
-    padding-top: 25px; /* More padding */
-    margin-top: 40px; /* More margin */
-    color: #bbb;
-    font-size: 0.85em;
-}
-
-/* Hamburger Menu Toggle */
-.menu-toggle {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.8em;
-    cursor: pointer;
-    display: none; /* Hidden by default on larger screens */
-    z-index: 1001; /* Ensure it's above other elements */
-}
-
-/* Shop Now button specific styles for desktop to position it */
-.shop-btn {
-    margin-left: auto; /* Push to the right */
-}
-
-/* Responsive Adjustments */
-@media (max-width: 900px) { /* Adjust breakpoint as needed */
-    .header-nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px; /* Adjust based on header height */
-        left: 0;
-        width: 100%;
-        background-color: rgba(51, 51, 51, 0.98);
-        padding: 20px 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-    }
-
-    .header-nav.active {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .header-nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .header-nav ul li {
-        margin: 10px 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    .header-nav ul li a {
-        display: block;
-        padding: 10px 20px;
-        color: #ff6600; /* Highlighted color for mobile links */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
-    }
-
-    .header-nav ul li:last-child a {
-        border-bottom: none;
-    }
-
-    .header-nav ul li a:hover {
-        background-color: rgba(255, 102, 0, 0.1);
-        color: #fff;
-    }
-
-    .menu-toggle {
-        display: block; /* Show hamburger on smaller screens */
-        margin-left: 20px; /* Space from shop button */
-    }
-
-    .shop-btn {
-        margin-left: auto; /* Keep it on the right if needed */
-    }
-
-    .main-slide-banner {
-        padding: 80px 0;
-        min-height: 250px;
-    }
-    .main-slide-banner h1 {
-        font-size: 3.5em;
-        letter-spacing: 3px;
-    }
-}
-
-@media (max-width: 768px) {
-    header .container {
-        flex-wrap: wrap; /* Allow items to wrap */
-        justify-content: space-between;
-    }
-
-    .site-logo {
-        margin-right: auto; /* Push logo to left */
-    }
-
-    .shop-btn {
-        order: 1; /* Place shop button first in flex order */
-        margin-left: 0; /* Remove auto margin */
-    }
-
-    .menu-toggle {
-        order: 2; /* Place toggle second */
-        margin-left: 15px;
-    }
-
-    .featured-products {
-        padding: 60px 0;
-    }
-
-    .featured-products h2 {
-        font-size: 2.2em;
-        margin-bottom: 40px;
-    }
-
-    .product-grid {
-        grid-template-columns: 1fr; /* Stack cards on small screens */
-        gap: 30px;
-    }
-
-    .main-footer .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-col {
-        min-width: unset;
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .footer-col h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .social-links {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .main-slide-banner {
-        padding: 60px 0;
-        min-height: 200px;
-    }
-    .main-slide-banner h1 {
-        font-size: 2.5em;
-        letter-spacing: 2px;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Further reduce padding on very small screens */
-    .container {
-        padding: 0 15px;
-    }
-
-    .site-logo {
-        font-size: 1.5em;
-    }
-
-    .btn-primary {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-
-    .menu-toggle {
-        font-size: 1.5em;
-    }
-
-    .featured-products h2 {
-        font-size: 1.8em;
-    }
-
-    .product-card h3 {
-        font-size: 1.4em;
-    }
-
-    .product-card p {
-        font-size: 0.9em;
-    }
-
-    .main-slide-banner {
-        padding: 40px 0;
-        min-height: 150px;
-    }
-    .main-slide-banner h1 {
-        font-size: 1.8em;
-        letter-spacing: 1px;
-    }
-}
-*, *::before, *::after {
-    box-sizing: inherit; /* Inherit box-sizing */
-}
-
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header/Navigation Bar */
-header {
-    background-color: rgba(51, 51, 51, 0.95); /* Slightly transparent dark background */
-    color: #fff;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    position: sticky; /* Make header sticky */
-    top: 0;
-    z-index: 1000; /* Ensure it stays on top */
-}
-
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.site-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1.8em;
-    color: #ff5722; /* The requested color */
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.site-logo:hover {
-    color: #ff7043; /* Lighter orange on hover */
-}
-
-.header-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-.header-nav ul li {
-    margin-left: 30px;
-}
-
-.header-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-    padding: 5px 0;
-    position: relative; /* For underline effect */
-}
-
-.header-nav ul li a:hover {
-    color: #ff6600;
-}
-
-/* Underline effect for navigation */
-.header-nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: #ff6600;
-    transition: width 0.3s ease-in-out;
-}
-
-.header-nav ul li a:hover::after {
-    width: 100%;
-}
-
-/* Primary Button Style */
-.btn-primary {
-    display: inline-block;
-    background-color: #ff6600;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #e65c00;
-    transform: translateY(-2px);
-}
-
-/* Secondary Button Style (for product cards) */
-.btn-secondary {
-    display: inline-block;
-    background-color: #555;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-secondary:hover {
-    background-color: #777;
-    transform: translateY(-2px);
-}
-
-
-/* New Main Slide Banner Section */
-.main-slide-banner {
-    padding: 100px 0; /* Adjust height as needed */
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent dark overlay */
-    color: #fff; /* Default text color */
-    margin-bottom: 40px; /* Space between banner and products */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px; /* Minimum height for the banner */
-    border-bottom: 2px solid #ff5722; /* A subtle bottom border */
-}
-
-.main-slide-banner h1 {
-    font-size: 5em; /* Large text */
-    color: #ff5722; /* The requested color */
-    font-weight: 700;
-    text-shadow: 0 0 15px rgba(255, 87, 34, 0.7), 0 0 30px rgba(255, 87, 34, 0.4); /* Glowing effect */
-    letter-spacing: 5px; /* Spacing between letters */
-    animation: fadeIn 2s ease-in-out; /* Simple fade-in animation */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Featured Products Section */
-.featured-products {
-    padding: 80px 0; /* More vertical space */
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
-    margin-top: 0; /* Removed previous margin-top as banner provides separation */
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow due to transparency */
-    margin-bottom: 50px;
-    color: #eee; /* Set general text color for this section to light */
-}
-
-.featured-products h2 {
-    font-size: 3em; /* Larger heading */
-    margin-bottom: 50px;
-    color: #ff5722; /* Use accent color for heading */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider cards */
-    gap: 40px; /* More space between cards */
-    justify-content: center;
-    align-items: stretch; /* Ensure cards of same height */
-}
-
-.product-card {
-    background-color: rgba(255, 255, 255, 0.1); /* Very transparent white for cards */
-    border-radius: 12px; /* More rounded corners */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow */
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    text-align: center;
-    padding-bottom: 25px; /* More padding at the bottom */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push button to bottom */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border */
-}
-
-.product-card:hover {
-    transform: translateY(-8px) scale(1.02); /* More pronounced lift and slight scale */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
-}
-
-.product-card img {
-    width: 100%;
-    height: 220px; /* Slightly taller images */
-    object-fit: cover;
-    display: block;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee; /* Subtle separator */
-}
-
-.product-card h3 {
-    font-size: 1.7em; /* Larger product titles */
-    margin-top: 0;
-    margin-bottom: 12px;
-    color: #fff; /* White for product titles */
-    padding: 0 15px;
-}
-
-.product-card p {
-    font-size: 1em;
-    color: #ccc; /* Lighter grey for product descriptions */
-    line-height: 1.7;
-    padding: 0 20px; /* More horizontal padding */
-    margin-bottom: 25px; /* Space before button */
-    flex-grow: 1; /* Allow paragraph to take up available space */
-}
-
-
-/* Footer */
-.main-footer {
-    background-color: #222;
-    color: #eee;
-    padding: 50px 0;
-    font-size: 0.9em;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.main-footer .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 30px; /* More space between columns */
-}
-
-.footer-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.footer-col {
-    flex: 1;
-    min-width: 220px; /* Slightly wider min-width for columns */
-    margin-bottom: 20px;
-}
-
-.footer-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 2em; /* Slightly larger footer logo */
-    color: #ff6600; /* Orange primary */
-    text-decoration: none;
-    display: block;
-    margin-bottom: 20px;
-    transition: color 0.3s ease;
-}
-
-.footer-logo:hover {
-    color: #ffd4b3;
-}
-
-.footer-col h3 {
-    color: #ff6600; /* Orange primary */
-    margin-bottom: 25px; /* More space below heading */
-    font-size: 1.3em; /* Slightly larger headings */
-    position: relative;
-}
-
-/* Simple underline for footer headings */
-.footer-col h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 40px;
-    height: 3px;
-    background-color: #ff6600;
-    border-radius: 2px;
-}
-
-.footer-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-nav ul li {
-    margin-bottom: 12px; /* More space between list items */
-}
-
-.footer-nav ul li a {
-    color: #eee;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-nav ul li a:hover {
-    color: #ff6600;
-}
-
-.social-links a {
-    color: #eee;
-    font-size: 1.8em; /* Larger social icons */
-    margin-right: 20px; /* More space between icons */
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #ff6600;
-}
-
-.copyright {
-    width: 100%;
-    text-align: center;
-    border-top: 1px solid #444;
-    padding-top: 25px; /* More padding */
-    margin-top: 40px; /* More margin */
-    color: #bbb;
-    font-size: 0.85em;
-}
-
-/* Hamburger Menu Toggle */
-.menu-toggle {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.8em;
-    cursor: pointer;
-    display: none; /* Hidden by default on larger screens */
-    z-index: 1001; /* Ensure it's above other elements */
-}
-
-/* Shop Now button specific styles for desktop to position it */
-.shop-btn {
-    margin-left: auto; /* Push to the right */
-}
-
-/* Responsive Adjustments */
-@media (max-width: 900px) { /* Adjust breakpoint as needed */
-    .header-nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px; /* Adjust based on header height */
-        left: 0;
-        width: 100%;
-        background-color: rgba(51, 51, 51, 0.98);
-        padding: 20px 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-    }
-
-    .header-nav.active {
-        display: flex;
-        transform: translateY(0);
-        opacity: 1;
-    }
-
-    .header-nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .header-nav ul li {
-        margin: 10px 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    .header-nav ul li a {
-        display: block;
-        padding: 10px 20px;
-        color: #ff6600; /* Highlighted color for mobile links */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
-    }
-
-    .header-nav ul li:last-child a {
-        border-bottom: none;
-    }
-
-    .header-nav ul li a:hover {
-        background-color: rgba(255, 102, 0, 0.1);
-        color: #fff;
-    }
-
-    .menu-toggle {
-        display: block; /* Show hamburger on smaller screens */
-        margin-left: 20px; /* Space from shop button */
-    }
-
-    .shop-btn {
-        margin-left: auto; /* Keep it on the right if needed */
-    }
-
-    .main-slide-banner {
-        padding: 80px 0;
-        min-height: 250px;
-    }
-    .main-slide-banner h1 {
-        font-size: 3.5em;
-        letter-spacing: 3px;
-    }
-}
-
-@media (max-width: 768px) {
-    header .container {
-        flex-wrap: wrap; /* Allow items to wrap */
-        justify-content: space-between;
-    }
-
-    .site-logo {
-        margin-right: auto; /* Push logo to left */
-    }
-
-    .shop-btn {
-        order: 1; /* Place shop button first in flex order */
-        margin-left: 0; /* Remove auto margin */
-    }
-
-    .menu-toggle {
-        order: 2; /* Place toggle second */
-        margin-left: 15px;
-    }
-
-    .featured-products {
-        padding: 60px 0;
-    }
-
-    .featured-products h2 {
-        font-size: 2.2em;
-        margin-bottom: 40px;
-    }
-
-    .product-grid {
-        grid-template-columns: 1fr; /* Stack cards on small screens */
-        gap: 30px;
-    }
-
-    .main-footer .container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-col {
-        min-width: unset;
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .footer-col h3::after {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .social-links {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-    }
-
-    .main-slide-banner {
-        padding: 60px 0;
-        min-height: 200px;
-    }
-    .main-slide-banner h1 {
-        font-size: 2.5em;
-        letter-spacing: 2px;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Further reduce padding on very small screens */
-    .container {
-        padding: 0 15px;
-    }
-
-    .site-logo {
-        font-size: 1.5em;
-    }
-
-    .btn-primary {
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-
-    .menu-toggle {
-        font-size: 1.5em;
-    }
-
-    .featured-products h2 {
-        font-size: 1.8em;
-    }
-
-    .product-card h3 {
-        font-size: 1.4em;
-    }
-
-    .product-card p {
-        font-size: 0.9em;
-    }
-
-    .main-slide-banner {
-        padding: 40px 0;
-        min-height: 150px;
-    }
-    .main-slide-banner h1 {
-        font-size: 1.8em;
-        letter-spacing: 1px;
-    }
-}
-/* --- Responsive Navigation Styles --- */
-
-/* Ensure header elements are correctly positioned for desktop */
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px; /* Adjust padding as needed for your design */
-}
-
-/* Default desktop navigation: horizontal display */
-.header-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.header-nav ul li {
-    margin-left: 30px; /* Spacing between desktop menu items */
-}
-
-.header-nav ul li a {
+    z-index: 1;
     color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1em;
-    transition: color 0.3s ease;
+}
+.featured-products .section-title {
+    color: #eeeeee; /* Adjust title color for dark background */
+}
+.featured-products .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.featured-products .product-card {
+    background-color: #2a2a2a; /* Slightly lighter card background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    position: relative; /* Needed for hover info positioning */
+}
+.featured-products .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+.featured-products .product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #333;
+}
+.featured-products .card-content {
+    padding: 20px;
+    position: relative;
+    z-index: 2; /* Ensure content is above hover info initially */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.featured-products .card-content h3 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    color: var(--color-red-primary); /* Highlight product titles with primary red */
+    font-family: 'Montserrat', sans-serif;
+}
+.featured-products .card-content .product-specs {
+    font-size: 0.95em;
+    color: #aaaaaa;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+.featured-products .card-content .product-price {
+    font-size: 1.8em;
+    color: #eeeeee;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.featured-products .card-content .btn-primary {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.05em;
 }
 
-.header-nav ul li a:hover {
-    color: #ff8a65; /* Hover color for menu items */
+/* Product Hover Info */
+.product-hover-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(34, 34, 34, 0.95); /* Semi-transparent dark overlay */
+    color: #fff;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 3; /* Ensure it appears above main content */
+    border-radius: 10px; /* Match card border-radius */
+    box-sizing: border-box; /* Include padding in dimensions */
 }
 
-/* Hide the shop button and menu toggle on desktop by default */
-.shop-btn {
-    display: block; /* Visible on desktop */
+.product-hover-info h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    color: var(--color-red-primary); /* Using the updated variable */
+    margin-bottom: 15px;
 }
 
+.product-hover-info .hover-specs-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: #cccccc;
+}
+
+.product-hover-info .hover-specs-list li {
+    margin-bottom: 8px;
+}
+
+.product-hover-info .hover-specs-list li strong {
+    color: #ffffff;
+}
+
+.product-hover-info .tested-on-info {
+    font-size: 0.9em;
+    color: #aaaaaa;
+    margin-top: 15px;
+}
+
+.product-hover-info .btn-secondary {
+    margin-top: 20px;
+    width: 80%; /* Button width on hover */
+    padding: 10px 0;
+}
+
+/* Mobile Menu Specific Styles */
 .menu-toggle {
-    display: none; /* Hidden on desktop */
+    display: none; /* Hidden by default on desktop */
+    font-size: 1.8em;
+    color: #fff;
     background: none;
     border: none;
-    font-size: 1.8em;
-    color: white;
     cursor: pointer;
-    padding: 5px;
-    z-index: 1001; /* Ensure it's above other content when menu is open */
+    z-index: 1001; /* Ensure it's above header content */
 }
 
-/* Mobile-specific styles using a media query */
+/* Adjustments for when menu is active/open (JS will toggle 'active' class) */
+.header-nav {
+    /* Base styles for the navigation, applies to both desktop and mobile */
+    /* On desktop, it will typically be inline or flex */
+    /* On mobile, it will be positioned off-screen */
+}
+
+/* Mobile specific overrides */
 @media (max-width: 768px) {
-    /* Adjust logo positioning for mobile to ensure it's clickable */
-    .site-logo {
-        position: relative;
-        z-index: 1002;
-    }
-
-    /* Hide desktop-specific shop button on mobile */
-    .shop-btn {
-        display: none;
-    }
-
-    /* Show hamburger menu toggle on mobile */
     .menu-toggle {
-        display: block;
+        display: block; /* Show hamburger icon on mobile */
     }
 
-    /* Mobile navigation overlay styling */
     .header-nav {
-        position: fixed; /* Fixed position relative to viewport */
+        position: fixed;
         top: 0;
         left: -100%; /* Start off-screen to the left */
         width: 70%; /* Width of the mobile menu */
@@ -2579,16 +1135,5 @@ header .container {
     .header-nav ul li a {
         display: block; /* Make links full width for easier tapping */
         padding: 10px 0;
-        font-size: 1.3em;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
     }
-
-    .header-nav ul li:last-child a {
-        border-bottom: none; /* No border for the last item */
-    }
-}
-
-/* Prevents body scrolling when mobile menu is open */
-body.no-scroll {
-    overflow: hidden;
 }
