@@ -409,6 +409,127 @@
                 font-size: 1.1em; /* Smaller FPS for mobile */
             }
         }
+
+        /* MailerLite Form Specific Styles */
+        .ml-form-embedContainer {
+            background-color: transparent !important; /* Override MailerLite default */
+            border: none !important;
+            padding: 0 !important;
+            max-width: 600px; /* Limit width */
+            margin: 0 auto; /* Center it */
+        }
+        .ml-form-formContent {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* More pronounced shadow */
+            transition: all 0.3s ease; /* Smooth transition for potential future hovers */
+        }
+        /* Optional: Add a subtle glow on hover for the form container */
+        .ml-form-formContent:hover {
+            border-color: rgba(255, 255, 255, 0.3); /* Slightly brighter border on hover */
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8); /* Deeper shadow on hover */
+        }
+
+        .ml-form-embedContent h4 {
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-align: center; /* Center the newsletter title */
+        }
+        .ml-form-embedContent p {
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: center; /* Center the description */
+        }
+        /* New rule for centering the introductory paragraph */
+        #newsletter-signup .container > p {
+            text-align: center;
+        }
+        .ml-form-fieldRow .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly stronger border initially */
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 5px;
+            font-size: 1em;
+            width: calc(100% - 30px); /* Adjust for padding */
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .ml-form-fieldRow .form-control::placeholder {
+            color: #bbb;
+        }
+        .ml-form-fieldRow .form-control:focus {
+            border-color: #e82c2c; /* Red border on focus */
+            background-color: rgba(255, 255, 255, 0.2); /* Slightly more opaque background on focus */
+            box-shadow: 0 0 0 3px rgba(232, 44, 44, 0.5); /* Red glow on focus */
+            outline: none;
+        }
+        .ml-form-embedSubmit button.primary {
+            background-color: #e82c2c;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Add transform and shadow to transition */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Add initial shadow to button */
+        }
+        .ml-form-embedSubmit button.primary:hover {
+            background-color: #ff3f3f;
+            transform: translateY(-2px); /* Lift effect on hover */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
+        }
+        .ml-form-successBody h4 {
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            margin-bottom: 10px;
+            text-align: center; /* Center success title */
+        }
+        .ml-form-successBody p {
+            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: center; /* Center success description */
+        }
+        /* Mobile adjustments for MailerLite form */
+        @media (max-width: 768px) {
+          .ml-form-embedContainer {
+            padding: 10px;
+          }
+          .ml-form-formContent {
+            padding: 15px;
+          }
+          .ml-form-embedContent h4 {
+            font-size: 1.8em;
+          }
+          .ml-form-embedContent p {
+            font-size: 1em;
+          }
+          .ml-form-fieldRow .form-control,
+          .ml-form-embedSubmit button.primary {
+            padding: 10px 15px;
+            font-size: 1em;
+          }
+        }
+        @media (max-width:400px) {
+        .ml-form-formContent.horozintalForm { padding:20px!important; }
+        .ml-form-formContent.horozintalForm input.form-control { width: 100%!important; margin-bottom:10px; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
+        .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
+      }
     </style>
 </head>
 <body>
@@ -603,6 +724,48 @@
             </div>
         </section>
 
+        <section id="newsletter-signup" class="section-padding reveal-on-scroll" style="background: url('background.png') no-repeat center center/cover;">
+            <div class="container">
+                <h2 class="section-title reveal-item">Join Our Newsletter!</h2>
+                <p class="reveal-item">Sign up to receive exclusive deals, new PC build announcements, tech news, and more directly in your inbox.</p>
+                <div id="mlb2-26959171" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-26959171">
+                  <div class="ml-form-align-center ">
+                    <div class="ml-form-embedWrapper embedForm">
+                      <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+                        <div class="ml-form-embedContent" style=" ">
+                          <h4></h4> <p>Signup for news and special offers!</p>
+                        </div>
+                        <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1579745/forms/156584617523021128/subscribe" data-code="" method="post" target="_blank">
+                          <div class="ml-form-formContent">
+                            <div class="ml-form-fieldRow ml-last-item">
+                                <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                                  <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                                </div>
+                              </div>
+                          </div>
+                          <input type="hidden" name="ml-submit" value="1">
+                          <div class="ml-form-embedSubmit">
+                            <button type="submit" class="primary">Subscribe</button>
+                            <button disabled="disabled" style="display: none;" type="button" class="loading">
+                              <div class="ml-form-embedSubmitLoad"></div>
+                              <span class="sr-only">Loading...</span>
+                            </button>
+                          </div>
+                          <input type="hidden" name="anticsrf" value="true">
+                        </form>
+                      </div>
+                      <div class="ml-form-successBody row-success" style="display: none">
+                        <div class="ml-form-successContent">
+                          <h4>Thank you!</h4>
+                          <p>You have successfully joined our subscriber list.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </section>
+
         <section id="about-us" class="about-home section-padding reveal-on-scroll" role="region" aria-labelledby="about-us-home-title">
             <div class="container">
                 <h2 id="about-us-home-title" class="section-title reveal-item">About UndergroundPC</h2>
@@ -630,7 +793,6 @@
                             <li><a href="#shop">Shop All</a></li>
                             <li><a href="custom-builds.html">Custom Builds</a></li>
                             <li><a href="contact.html">Contact</a></li>
-                            <li><a href="links.html">links</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -775,6 +937,17 @@
                 });
             });
         });
+    </script>
+    <script>
+        function ml_webform_success_26959171() {
+          var $ = ml_jQuery || jQuery;
+          $('.ml-subscribe-form-26959171 .row-success').show();
+          $('.ml-subscribe-form-26959171 .row-form').hide();
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1579745/forms/156584617523021128/takel")
     </script>
 </body>
 </html>
