@@ -1,0 +1,337 @@
+/* style.css */
+
+/* ... (your existing CSS) ... */
+
+/* New styles for PC Part Picker */
+
+.builder-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two columns: selection on left, summary on right */
+    gap: 60px; /* Increased gap for more spacing */
+    margin-top: 60px; /* Increased margin-top */
+    align-items: start; /* Align items to the top */
+}
+
+.component-selection-area {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Increased gap between component cards */
+}
+
+.component-category-card {
+    background-color: var(--color-darker-gray);
+    padding: 30px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(238, 238, 238, 0.1);
+    transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.component-category-card:hover {
+    border-color: var(--color-orange-primary);
+    transform: translateY(-3px);
+}
+
+.component-category-card h3 {
+    color: var(--color-white);
+    font-size: 1.6em; /* Slightly larger font size */
+    margin-bottom: 25px; /* Increased margin-bottom */
+    display: flex;
+    align-items: center;
+}
+
+.component-category-card h3 i {
+    margin-right: 15px;
+    color: var(--color-orange-primary);
+}
+
+.component-select {
+    width: 100%;
+    padding: 14px 18px; /* Increased padding */
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px; /* Slightly more rounded corners */
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-white);
+    font-size: 1.05em; /* Slightly larger font size */
+    outline: none;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23EEEEEE%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-6.4H18.8c-7.7%200-13.5%204.3-13.2%206.4l133.6%20133.6c4.4%204.4%2010.6%206.4%2016.8%206.4s12.4-2.1%2016.8-6.4L287%2069.4z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 18px center; /* Adjusted position */
+    background-size: 14px; /* Slightly larger arrow */
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.component-select:focus {
+    border-color: var(--color-orange-primary);
+    background-color: rgba(255, 140, 0, 0.05);
+}
+
+.component-select option {
+    background-color: var(--color-darker-gray); /* Style options in dropdown */
+    color: var(--color-white);
+}
+
+.selected-component-display {
+    margin-top: 20px; /* Increased margin-top */
+    padding: 12px 18px; /* Increased padding */
+    background-color: rgba(255, 255, 255, 0.03); /* Very subtle background */
+    border-radius: 8px; /* Slightly more rounded corners */
+    font-size: 1em; /* Adjusted font size */
+    color: var(--color-light-gray);
+    min-height: 50px; /* Ensure consistent height and more space */
+    display: flex;
+    align-items: center;
+    border: 1px dashed rgba(238, 238, 238, 0.08); /* Slightly more visible dashed border */
+}
+
+.selected-component-display .component-name {
+    font-weight: 600;
+    color: var(--color-white);
+}
+.selected-component-display .component-price {
+    color: var(--color-orange-primary);
+    margin-left: auto;
+    font-weight: 700;
+    font-size: 1.1em; /* Slightly larger price font */
+}
+
+
+.build-summary-area {
+    position: sticky; /* Make summary sticky */
+    top: 120px; /* Adjust based on header height */
+    align-self: flex-start; /* Ensure it sticks to the top of its grid cell */
+}
+
+.build-summary-card {
+    background-color: var(--color-darker-gray);
+    padding: 35px; /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-orange-primary); /* Highlight summary card */
+    text-align: center;
+}
+
+.build-summary-card h3 {
+    color: var(--color-white);
+    font-size: 2em; /* Slightly larger font size */
+    margin-bottom: 30px; /* Increased margin-bottom */
+}
+
+.selected-components-list {
+    text-align: left;
+    margin-bottom: 30px; /* Increased margin-bottom */
+    min-height: 250px; /* Increased min-height for more space */
+    max-height: 450px; /* Adjusted max-height */
+    overflow-y: auto;
+    padding-right: 15px; /* For scrollbar */
+}
+
+.selected-components-list p {
+    margin-bottom: 10px; /* Increased margin-bottom */
+    color: var(--color-light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0; /* Increased padding */
+    border-bottom: 1px dashed rgba(238, 238, 238, 0.08); /* Slightly more visible dashed border */
+}
+
+.selected-components-list p:last-child {
+    border-bottom: none;
+}
+
+.selected-components-list .component-name {
+    font-weight: 600;
+    color: var(--color-white);
+    flex-grow: 1;
+}
+
+.selected-components-list .component-price {
+    color: var(--color-orange-primary);
+    font-weight: 700;
+    margin-left: 20px; /* Increased margin-left */
+    font-size: 1.05em; /* Adjusted font size */
+}
+
+.placeholder-text {
+    font-style: italic;
+    color: rgba(238, 238, 238, 0.6);
+    text-align: center;
+    padding-top: 100px; /* Adjusted padding-top */
+}
+
+.compatibility-status {
+    background-color: rgba(255, 140, 0, 0.1); /* Subtle orange background */
+    color: var(--color-orange-primary);
+    padding: 18px; /* Increased padding */
+    border-radius: 8px;
+    margin-bottom: 30px; /* Increased margin-bottom */
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05em; /* Slightly larger font size */
+}
+
+.compatibility-status.compatible {
+    background-color: rgba(0, 255, 0, 0.1); /* Green for compatible */
+    color: #00FF00;
+}
+
+.compatibility-status.incompatible {
+    background-color: rgba(255, 0, 0, 0.1); /* Red for incompatible */
+    color: #FF0000;
+}
+
+.compatibility-status i {
+    margin-right: 12px; /* Adjusted margin */
+}
+
+.total-price-display {
+    font-size: 2.5em; /* Larger font size */
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 35px; /* Increased margin-bottom */
+}
+
+.total-price-display span {
+    color: var(--color-orange-primary);
+}
+
+/* Message Boxes (for form submission feedback) */
+.message-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px 40px; /* Increased padding */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6); /* Stronger shadow */
+    z-index: 9999;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 1.2em; /* Larger font size */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 350px; /* Increased min-width */
+}
+
+.message-box.hidden {
+    display: none;
+}
+
+.message-box.error-box {
+    background-color: #440000; /* Dark red */
+    color: #FF6666;
+    border: 1px solid #FF0000;
+}
+
+.message-box.success-box {
+    background-color: #004400; /* Dark green */
+    color: #66FF66;
+    border: 1px solid #00FF00;
+}
+
+.message-box .close-btn {
+    position: absolute;
+    top: 12px; /* Adjusted position */
+    right: 18px; /* Adjusted position */
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.8em; /* Larger close button */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.message-box .close-btn:hover {
+    color: var(--color-orange-primary);
+}
+
+
+/* Responsive adjustments for PC Builder */
+@media (max-width: 992px) {
+    .builder-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        gap: 40px; /* Adjusted gap */
+    }
+    .build-summary-area {
+        position: static; /* Remove sticky on smaller screens */
+        margin-top: 40px;
+    }
+    .component-category-card {
+        padding: 25px;
+    }
+    .component-category-card h3 {
+        font-size: 1.5em;
+    }
+    .component-select {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+    .selected-component-display {
+        padding: 10px 15px;
+        font-size: 0.95em;
+        min-height: 45px;
+    }
+    .build-summary-card {
+        padding: 30px;
+    }
+    .build-summary-card h3 {
+        font-size: 1.8em;
+    }
+    .total-price-display {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .component-category-card {
+        padding: 20px;
+    }
+    .component-category-card h3 {
+        font-size: 1.3em;
+    }
+    .component-select {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+    .build-summary-card {
+        padding: 25px;
+    }
+    .build-summary-card h3 {
+        font-size: 1.5em;
+    }
+    .total-price-display {
+        font-size: 1.8em;
+    }
+    .message-box {
+        padding: 20px 30px;
+        font-size: 1em;
+        min-width: unset;
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .component-category-card h3 {
+        font-size: 1.2em;
+    }
+    .component-category-card h3 i {
+        margin-right: 10px;
+    }
+    .component-select {
+        font-size: 0.9em;
+    }
+    .selected-component-display {
+        font-size: 0.9em;
+    }
+    .total-price-display {
+        font-size: 1.5em;
+    }
+}

@@ -1,0 +1,1139 @@
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-text-on-dark);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Global box-sizing for consistent layouts */
+    scroll-behavior: smooth; /* Smooth scrolling for internal anchor links */
+
+    /* --- CSS Generated Grid Background Styles --- */
+    background-color: var(--color-dark-gray); /* The main dark gray background color */
+    background-image:
+        /* Horizontal lines: 1px light gray line, then 29px transparent space, repeating every 30px */
+        repeating-linear-gradient(0deg, var(--color-light-gray) 0, var(--color-light-gray) 1px, transparent 1px, transparent 30px),
+        /* Vertical lines: 1px light gray line, then 29px transparent space, repeating every 30px */
+        repeating-linear-gradient(90deg, var(--color-light-gray) 0, var(--color-light-gray) 1px, transparent 1px, transparent 30px);
+    background-size: 30px 30px; /* Defines the size of each repeating square (grid cell) */
+    background-position: center center; /* Centers the pattern */
+    background-attachment: fixed; /* Keeps the grid fixed when the user scrolls */
+    background-repeat: repeat; /* Ensures the pattern repeats across the entire background */
+}   
+
+/* Universal box-sizing inheritance for all elements */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* ==========================================================================
+   2. CSS Variables (Design Tokens)
+   ========================================================================== */
+:root {
+    /* Colors */
+    --text-color: #ffffff;
+    --color-dark-gray: #161616;
+    --color-darker-gray: #0f0f0f;
+    --color-light-gray: #3c3c3c;
+    --color-text-on-dark: #c5baba;
+    --color-red-primary: linear-gradient(to right, #820303, #5d045d); /* Red to Purple blend */
+    --color-red-dark: #d10000;   /* Darker shade for hover states/accents */
+    --color-green-compatible: #4CAF50; /* Green for success/compatibility */
+    --color-red-incompatible: #9d160c;  /* Red for errors/incompatibility */
+    --color-white: #ffffff;             /* Pure white for strong contrast */
+    --color-black-transparent: rgba(0, 0, 0, 0.3); /* For subtle shadows */
+    --color-red-transparent: rgba(255, 87, 34, 0.4); /* For primary button shadows */
+    --color-red-transparent-dark: rgba(209, 7, 7, 0.6); /* For primary button hover shadows */
+
+    /* Fonts */
+    --font-heading: 'Montserrat', sans-serif; /* Bold and modern font for headings */
+    --font-body: 'Roboto', sans-serif;       /* Clean and readable font for body text */
+
+    /* Spacing & Sizes */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+    --spacing-xl: 80px;
+
+    /* Border Radius */
+    --border-radius-sm: 5px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 10px;
+
+    /* Transitions */
+    --transition-speed-fast: 0.2s;
+    --transition-speed-normal: 0.3s;
+    --transition-speed-slow: 0.5s;
+    --transition-ease: ease;
+}
+
+/* ==========================================================================
+   3. General Layout & Utility Classes
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md); /* Consistent horizontal padding */
+}
+
+section {
+    padding: var(--spacing-xl) 0; /* More generous vertical spacing for sections */
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.8em;
+    color: var(--color-red-primary);
+    text-align: center;
+    margin-bottom: calc(var(--spacing-lg) + 20px); /* Adjust spacing below title */
+    position: relative;
+    padding-bottom: 15px; /* Space for the underline */
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-red-dark);
+    border-radius: var(--border-radius-sm);
+}
+
+/* ==========================================================================
+   4. Buttons
+   ========================================================================== */
+.btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: var(--border-radius-md); /* Slightly more rounded buttons */
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: background-color var(--transition-speed-normal) var(--transition-ease),
+                transform var(--transition-speed-fast) var(--transition-ease),
+                box-shadow var(--transition-speed-normal) var(--transition-ease);
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.btn-primary {
+    background: var(--color-red-primary); /* Use background for gradient */
+    color: var(--color-white);
+    box-shadow: 0 4px 10px var(--color-red-transparent);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--color-red-transparent-dark);
+}
+
+.btn-primary:focus-visible { /* For keyboard navigation accessibility */
+    outline: 2px solid var(--color-white);
+    outline-offset: 3px;
+}
+
+.btn-secondary {
+    background-color: var(--color-darker-gray);
+    color: var(--color-text-on-dark);
+    border: 2px solid var(--color-light-gray);
+    box-shadow: 0 4px 10px var(--color-black-transparent);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-dark-gray);
+    border-color: var(--color-red-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly darker shadow on hover */
+}
+
+.btn-secondary:focus-visible { /* For keyboard navigation accessibility */
+    outline: 2px solid var(--color-red-primary);
+    outline-offset: 3px;
+}
+
+.btn:disabled {
+    background-color: #666;
+    color: #bbb; /* Make text a bit lighter for disabled state */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.7; /* Indicate disabled state more clearly */
+}
+
+/* ==========================================================================
+   5. Header & Navigation
+   ========================================================================== */
+header {
+    background-color: var(--color-darker-gray);
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.05);
+    position: sticky; /* Makes header stick to the top */
+    top: 0; /* Sticks to the top of the viewport */
+    z-index: 1000; /* Ensures it stays above other content during scroll */
+    box-shadow: 0 2px 10px var(--color-black-transparent); /* Subtle shadow for depth */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.8em; /* Prominent size for the brand name */
+}
+
+header h1 a {
+    color: var(--color-red-primary); /* Ensures company name is red */
+    text-decoration: none;
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+header h1 a:hover,
+header h1 a:focus-visible {
+    color: var(--color-white);
+}
+
+.site-logo {
+    color: var(--color-red-primary); /* Explicitly set color for site logo */
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.8em;
+    font-weight: 700; /* Assuming logo text is bold */
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.site-logo:hover,
+.site-logo:focus-visible {
+    color: var(--color-white);
+}
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 30px; /* Space between navigation items */
+}
+
+header nav ul li a {
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 700;
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+    position: relative; /* For the animated underline effect */
+    padding-bottom: 5px; /* Space for the underline */
+}
+
+header nav ul li a:hover,
+header nav ul li a:focus-visible {
+    color: var(--color-red-primary);
+}
+
+/* Underline effect on hover/focus */
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Starts hidden */
+    height: 3px;
+    background-color: var(--color-red-primary);
+    transition: width var(--transition-speed-normal) var(--transition-ease);
+}
+
+header nav ul li a:hover::after,
+header nav ul li a:focus-visible::after {
+    width: 100%; /* Expands on hover/focus */
+}
+
+
+/* ==========================================================================
+   6. Hero Section
+   ========================================================================== */
+.hero-section {
+    background-color: var(--color-darker-gray); /* Consistent background with other cards */
+    padding: 100px 0; /* Generous top/bottom padding for prominence */
+    text-align: center;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.1);
+    border-radius: var(--border-radius-lg); /* Consistent rounded corners */
+    margin: var(--spacing-lg) auto; /* Center with margin */
+    max-width: 1200px; /* Align with container width */
+    box-shadow: 0 5px 15px var(--color-black-transparent); /* Consistent shadow */
+}
+
+.hero-content h2 {
+    font-family: var(--font-heading);
+    font-size: 3.8em; /* Large, impactful heading */
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Subtle text shadow for depth */
+}
+
+.hero-content p {
+    font-family: var(--font-body);
+    font-size: 1.3em; /* Readable paragraph size */
+    color: var(--color-light-gray);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg) auto; /* More margin below paragraph */
+}
+
+/* ==========================================================================
+   7. Build Section
+   ========================================================================== */
+.builder-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two columns: selection on left, summary on right */
+    gap: 60px; /* Increased gap for more breathing room */
+    margin-top: var(--spacing-lg); /* Increased margin-top */
+    align-items: start; /* Align grid items to the top */
+}
+
+.component-selection-area {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Increased gap between component category cards */
+}
+
+.component-category-card {
+    background-color: var(--color-darker-gray);
+    padding: 30px; /* Increased padding inside cards */
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 5px 15px var(--color-black-transparent);
+    border: 1px solid rgba(238, 238, 238, 0.1);
+    transition: border-color var(--transition-speed-normal) var(--transition-ease),
+                transform var(--transition-speed-fast) var(--transition-ease);
+}
+
+.component-category-card:hover {
+    border-color: var(--color-red-primary);
+    transform: translateY(-3px); /* Subtle lift effect */
+}
+
+.component-category-card h3 {
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 1.8em; /* Larger heading for category titles */
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
+    padding-bottom: var(--spacing-sm);
+}
+
+.component-select {
+    width: 100%;
+    padding: 15px 20px; /* Larger padding for select inputs */
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: var(--border-radius-sm);
+    background-color: #2a2a2a;
+    color: var(--color-text-on-dark);
+    font-size: 1.1em; /* Larger font size */
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Custom SVG arrow for dropdown */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23eeeeee%22%20d%3D%22M208%2096H48l80%2080z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+    cursor: pointer;
+    transition: border-color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.component-select:focus {
+    outline: none; /* Remove default outline */
+    border-color: var(--color-red-primary);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5); /* Custom focus outline */
+}
+
+.component-select option {
+    background-color: #2a2a2a;
+    color: var(--color-text-on-dark);
+}
+
+.selected-component-display {
+    background-color: #2a2a2a;
+    padding: 15px; /* Consistent padding */
+    border-radius: var(--border-radius-sm);
+    min-height: 55px; /* Ensures consistent height even if no component selected */
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: var(--color-text-on-dark);
+    border: 1px dashed #444; /* Dashed border for visual distinction */
+}
+
+.selected-component-display .component-name {
+    font-weight: 700;
+    color: var(--color-red-primary); /* Highlight selected component name */
+}
+
+/* ==========================================================================
+   8. Build Summary Area
+   ========================================================================== */
+.build-summary-area {
+    position: sticky; /* Make summary sticky as user scrolls selection */
+    top: 120px; /* Stick it below the header (adjust if header height changes) */
+    align-self: start; /* Ensures it aligns to the top within the grid */
+}
+
+.build-summary-card {
+    background-color: var(--color-darker-gray);
+    padding: var(--spacing-lg); /* More generous padding */
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 5px 15px var(--color-black-transparent);
+    border: 1px solid rgba(238, 238, 238, 0.1);
+}
+
+.build-summary-card h3 {
+    font-family: var(--font-heading);
+    font-size: 2.2em; /* Larger heading for summary title */
+    color: var(--color-white);
+    margin-top: 0;
+    margin-bottom: 30px; /* More space below title */
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+}
+
+.build-summary-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px; /* Space before compatibility/total */
+}
+
+/* Styles for individual component summary items */
+.build-summary-list li {
+    background-color: #2a2a2a; /* Slightly lighter background than card for distinction */
+    padding: 15px 20px; /* Padding inside the box */
+    margin-bottom: var(--spacing-sm); /* Space between boxes */
+    border-radius: var(--border-radius-md); /* Rounded corners for the boxes */
+    border: 1px solid #333; /* Subtle border for definition */
+    display: flex;
+    justify-content: space-between; /* Align name to left, value to right */
+    align-items: center;
+    font-size: 1.1em;
+    color: var(--color-light-gray);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.build-summary-list li:last-child {
+    margin-bottom: 0; /* No margin after the last item in the list */
+}
+
+.build-summary-list li span {
+    font-weight: 700;
+    color: var(--color-red-primary); /* Highlight the component name */
+}
+
+.build-summary-list li .summary-price {
+    font-size: 0.9em;
+    color: var(--color-light-gray);
+    /* Ensure price aligns well if component name is long */
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+
+/* Compatibility Status */
+.compatibility-status {
+    padding: 15px 20px;
+    border-radius: var(--border-radius-md);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the text within the block */
+    justify-content: center; /* Center the icon and text */
+}
+
+.compatibility-status.compatible {
+    background-color: var(--color-green-compatible);
+    color: var(--color-white);
+}
+
+.compatibility-status.incompatible {
+    background-color: var(--color-red-incompatible);
+    color: var(--color-white);
+}
+
+.compatibility-status i {
+    font-size: 1.3em;
+}
+
+.total-price-display {
+    font-family: var(--font-heading);
+    font-size: 2.8em; /* Prominent size for the total price */
+    color: var(--color-red-primary);
+    text-align: right;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid rgba(238, 238, 238, 0.1);
+    font-weight: 700;
+}
+
+#submit-build-btn {
+    width: 100%;
+    margin-top: 30px; /* Space below total price before the button */
+}
+
+
+/* ==========================================================================
+   9. About Us Section
+   ========================================================================== */
+.about-us-section {
+    background-color: var(--color-darker-gray); /* Consistent background */
+    border-top: 1px solid rgba(238, 238, 238, 0.1);
+    border-bottom: 1px solid rgba(238, 238, 238, 0.1);
+    border-radius: var(--border-radius-lg); /* Consistent rounded corners */
+    margin: var(--spacing-lg) auto; /* Center with margin */
+    max-width: 1200px; /* Align with container width */
+    box-shadow: 0 5px 15px var(--color-black-transparent); /* Consistent shadow */
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ==========================================================================
+   10. Contact Us Section
+   ========================================================================== */
+.contact-section {
+    background-color: var(--color-darker-gray);
+    padding: var(--spacing-xl) 0;
+    border-top: 1px solid rgba(238, 238, 238, 0.1);
+    border-radius: var(--border-radius-lg);
+    margin: var(--spacing-lg) auto;
+    max-width: 1200px;
+    box-shadow: 0 5px 15px var(--color-black-transparent);
+}
+
+.contact-intro {
+    font-size: 1.1em;
+    color: var(--color-light-gray);
+    margin-bottom: var(--spacing-lg);
+    text-align: center; /* Center the introductory text */
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Form wider than info */
+    gap: var(--spacing-lg);
+}
+
+.contact-form-card, .contact-info-card {
+    background-color: var(--color-dark-gray); /* Slightly lighter than darker-gray */
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 1px solid rgba(238, 238, 238, 0.05);
+}
+
+.contact-form-card h3, .contact-info-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6em;
+    color: var(--color-red-primary);
+    margin-bottom: 25px;
+}
+
+.contact-form .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.contact-form label { /* Added label styling for accessibility and better appearance */
+    display: block;
+    color: var(--color-light-gray);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95em;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #333;
+    border-radius: var(--border-radius-sm);
+    font-size: 1em;
+    font-family: var(--font-body);
+    box-sizing: border-box; /* Ensures padding is included in element's total width/height */
+    background-color: #2a2a2a;
+    color: var(--color-text-on-dark);
+    transition: border-color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-red-primary);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5);
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow only vertical resizing */
+    min-height: 120px; /* Ensure a decent starting height */
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #888;
+    opacity: 0.7; /* Make placeholder text a bit softer */
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.contact-info-card p {
+    margin-bottom: 15px;
+    color: var(--color-light-gray);
+    font-size: 1.05em;
+    display: flex; /* Align icon and text */
+    align-items: center;
+}
+
+.contact-info-card p i {
+    color: var(--color-red-primary);
+    margin-right: var(--spacing-sm);
+    font-size: 1.2em;
+}
+
+
+/* ==========================================================================
+   11. Footer Styles (Professional Look)
+   ========================================================================== */
+.main-footer {
+    background-color: var(--color-darker-gray); /* Dark background matching header */
+    color: var(--text-color); /* Light grey text for readability */
+    padding: 60px 0; /* More vertical padding */
+    font-size: 0.95em;
+    border-top: 1px solid rgba(238, 238, 238, 0.1); /* Subtle line at the top */
+}
+
+.main-footer .footer-grid {
+    display: grid;
+    /* Adjusted grid-template-columns for a balanced, professional look */
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr; /* Distribute space logically */
+    gap: var(--spacing-lg); /* Space between columns */
+    margin-bottom: var(--spacing-lg); /* Space above copyright */
+}
+
+.main-footer .footer-logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5em;
+    color: var(--color-white); /* White for logo */
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: block; /* Ensures it takes up its own line */
+}
+
+.main-footer .brand-info p {
+    color: var(--text-color); /* Slightly lighter for description */
+    line-height: 1.7;
+}
+
+.main-footer h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--color-red-primary); /* Red for footer headings */
+    margin-bottom: var(--spacing-md);
+}
+
+.main-footer .footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer .footer-nav ul li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.main-footer .footer-nav ul li a {
+    color: var(--text-color); /* Link color */
+    text-decoration: none;
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.main-footer .footer-nav ul li a:hover {
+    color: var(--color-red-primary); /* Red on hover */
+    text-decoration: underline; /* Add underline on hover for clarity */
+}
+
+.main-footer .social-links {
+    display: flex;
+    gap: 15px; /* Space between social icons */
+    margin-top: var(--spacing-md);
+}
+
+.main-footer .social-links a {
+    color: var(--color-text-on-dark); /* Social icon color */
+    font-size: 1.6em; /* Larger icons */
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.main-footer .social-links a:hover {
+    color: var(--color-red-primary); /* Red on hover */
+}
+
+.main-footer .copyright {
+    text-align: center;
+    border-top: 1px solid rgba(238, 238, 238, 0.05); /* Separator for copyright */
+    padding-top: var(--spacing-md);
+    color: var(--color-light-gray); /* Softer color for copyright text */
+    font-size: 0.9em;
+}
+
+/* ==========================================================================
+   12. Responsive Adjustments (Media Queries)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* General adjustments */
+    section {
+        padding: var(--spacing-lg) 0; /* Reduce section padding on smaller screens */
+    }
+    .section-title {
+        font-size: 2em; /* Smaller section titles */
+        margin-bottom: var(--spacing-lg);
+    }
+    /* Header adjustments */
+    header .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    header nav ul {
+        flex-direction: column;
+        margin-top: var(--spacing-md);
+    }
+    header nav ul li {
+        margin: var(--spacing-sm) 0; /* Stack nav items vertically */
+    }
+    header .btn { /* If there's a button directly in header */
+        margin-top: var(--spacing-md);
+    }
+    /* Hero section adjustments */
+    .hero-content h2 {
+        font-size: 2.5em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+    /* Builder grid adjustments */
+    .builder-grid {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        gap: var(--spacing-lg);
+    }
+    .build-summary-area {
+        position: static; /* Remove sticky on mobile for better scroll experience */
+        top: auto;
+    }
+    /* Contact section adjustments */
+    .contact-grid {
+        grid-template-columns: 1fr; /* Stack contact columns */
+    }
+    /* Footer adjustments */
+    .main-footer .footer-grid {
+        grid-template-columns: 1fr; /* Stack footer columns on smaller screens */
+        text-align: center;
+    }
+    .main-footer .social-links {
+        justify-content: center; /* Center social icons when stacked */
+    }
+}
+@media (max-width: 480px) {
+    /* Further reduce padding on very small screens */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .hero-content h2 {
+        font-size: 2em;
+    }
+    .hero-content p {
+        font-size: 0.9em;
+    }
+    .component-category-card {
+        padding: var(--spacing-md);
+    }
+    .build-summary-card {
+        padding: var(--spacing-md);
+    }
+}
+/* Styling for the new product section */
+.new-product-section {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+.new-product-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.new-product-section .section-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+.new-product-section .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.new-product-section .product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+.new-product-section .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.new-product-section .product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+.new-product-section .card-content {
+    padding: 20px;
+}
+.new-product-section .card-content h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+.new-product-section .card-content p {
+    font-size: 0.95em;
+    color: #666;
+    line-height: 1.6;
+}
+/* Header/Navigation Bar */
+header {
+    background-color: rgba(51, 51, 51, 0.95); /* Slightly transparent dark background */
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 1000; /* Ensure it stays on top */
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.site-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: var(--color-red-primary); /* Using the updated variable */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.site-logo:hover {
+    color: #7b0707; /* Lighter red on hover */
+}
+.header-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.header-nav ul li {
+    margin-left: 30px;
+}
+.header-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    padding: 5px 0;
+    position: relative; /* For underline effect */
+}
+.header-nav ul li a:hover {
+    color: #d80404;
+}
+/* Underline effect for navigation */
+.header-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--color-red-primary); /* Using the updated variable */
+    transition: width 0.3s ease-in-out;
+}
+.header-nav ul li a:hover::after {
+    width: 100%;
+}
+/* Primary Button Style */
+.btn-primary {
+    display: inline-block;
+    background: var(--color-red-primary); /* Using background for gradient */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background-color: #e00404;
+    transform: translateY(-2px);
+}
+/* Secondary Button Style (for product cards) */
+.btn-secondary {
+    display: inline-block;
+    background-color: #555;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+.btn-secondary:hover {
+    background-color: #777;
+    transform: translateY(-2px);
+}
+/* Featured Products Section */
+.featured-products {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #1a1a1a; /* Dark background */
+    color: #eeeeee; /* Light text */
+}
+.hero-home,
+.featured-products,
+.why-choose-us,
+.about-home,
+.cta-section {
+    background: url('images/background.png') no-repeat center center/cover;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+.featured-products .section-title {
+    color: #eeeeee; /* Adjust title color for dark background */
+}
+.featured-products .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.featured-products .product-card {
+    background-color: #2a2a2a; /* Slightly lighter card background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    position: relative; /* Needed for hover info positioning */
+}
+.featured-products .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+.featured-products .product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #333;
+}
+.featured-products .card-content {
+    padding: 20px;
+    position: relative;
+    z-index: 2; /* Ensure content is above hover info initially */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.featured-products .card-content h3 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    color: var(--color-red-primary); /* Highlight product titles with primary red */
+    font-family: 'Montserrat', sans-serif;
+}
+.featured-products .card-content .product-specs {
+    font-size: 0.95em;
+    color: #aaaaaa;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+.featured-products .card-content .product-price {
+    font-size: 1.8em;
+    color: #eeeeee;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.featured-products .card-content .btn-primary {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.05em;
+}
+
+/* Product Hover Info */
+.product-hover-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(34, 34, 34, 0.95); /* Semi-transparent dark overlay */
+    color: #fff;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 3; /* Ensure it appears above main content */
+    border-radius: 10px; /* Match card border-radius */
+    box-sizing: border-box; /* Include padding in dimensions */
+}
+
+.product-hover-info h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    color: var(--color-red-primary); /* Using the updated variable */
+    margin-bottom: 15px;
+}
+
+.product-hover-info .hover-specs-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: #cccccc;
+}
+
+.product-hover-info .hover-specs-list li {
+    margin-bottom: 8px;
+}
+
+.product-hover-info .hover-specs-list li strong {
+    color: #ffffff;
+}
+
+.product-hover-info .tested-on-info {
+    font-size: 0.9em;
+    color: #aaaaaa;
+    margin-top: 15px;
+}
+
+.product-hover-info .btn-secondary {
+    margin-top: 20px;
+    width: 80%; /* Button width on hover */
+    padding: 10px 0;
+}
+
+/* Mobile Menu Specific Styles */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    font-size: 1.8em;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above header content */
+}
+
+/* Adjustments for when menu is active/open (JS will toggle 'active' class) */
+.header-nav {
+    /* Base styles for the navigation, applies to both desktop and mobile */
+    /* On desktop, it will typically be inline or flex */
+    /* On mobile, it will be positioned off-screen */
+}
+
+/* Mobile specific overrides */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Show hamburger icon on mobile */
+    }
+
+    .header-nav {
+        position: fixed;
+        top: 0;
+        left: -100%; /* Start off-screen to the left */
+        width: 70%; /* Width of the mobile menu */
+        max-width: 300px; /* Optional: set a max width */
+        height: 100%; /* Full height of the viewport */
+        background-color: #222; /* Dark background for mobile menu */
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        transition: left 0.3s ease-in-out; /* Smooth slide transition */
+        z-index: 1000;
+        padding-top: 80px; /* Space for the fixed header content */
+        overflow-y: auto; /* Enable scrolling if menu content is long */
+    }
+
+    /* When 'active' class is added by JS, slide menu into view */
+    .header-nav.active {
+        left: 0;
+    }
+
+    /* Stack menu items vertically on mobile */
+    .header-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .header-nav ul li {
+        margin: 15px 0; /* Vertical spacing between mobile menu items */
+        width: 100%;
+    }
+
+    .header-nav ul li a {
+        display: block; /* Make links full width for easier tapping */
+        padding: 10px 0;
+    }
+}

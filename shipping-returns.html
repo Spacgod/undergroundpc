@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping & Returns - UndergroundPC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styles for Shipping & Returns page */
+        .policy-section { /* Re-using .policy-section for consistent styling */
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            color: #eee;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+        .policy-section h2 {
+            font-size: 3em;
+            color: #7b0707;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .policy-content { /* Re-using .policy-content for consistent styling */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .policy-content h3 {
+            font-size: 2em;
+            color: #fff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #7b0707;
+            padding-bottom: 5px;
+        }
+        .policy-content p, .policy-content ul {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        .policy-content ul {
+            list-style: disc;
+            margin-left: 25px;
+            padding-left: 0;
+        }
+        .policy-content ul li {
+            margin-bottom: 10px;
+        }
+        .policy-disclaimer { /* Re-using .policy-disclaimer for consistent styling */
+            background-color: rgba(255, 87, 34, 0.1);
+            border-left: 5px solid #7b0707;
+            padding: 20px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+        .policy-disclaimer strong {
+            color: #7b0707;
+        }
+
+        /* Responsive adjustments (inherited from policy-section in style.css) */
+        @media (max-width: 768px) {
+            .policy-section {
+                padding: 60px 0;
+            }
+            .policy-section h2 {
+                font-size: 2.5em;
+            }
+            .policy-content {
+                padding: 0 15px;
+            }
+            .policy-content h3 {
+                font-size: 1.7em;
+            }
+            .policy-content p, .policy-content ul {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="policy-section">
+            <div class="container">
+                <h2>Shipping & Returns</h2>
+                <div class="policy-disclaimer">
+                    <strong>Important Note:</strong> Please customize all details regarding shipping costs, timeframes, and your exact return and refund conditions to accurately reflect your business practices.
+                </div>
+                <div class="policy-content">
+                    <h3>Shipping Information</h3>
+                    <p>We strive to get your custom-built PC or components to you as quickly and safely as possible. Please review our shipping guidelines below:</p>
+                    <ul>
+                        <li><strong>Quality Assurance:</strong> Before any PC leaves our facility, it undergoes rigorous testing and quality assurance to ensure all components are functioning correctly and the system is stable. **We make sure everything works before we ship it.**</li>
+                        <li><strong>Processing Time:</strong>
+                            <ul>
+                                <li><strong>Pre-built PCs:</strong> Orders for pre-built systems are typically processed and shipped within 3-5 business days.</li>
+                                <li><strong>Custom Builds:</strong> Due to the personalized nature of custom builds, please allow 14-32 business days for assembly, rigorous testing, and final quality checks before shipment.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Shipping Methods & Carriers:</strong> We primarily use [e.g., FedEx, UPS, USPS] for domestic shipments. You will be able to select your preferred shipping speed at checkout.</li>
+                        <li><strong>Shipping Costs:</strong> Shipping costs are calculated at checkout based on the weight, dimensions, and destination of your order.</li>
+                        <li><strong>Shipping Insurance:</strong> All PC shipments are fully insured against damage or loss during transit to protect your investment.</li>
+                        <li><strong>Tracking Your Order:</strong> Once your order ships, you will receive an email with a tracking number, allowing you to monitor your package's journey.</li>
+                        <li><strong>International Shipping:</strong> Currently, we ship only within the USA.</li>
+                    </ul>
+
+                    <h3>Returns & Refunds Policy</h3>
+                    <p>At UndergroundPC, we are committed to providing you with a high-quality, fully functional PC. Please note our policies regarding returns and refunds:</p>
+                    <ul>
+                        <li><strong>No Returns or Refunds:</strong> Due to financial constraints and the custom nature of our builds, we do not offer returns or refunds. All sales are considered final. We ensure your PC is fully functional before it leaves our care.</li>
+                        <li><strong>Damaged Upon Arrival:</strong> If your PC arrives damaged due to shipping, please contact us immediately (within 24 hours of delivery) at <a href="mailto:info.undergroundpc@gmail.com" style="color: #7b0707; text-decoration: underline;">info.undergroundpc@gmail.com</a>. Provide clear photos of the damage to the packaging and the product itself. We will work with the shipping carrier and you to resolve the issue as best as we can, which may involve repair or replacement.</li>
+                        <li><strong>Product Functionality:</strong> While we do not offer a warranty, we do our best to make sure your PC will be in working order upon arrival, having passed our thorough pre-shipment testing. If you experience unexpected issues immediately after delivery, please contact us for troubleshooting assistance.</li>
+                        <li><strong>Contact for Support:</strong> For any shipping concerns or immediate post-delivery functionality questions, please email us at <a href="mailto:info.undergroundpc@gmail.com" style="color: #7b0707; text-decoration: underline;">info.undergroundpc@gmail.com</a>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="index.html#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

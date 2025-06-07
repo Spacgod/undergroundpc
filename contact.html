@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - UndergroundPC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styles for Contact Us page */
+        .contact-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            color: #eee;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .contact-section h2 {
+            font-size: 3em;
+            color: #7b0707;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .contact-info {
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #ccc;
+        }
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        .contact-info a {
+            color: #7b0707;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form-container {
+            background-color: rgba(255, 255, 255, 0.05); /* Light transparent background for form */
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+        .contact-form-container h3 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #eee;
+            font-size: 1em;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+        .contact-form input[type="text"]::placeholder,
+        .contact-form input[type="email"]::placeholder,
+        .contact-form textarea::placeholder {
+            color: #888;
+        }
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: #7b0707;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.3);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form button.btn-primary {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 5px;
+            background-color: #7b0707;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .contact-form button.btn-primary:hover {
+            background-color: #e64a19;
+        }
+
+        /* Responsive adjustments for Contact page */
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 60px 0;
+            }
+            .contact-section h2 {
+                font-size: 2.5em;
+                margin-bottom: 30px;
+            }
+            .contact-content {
+                padding: 0 15px;
+            }
+            .contact-form-container {
+                padding: 30px 20px;
+            }
+            .contact-form-container h3 {
+                font-size: 1.7em;
+                margin-bottom: 20px;
+            }
+            .contact-form label,
+            .contact-form input[type="text"],
+            .contact-form input[type="email"],
+            .contact-form textarea {
+                font-size: 0.95em;
+            }
+            .contact-form button.btn-primary {
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li> </ul>
+            </nav>
+            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="contact-section">
+            <div class="container">
+                <h2>Contact UndergroundPC</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <p>Have a question about a custom build, a featured PC, or just want to chat about gaming hardware? We'd love to hear from you!</p>
+                        <p>The best way to reach us is via email:</p>
+                        <p><strong>Email: <a href="mailto:info.undergroundpc@gmail.com">info.undergroundpc@gmail.com</a></strong></p>
+                        <p>We aim to respond to all inquiries within 24-48 business hours.</p>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <h3>Send Us a Message</h3>
+                        <form action="https://formspree.io/f/mjkrbdrk" method="POST" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Your Name:</label>
+                                <input type="text" id="name" name="name" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email:</label>
+                                <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject:</label>
+                                <input type="text" id="subject" name="subject" placeholder="What is your message about?">
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message:</label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Type your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                        <p style="font-size: 0.9em; margin-top: 20px; color: #888; text-align: center;">
+                            *Note: This form is now configured to submit via Formspree. Ensure you verify your email with Formspree to receive submissions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="index.html#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li> </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
