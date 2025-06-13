@@ -16,6 +16,14 @@
             --color-text-on-dark: #f0f0f0;
             --font-heading: 'Montserrat', sans-serif;
             --font-body: 'Roboto', sans-serif;
+
+            /* New: Define gradient colors for H1 and buttons */
+            --h1-gradient-start: #e74c3c; /* Red */
+            --h1-gradient-end: #8e44ad;   /* Purple */
+            --button-gradient-start: #820303; /* Darker Red */
+            --button-gradient-end: #5d045d;   /* Darker Purple */
+            --button-hover-gradient-start: #a00505; /* Lighter Red */
+            --button-hover-gradient-end: #7a067a;   /* Lighter Purple */
         }
 
         body {
@@ -61,7 +69,7 @@
 
         h1 {
             font-family: var(--font-heading);
-            background-image: linear-gradient(to right, #e74c3c, #8e44ad); /* Brighter Red to Purple */
+            background-image: linear-gradient(to right, var(--h1-gradient-start), var(--h1-gradient-end));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -77,9 +85,9 @@
             text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6); /* More pronounced text shadow */
             text-transform: uppercase; /* All caps for strong branding */
             font-weight: 900; /* Extra bold for visibility */
-            /* --- H1 Gradient Animation (Even Smoother) --- */
+            /* --- H1 Gradient Animation --- */
             background-size: 2500% 100%; /* Even wider background for ultra-smooth transitions */
-            animation: gradient-animation 25s linear infinite; /* Longer duration for slower, super-smooth movement */
+            animation: gradient-flow 25s linear infinite; /* Longer duration for slower, super-smooth movement */
             /* --- End H1 Gradient Animation --- */
         }
 
@@ -96,7 +104,7 @@
 
         .link-button {
             display: block;
-            background: linear-gradient(to right, #820303, #5d045d);
+            background: linear-gradient(to right, var(--button-gradient-start), var(--button-gradient-end));
             color: var(--color-text-on-dark);
             padding: 20px 28px; /* Slightly larger padding for bigger buttons */
             margin-bottom: 20px; /* Increased margin between buttons */
@@ -109,12 +117,33 @@
             box-shadow: 0 5px 18px rgba(0, 0, 0, 0.5); /* More prominent shadow */
             border: 1px solid rgba(255, 255, 255, 0.15); /* Slightly more visible border */
             text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Text shadow for button text */
+            position: relative; /* For the pseudo-element glow */
+            overflow: hidden; /* To contain the glow effect */
+            z-index: 1; /* To ensure button is above pseudo-element */
+        }
+
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 0%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            z-index: -1;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transition for pseudo-element */
         }
 
         .link-button:hover {
-            background: linear-gradient(to right, #a00505, #7a067a);
+            background: linear-gradient(to right, var(--button-hover-gradient-start), var(--button-hover-gradient-end));
             transform: translateY(-7px) scale(1.03); /* More lift and slight scale on hover */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 255, 255, 0.3); /* Enhanced shadow and subtle glow */
+            border-image: linear-gradient(45deg, #f09, #0ff) 1; /* Subtle, dynamic border */
+        }
+
+        .link-button:hover::before {
+            width: 200%; /* Expand the pseudo-element to create a wipe effect */
         }
 
         .link-button i {
@@ -138,7 +167,7 @@
         .social-icons a:hover {
             color: var(--color-secondary); /* Highlight color on hover */
             transform: translateY(-8px) scale(1.15); /* More lift and scale on hover */
-            text-shadow: 0 0 15px var(--color-secondary), 0 0 25px rgba(255, 112, 67, 0.6); /* Glowing effect */
+            text-shadow: 0 0 15px var(--color-secondary), 0 0 25px rgba(255, 112, 67, 0.6), 0 0 40px rgba(255, 112, 67, 0.4); /* Enhanced glowing effect */
         }
 
         /* Basic styling for the message box */
@@ -155,10 +184,14 @@
             z-index: 1000;
             display: none;
             text-align: center;
+            opacity: 0; /* Start hidden */
+            transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition */
         }
 
         .message-box.show {
             display: block;
+            opacity: 1; /* Fade in */
+            transform: translate(-50%, -50%) scale(1); /* Ensure scale is 1 */
         }
 
         .message-box.success {
@@ -178,12 +211,51 @@
         }
 
         /* Keyframes for H1 Gradient Animation */
-        @keyframes gradient-animation {
+        @keyframes gradient-flow {
             0% {
                 background-position: 0% 50%;
             }
-            100% {
+            50% {
                 background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 480px) {
+            .linktree-container {
+                padding: 30px 20px; /* Adjust padding for smaller screens */
+            }
+
+            h1 {
+                font-size: 2.2em; /* Smaller font size for H1 */
+                letter-spacing: 1px;
+            }
+
+            p {
+                font-size: 1.1em; /* Smaller font size for description */
+                margin-bottom: 30px;
+            }
+
+            .link-button {
+                padding: 16px 20px; /* Smaller padding for buttons */
+                font-size: 1.1em;
+                margin-bottom: 15px;
+            }
+
+            .link-button i {
+                margin-right: 10px; /* Adjust icon spacing */
+            }
+
+            .social-icons {
+                margin-top: 30px;
+                gap: 25px; /* Reduce gap between social icons */
+            }
+
+            .social-icons a {
+                font-size: 2em; /* Smaller social icons */
             }
         }
     </style>
@@ -202,8 +274,8 @@
 
 
         <div class="social-icons">
-            <a href="https://instagram.com/yourinstagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://facebook.com/yourfacebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/yourinstagram" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com/yourfacebook" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
         </div>
     </div>
 
@@ -221,7 +293,13 @@
             messageBox.className = 'message-box show ' + type;
 
             setTimeout(() => {
-                messageBox.classList.remove('show');
+                // Ensure the transition plays nicely when removing the class
+                messageBox.style.opacity = '0';
+                messageBox.style.transform = 'translate(-50%, -50%) scale(0.9)'; // Shrink slightly on fade out
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                    messageBox.style.transform = 'translate(-50%, -50%)'; // Reset transform for next show
+                }, 300); // Match transition duration
             }, 5000);
         }
     </script>
