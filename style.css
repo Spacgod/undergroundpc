@@ -717,62 +717,7 @@ header nav ul li a:focus-visible::after {
     font-size: 0.9em;
 }
 
-/* ==========================================================================
-   12. Responsive Adjustments (Media Queries)
-   ========================================================================== */
-@media (max-width: 768px) {
-    /* General adjustments */
-    section {
-        padding: var(--spacing-lg) 0; /* Reduce section padding on smaller screens */
-    }
-    .section-title {
-        font-size: 2em; /* Smaller section titles */
-        margin-bottom: var(--spacing-lg);
-    }
-    /* Header adjustments */
-    header .container {
-        flex-direction: column;
-        text-align: center;
-    }
-    header nav ul {
-        flex-direction: column;
-        margin-top: var(--spacing-md);
-    }
-    header nav ul li {
-        margin: var(--spacing-sm) 0; /* Stack nav items vertically */
-    }
-    header .btn { /* If there's a button directly in header */
-        margin-top: var(--spacing-md);
-    }
-    /* Hero section adjustments */
-    .hero-content h2 {
-        font-size: 2.5em;
-    }
-    .hero-content p {
-        font-size: 1em;
-    }
-    /* Builder grid adjustments */
-    .builder-grid {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
-        gap: var(--spacing-lg);
-    }
-    .build-summary-area {
-        position: static; /* Remove sticky on mobile for better scroll experience */
-        top: auto;
-    }
-    /* Contact section adjustments */
-    .contact-grid {
-        grid-template-columns: 1fr; /* Stack contact columns */
-    }
-    /* Footer adjustments */
-    .main-footer .footer-grid {
-        grid-template-columns: 1fr; /* Stack footer columns on smaller screens */
-        text-align: center;
-    }
-    .main-footer .social-links {
-        justify-content: center; /* Center social icons when stacked */
-    }
-}
+
 @media (max-width: 480px) {
     /* Further reduce padding on very small screens */
     .container {
