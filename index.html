@@ -339,6 +339,18 @@
             margin-top: 15px; /* Add some space above the button */
         }
 
+        /* NEW: Styles to remove hover effect for merchandise and repair cards */
+        .merch-card:hover, .repair-card:hover {
+            transform: translateY(0); /* Reset lift effect */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Reset original shadow */
+        }
+        /* Ensure main content of merch and repair cards doesn't hide */
+        .merch-card:hover .product-main-content,
+        .repair-card:hover .product-main-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
 
         /* Responsive Adjustments */
         @media (max-width: 992px) {
@@ -536,9 +548,9 @@
     <header>
         <div class="container">
             <a href="index.html" class="site-logo">UndergroundPC</a>
-            <nav class="header-nav" id="main-nav">
+            <nav class="header-nav" id="main-nav" aria-label="Main navigation">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" aria-current="page">Home</a></li>
                     <li><a href="#shop">Shop</a></li>
                     <li><a href="custom-builds.html">Custom Builds</a></li>
                     <li><a href="about-us.html">About Us</a></li>
@@ -546,7 +558,7 @@
                 </ul>
             </nav>
             <a href="#shop" class="btn btn-primary shop-btn">Shop Now</a>
-            <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -568,39 +580,41 @@
                 <div class="product-grid">
                     <div class="product-card reveal-item"
                          data-game1-name="Fortnite" data-game1-fps="135" data-game1-image="images/fn.png"
-                         data-game2-name="counter strike 2" data-game2-fps="140" data-game2-settings="High" data-game2-image="images/cs-2.png"
+                         data-game2-name="Counter Strike 2" data-game2-fps="140" data-game2-settings="High" data-game2-image="images/cs-2.png"
                          data-game3-name="Call of Duty" data-game3-fps="190" data-game3-settings="Ultra" data-game3-image="images/cod.png"
                          data-tested-on="Tested at high or ultra settings on 1080p">
                         <div class="product-main-content">
-                            <img src="images/coming-soon.png" alt="High-Performance Gaming PC">
+                            <img src="images/coming-soon.png" alt="High-Performance Gaming PC - Coming Soon">
                             <h3>Coming soon: gaming PC</h3>
                             <p>Experience cutting-edge performance with our latest gaming rigs, designed for immersive gameplay.</p>
                         </div>
                         <div class="product-hover-info">
+                            <h4 class="sr-only">Performance Benchmarks</h4>
                             <div class="fps-image-container">
-                                <img src="" alt="Game 1 Screenshot">
+                                <img src="" alt="Fortnite Gameplay Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
                                 </div>
                             </div>
                             <div class="fps-image-container">
-                                <img src="" alt="Game 2 Screenshot">
+                                <img src="" alt="Counter Strike 2 Gameplay Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span> FPS
-                                    
+                                    <span class="settings-text"></span>
                                 </div>
                             </div>
                             <div class="fps-image-container">
-                                <img src="" alt="Game 3 Screenshot">
+                                <img src="" alt="Call of Duty Gameplay Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span> FPS
-                                    
+                                    <span class="settings-text"></span>
                                 </div>
                             </div>
-                            <div class="tested-on-text"></div>
+                            <p class="tested-on-text"></p>
                             <a href="product-details.html" class="btn btn-secondary">View Details</a>
                         </div>
                     </div>
@@ -611,36 +625,34 @@
                          data-game3-name="AutoCAD" data-game3-fps="Smooth"  data-game3-image="images/autocad.png"
                          data-tested-on="Optimized for professional workloads">
                         <div class="product-main-content">
-                            <img src="images/coming-soon.png" alt="Professional Creator Workstation PC">
+                            <img src="images/coming-soon.png" alt="Professional Creator Workstation PC - Coming Soon">
                             <h3>Coming soon: workstation</h3>
                             <p>Unleash your creativity with powerful workstations optimized for demanding design and rendering tasks.</p>
                         </div>
                         <div class="product-hover-info">
+                            <h4 class="sr-only">Application Performance Benchmarks</h4>
                             <div class="fps-image-container">
-                                <img src="" alt="App 1 Screenshot">
+                                <img src="" alt="Blender Application Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span>
-                                    
                                 </div>
                             </div>
                             <div class="fps-image-container">
-                                <img src="" alt="App 2 Screenshot">
+                                <img src="" alt="Premiere Pro Application Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span>
-
                                 </div>
                             </div>
                             <div class="fps-image-container">
-                                <img src="" alt="App 3 Screenshot">
+                                <img src="" alt="AutoCAD Application Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span>
-                            
                                 </div>
                             </div>
-                            <div class="tested-on-text"></div>
+                            <p class="tested-on-text"></p>
                             <a href="product-details2.html" class="btn btn-secondary">View Details</a>
                         </div>
                     </div>
@@ -651,36 +663,37 @@
                          data-game3-name="CS2" data-game3-fps="150" data-game3-settings="Medium" data-game3-image="images/cs-2.png"
                          data-tested-on="Compact power, big performance">
                         <div class="product-main-content">
-                            <img src="images/coming-soon.png" alt="Compact Gaming PC Rig">
+                            <img src="images/coming-soon.png" alt="Compact Gaming PC Rig - Coming Soon">
                             <h3>Coming soon: micro ATX PC </h3>
                             <p>Big power in a small form factor. Perfect for limited spaces without compromising on performance.</p>
                         </div>
                         <div class="product-hover-info">
+                            <h4 class="sr-only">Performance Benchmarks</h4>
                             <div class="fps-image-container">
-                                <img src="" alt="Game 1 Screenshot">
+                                <img src="" alt="Rocket League Gameplay Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span> FPS
-                                    
+                                    <span class="settings-text"></span>
                                 </div>
                             </div>
                             <div class="fps-image-container">
-                                <img src="" alt="Game 2 Screenshot">
+                                <img src="" alt="Minecraft Gameplay Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span> FPS
-                                    
+                                    <span class="settings-text"></span>
                                 </div>
                             </div>
                             <div class="fps-image-container">
-                                <img src="" alt="Game 3 Screenshot">
+                                <img src="" alt="CS2 Gameplay Screenshot">
                                 <div class="fps-overlay">
                                     <span class="game-name"></span>
                                     <span class="fps"></span> FPS
-                                    
+                                    <span class="settings-text"></span>
                                 </div>
                             </div>
-                            <div class="tested-on-text"></div>
+                            <p class="tested-on-text"></p>
                             <a href="product-details3.html" class="btn btn-secondary">View Details</a>
                         </div>
                     </div>
@@ -688,27 +701,91 @@
             </div>
         </section>
 
+        <section class="featured-products section-padding reveal-on-scroll" id="shop-merch" role="region" aria-labelledby="featured-merch-title">
+            <div class="container">
+                <h2 id="featured-merch-title" class="section-title reveal-item">UndergroundPC Merchandise</h2>
+                <div class="product-grid">
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="merchimages/mousepad3.webp" alt="UndergroundPC Hoodie">
+                            <h3>Custom Mouse Pad</h3>
+                            <p>Design your ultimate gaming or work setup with a custom mouse pad. Personalize it with your unique image for comfort and smooth mouse tracking.</p>
+                            <a href="mousepad.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="merchimages/yourlogo.jpg" alt="merchimages/yourlogo.jpg">
+                            <h3>Custom PC Stickers</h3>
+                            <p>UndergroundPC offers custom, durable stickers to personalize your PC, laptop, or gaming setup. Express yourself!</p>
+                            <a href="stickers.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/coming-soon.png" alt="UndergroundPC Gaming Mousepad">
+                            <h3>coming-soon</h3>
+                            <p></p>
+                            <a href="merch-details3.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products section-padding reveal-on-scroll" id="shop-repair-services" role="region" aria-labelledby="featured-repair-services-title">
+            <div class="container">
+                <h2 id="featured-repair-services-title" class="section-title reveal-item">Repair Services</h2>
+                <div class="product-grid">
+                    <div class="product-card repair-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/repairs.png" alt="PC Diagnostics and Troubleshooting"> <h3>Diagnostics & Troubleshooting</h3>
+                            <p>Comprehensive analysis to pinpoint issues with your PC, ensuring an accurate and efficient repair plan.</p>
+                            <a href="troubleshooting.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card repair-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/repairs.png" alt="Hardware Repair and Upgrades"> <h3>Upgrade Components</h3>
+                            <p>From component replacement to performance upgrades, we handle all your PC hardware needs with expertise.</p>
+                            <a href="Upgrade-Components.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card repair-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/repairs.png" alt="Software and Virus Removal"> <h3>Software & Virus Removal</h3>
+                            <p>Expert solutions for operating system errors, malware, viruses, and software conflicts to restore system health.</p>
+                            <a href="software-help.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="why-choose-us section-padding about-home reveal-on-scroll" role="region" aria-labelledby="why-choose-us-title">
             <div class="container">
                 <h2 id="why-choose-us-title" class="section-title reveal-item">Why Choose UndergroundPC?</h2>
                 <div class="features-grid">
                     <div class="feature-card reveal-item">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-cogs" aria-hidden="true"></i>
                         <h3>Expert Craftsmanship</h3>
                         <p>Every PC is meticulously assembled and rigorously tested by our experienced technicians, ensuring flawless performance.</p>
                     </div>
                     <div class="feature-card reveal-item">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
                         <h3>Unrivaled Quality</h3>
                         <p>We use only top-tier components from trusted brands, guaranteeing exceptional performance and long-term reliability.</p>
                     </div>
                     <div class="feature-card reveal-item">
-                        <i class="fas fa-headset"></i>
+                        <i class="fas fa-headset" aria-hidden="true"></i>
                         <h3>Dedicated Support</h3>
                         <p>Our expert team is here to assist you every step of the way, from personalized selection to comprehensive after-sales support.</p>
                     </div>
                     <div class="feature-card reveal-item">
-                        <i class="fas fa-hand-holding-usd"></i>
+                        <i class="fas fa-hand-holding-usd" aria-hidden="true"></i>
                         <h3>Competitive Pricing</h3>
                         <p>Get premium performance without breaking the bank. We combine cutting-edge technology with unbeatable value.</p>
                     </div>
@@ -739,7 +816,8 @@
                           <div class="ml-form-formContent">
                             <div class="ml-form-fieldRow ml-last-item">
                                 <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                                  <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
+                                  <label for="newsletter-email" class="sr-only">Email address</label>
+                                  <input id="newsletter-email" aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email" autocomplete="email">
                                 </div>
                               </div>
                           </div>
@@ -787,7 +865,7 @@
                 </div>
                 <div class="footer-col">
                     <h3>Quick Links</h3>
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Quick links">
                         <ul>
                             <li><a href="about-us.html">About Us</a></li>
                             <li><a href="#shop">Shop All</a></li>
@@ -798,7 +876,7 @@
                 </div>
                 <div class="footer-col">
                     <h3>Support</h3>
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Support links">
                         <ul>
                             <li><a href="faq.html">FAQs</a></li>
                             <li><a href="shipping-returns.html">Shipping & Returns</a></li>
@@ -820,12 +898,12 @@
         </div>
     </footer>
 
-    <div id="success-message-box" class="message-box hidden">
+    <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
         <p id="success-message-content"></p>
         <button onclick="document.getElementById('success-message-box').classList.add('hidden');">OK</button>
     </div>
 
-    <div id="error-message-box" class="message-box hidden">
+    <div id="error-message-box" class="message-box hidden" role="alert" aria-live="assertive">
         <p id="error-message-content"></p>
         <button onclick="document.getElementById('error-message-box').classList.add('hidden');">OK</button>
     </div>
@@ -879,62 +957,70 @@
                 });
             }
 
-            // JavaScript for Product Hover Effect
-            const productCards = document.querySelectorAll('.product-card');
+            // JavaScript for Product Hover Effect (Modified to exclude merch cards and repair cards)
+            const productCards = document.querySelectorAll('.product-grid .product-card'); // Select all product cards
 
             productCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    const mainContent = card.querySelector('.product-main-content');
-                    const hoverInfo = card.querySelector('.product-hover-info');
+                // Check if the card has specific data attributes for game performance and is NOT a merch or repair card
+                const isPcCard = card.hasAttribute('data-game1-name') &&
+                                 !card.classList.contains('merch-card') &&
+                                 !card.classList.contains('repair-card');
 
-                    if (mainContent && hoverInfo) {
-                        // Populate data for each of the 3 game performance displays
-                        const fpsImageContainers = hoverInfo.querySelectorAll('.fps-image-container');
-                        for (let i = 1; i <= 3; i++) {
-                            const gameName = card.dataset[`game${i}Name`];
-                            const fps = card.dataset[`game${i}Fps`];
-                            const settings = card.dataset[`game${i}Settings`];
-                            const image = card.dataset[`game${i}Image`];
+                if (isPcCard) { // Only apply hover effect logic to PC cards
+                    card.addEventListener('mouseenter', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
 
-                            if (fpsImageContainers[i - 1]) {
-                                const imgElement = fpsImageContainers[i - 1].querySelector('img');
-                                const gameNameElement = fpsImageContainers[i - 1].querySelector('.game-name');
-                                const fpsElement = fpsImageContainers[i - 1].querySelector('.fps');
-                                const settingsElement = fpsImageContainers[i - 1].querySelector('.settings');
+                        if (mainContent && hoverInfo) {
+                            // Populate data for each of the 3 game performance displays
+                            const fpsImageContainers = hoverInfo.querySelectorAll('.fps-image-container');
+                            for (let i = 1; i <= 3; i++) {
+                                const gameName = card.dataset[`game${i}Name`];
+                                const fps = card.dataset[`game${i}Fps`];
+                                const settings = card.dataset[`game${i}Settings`];
+                                const image = card.dataset[`game${i}Image`];
 
-                                if (imgElement) imgElement.src = image || ''; // Set image source
-                                if (gameNameElement) gameNameElement.textContent = gameName || '';
-                                if (fpsElement) fpsElement.textContent = fps || '';
-                                if (settingsElement) settingsElement.textContent = settings || '';
+                                if (fpsImageContainers[i - 1]) {
+                                    const imgElement = fpsImageContainers[i - 1].querySelector('img');
+                                    const gameNameElement = fpsImageContainers[i - 1].querySelector('.game-name');
+                                    const fpsElement = fpsImageContainers[i - 1].querySelector('.fps');
+                                    const settingsElement = fpsImageContainers[i - 1].querySelector('.settings-text'); // Corrected selector
+
+                                    if (imgElement) imgElement.src = image || ''; // Set image source
+                                    if (gameNameElement) gameNameElement.textContent = gameName || '';
+                                    if (fpsElement) fpsElement.textContent = fps || '';
+                                    if (settingsElement && settings) settingsElement.textContent = `(${settings})`; // Add parentheses for settings
+                                    else if (settingsElement) settingsElement.textContent = ''; // Clear if no settings
+                                }
                             }
+
+                            // Populate the general tested-on text
+                            const testedOnTextElement = hoverInfo.querySelector('.tested-on-text');
+                            if (testedOnTextElement) {
+                                testedOnTextElement.textContent = card.dataset.testedOn || '';
+                            }
+
+                            // Hide main content and show hover info
+                            mainContent.style.opacity = '0';
+                            mainContent.style.visibility = 'hidden';
+                            hoverInfo.style.visibility = 'visible';
+                            hoverInfo.style.opacity = '1';
                         }
+                    });
 
-                        // Populate the general tested-on text
-                        const testedOnTextElement = hoverInfo.querySelector('.tested-on-text');
-                        if (testedOnTextElement) {
-                            testedOnTextElement.textContent = card.dataset.testedOn || '';
+                    card.addEventListener('mouseleave', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            // Hide hover info and show main content
+                            hoverInfo.style.opacity = '0';
+                            hoverInfo.style.visibility = 'hidden';
+                            mainContent.style.visibility = 'visible';
+                            mainContent.style.opacity = '1';
                         }
-
-                        // Hide main content and show hover info
-                        mainContent.style.opacity = '0';
-                        mainContent.style.visibility = 'hidden';
-                        hoverInfo.style.visibility = 'visible';
-                        hoverInfo.style.opacity = '1';
-                    }
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    const mainContent = card.querySelector('.product-main-content');
-                    const hoverInfo = card.querySelector('.product-hover-info');
-
-                    if (mainContent && hoverInfo) {
-                        // Hide hover info and show main content
-                        hoverInfo.style.opacity = '0';
-                        hoverInfo.style.visibility = 'hidden';
-                        mainContent.style.visibility = 'visible';
-                        mainContent.style.opacity = '1';
-                    }
-                });
+                    });
+                }
             });
         });
     </script>
@@ -951,5 +1037,5 @@
     </script>
 
     <script src="//code.tidio.co/g7unma5gpdcbgpmrhysgclurjvfmoama.js" async></script>
-    </body>
+</body>
 </html>
