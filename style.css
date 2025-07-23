@@ -20,6 +20,178 @@ body {
     background-repeat: repeat; /* Ensures the pattern repeats across the entire background */
 }   
 
+/* Add to the top of your CSS, or ensure this is present */
+html, body {
+    overflow-x: hidden; /* Prevents horizontal scrolling caused by overflowing elements */
+    width: 100%; /* Ensures body takes full width */
+}
+
+/* ==========================================================================
+   Mobile Menu Specific Styles - REFINED
+   ========================================================================== */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    font-size: 1.8em;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above header content */
+    /* Add padding for easier tapping */
+    padding: 10px;
+    /* Ensure it's not affected by text alignment of its parent */
+    line-height: 1;
+}
+
+/* Adjustments for when menu is active/open (JS will toggle 'active' class) */
+.header-nav {
+    /* Base styles for the navigation, applies to both desktop and mobile */
+    /* On desktop, it will typically be inline or flex */
+    /* On mobile, it will be positioned off-screen */
+}
+
+/* Mobile specific overrides */
+@media (max-width: 768px) {
+    /* Ensure the header container allows space for the menu toggle */
+    header .container {
+        padding: 0 var(--spacing-md); /* Consistent padding */
+        /* If you have a logo and menu toggle, ensure they are spaced well */
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block; /* Show hamburger icon on mobile */
+        /* Potentially adjust positioning if it's not aligning well */
+        position: relative; /* Or 'absolute' if you need precise control within header */
+        right: 0; /* Align to the right of the header */
+    }
+
+    .header-nav {
+        position: fixed;
+        top: 0; /* Align to the very top */
+        left: -100%; /* Start off-screen to the left */
+        width: 70%; /* Width of the mobile menu */
+        max-width: 300px; /* Optional: set a max width */
+        height: 100%; /* Full height of the viewport */
+        background-color: var(--color-darker-gray); /* Use your defined variable */
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        transition: left 0.3s ease-in-out; /* Smooth slide transition */
+        z-index: 1000;
+        padding-top: 80px; /* Space for the fixed header content (adjust if your header is taller) */
+        overflow-y: auto; /* Enable scrolling if menu content is long */
+    }
+
+    /* When 'active' class is added by JS, slide menu into view */
+    .header-nav.active {
+        left: 0;
+    }
+
+    /* Stack menu items vertically on mobile */
+    .header-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .header-nav ul li {
+        margin: 15px 0; /* Vertical spacing between mobile menu items */
+        width: 100%;
+    }
+
+    .header-nav ul li a {
+        display: block; /* Make links full width for easier tapping */
+        padding: 10px 0;
+        text-align: left; /* Align text to the left within the menu */
+    }
+
+    /* Adjustments for other sections to prevent horizontal scroll */
+    .container {
+        padding: 0 var(--spacing-md); /* Use defined spacing variable */
+        /* Ensure max-width doesn't cause overflow on very small screens if padding is large */
+        box-sizing: border-box; /* Crucial for all elements */
+        width: 100%; /* Ensure containers take full available width */
+    }
+
+    /* General responsive adjustments for font sizes and padding */
+    .section-title {
+        font-size: 2em; /* Smaller font size for mobile titles */
+        margin-bottom: var(--spacing-md);
+    }
+
+    .hero-content h2 {
+        font-size: 2.5em; /* Adjust hero heading size for mobile */
+    }
+
+    .hero-content p {
+        font-size: 1em; /* Adjust hero paragraph size */
+    }
+
+    /* Ensure grid layouts collapse or adjust for mobile */
+    .builder-grid,
+    .contact-grid {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: var(--spacing-md); /* Reduced gap for mobile */
+    }
+
+    .build-summary-area {
+        position: static; /* Remove sticky behavior on mobile, or adjust top value */
+        margin-top: var(--spacing-lg); /* Add space if it's no longer sticky */
+    }
+
+    /* Footer grid adjustment for mobile */
+    .main-footer .footer-grid {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+        text-align: center; /* Center footer content */
+    }
+
+    .main-footer .brand-info,
+    .main-footer .footer-nav,
+    .main-footer .contact-info,
+    .main-footer .social-media {
+        margin-bottom: var(--spacing-lg); /* Add space between stacked footer sections */
+    }
+
+    .main-footer .social-links {
+        justify-content: center; /* Center social icons */
+    }
+
+    /* Ensure product grid also adapts */
+    .new-product-section .product-grid,
+    .featured-products .product-grid {
+        grid-template-columns: 1fr; /* Single column on mobile for product cards */
+    }
+
+    .new-product-section .product-card,
+    .featured-products .product-card {
+        margin-bottom: var(--spacing-md); /* Space between stacked cards */
+    }
+}
+
+/* Original @media (max-width: 480px) block can remain for very small screens */
+@media (max-width: 480px) {
+    /* Further reduce padding on very small screens */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .hero-content h2 {
+        font-size: 2em;
+    }
+    .hero-content p {
+        font-size: 0.9em;
+    }
+    .component-category-card {
+        padding: var(--spacing-md);
+    }
+    .build-summary-card {
+        padding: var(--spacing-md);
+    }
+}
+
 /* Universal box-sizing inheritance for all elements */
 *, *::before, *::after {
     box-sizing: inherit;
