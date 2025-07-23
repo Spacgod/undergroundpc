@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="pc-builder-css.css">
+    
     <style>
         /* General Utility & Message Box */
         .message-box {
@@ -843,7 +844,61 @@
                 </div>
             </div>
         </section>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product-card');
 
+            productCards.forEach(card => {
+                if (card) {
+                    card.addEventListener('mouseenter', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            // Hide main content and show hover info
+                            mainContent.style.opacity = '0';
+                            mainContent.style.visibility = 'hidden';
+                            hoverInfo.style.visibility = 'visible';
+                            hoverInfo.style.opacity = '1';
+                        }
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            // Hide hover info and show main content
+                            hoverInfo.style.opacity = '0';
+                            hoverInfo.style.visibility = 'hidden';
+                            mainContent.style.visibility = 'visible';
+                            mainContent.style.opacity = '1';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function ml_webform_success_26959171() {
+          var $ = ml_jQuery || jQuery;
+          $('.ml-subscribe-form-26959171 .row-success').show();
+          $('.ml-subscribe-form-26959171 .row-form').hide();
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1579745/forms/1565840/js/webforms.min.js?v2")
+            .then(res => res.text())
+            .then(data => {
+                const script = document.createElement('script');
+                script.text = data.replace('/**/ typeof ml_webform_success_26959171 === \'function\' && ml_webform_success_26959171();', 'try { typeof ml_webform_success_26959171 === \'function\' && ml_webform_success_26959171(); } catch (e) { /* ignore */ }');
+                document.head.appendChild(script);
+            })
+            .catch(error => console.error('Error loading MailerLite form script:', error));
+    </script>
+    <script defer async src='https://cdn.trustindex.io/loader.js?39ca7a7505eb645a2c1696a3756'></script>
+</body>
         <section id="about-us" class="about-home section-padding reveal-on-scroll" role="region" aria-labelledby="about-us-home-title">
             <div class="container">
                 <h2 id="about-us-home-title" class="section-title reveal-item">About UndergroundPC</h2>
@@ -1037,5 +1092,6 @@
     </script>
 
     <script src="//code.tidio.co/g7unma5gpdcbgpmrhysgclurjvfmoama.js" async></script>
+    
 </body>
 </html>
