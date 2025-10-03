@@ -1,993 +1,1350 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UndergroundPC - Diagnostics & Troubleshooting</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Assuming style.css and pc-builder-css.css contain general site-wide styles -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pc-builder-css.css">
-
-    <style>
-        /* Define a primary color variable for consistency if not already in style.css */
-        :root {
-            --primary-color: #e82c2c; /* Red from index.html buttons */
-            --primary-light: #ff3f3f; /* Lighter red for hover states */
-            --text-color: #ffffff;
-            --light-bg-color: #f0f2f5; /* Softer light background */
-            --dark-bg-color: #1a1a1a; /* Deeper dark background */
-            --card-bg-dark-section: rgba(255, 255, 255, 0.08); /* Slightly less opaque for better depth */
-            --card-border-dark-section: rgba(255, 255, 255, 0.15); /* Softer border */
-            --text-on-dark: #ffffff; /* Consistent light text on dark backgrounds */
-            --footer-text-color: rgb(255, 255, 255);
-            --footer-border-color: rgba(255, 255, 255, 0.08);
-            --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08); /* Softer shadow for light elements */
-            --shadow-dark: 0 8px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow for dark elements */
-        }
-
-        /* General Container for Consistency */
-        .container {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1.5rem; /* Increased padding */
-            padding-right: 1.5rem;
-        }
-
-        /* Section Padding */
-        .section-padding {
-            padding-top: 6rem; /* More generous vertical padding */
-            padding-bottom: 6rem;
-        }
-
-        @media (max-width: 768px) {
-            .section-padding {
-                padding-top: 4rem;
-                padding-bottom: 4rem;
-            }
-        }
-
-        /* Section Titles */
-        .section-title {
-            text-align: center;
-            font-size: 3em; /* Slightly larger titles */
-            margin-bottom: 4rem; /* More spacing */
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8); /* Refined shadow */
-        }
-
-        /* For sections with light background (like FAQ, if needed for other transparent sections) */
-        .section-title.light-text {
-            color: var(--text-color);
-            text-shadow: none;
-        }
-
-        @media (max-width: 992px) {
-            .section-title {
-                font-size: 2.5em;
-                margin-bottom: 3rem;
-            }
-        }
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2em;
-                margin-bottom: 2.5rem;
-            }
-        }
-
-        /* Hero Section Specifics */
-        #hero-diagnostics {
-            background: url('background.png') no-repeat center center/cover; /* Consistent background image */
-            position: relative;
-            z-index: 1;
-            padding: 150px 20px; /* More padding for hero */
-            min-height: 60vh; /* Taller hero */
-            display: flex;
-            flex-direction: column; /* Ensure content stacks vertically */
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            animation: fadeIn 1s ease-out; /* Add fade-in animation */
-        }
-
-        /* Subtle gradient overlay for hero section background image */
-        #hero-diagnostics::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); /* Gradient overlay */
-            z-index: -1;
-        }
-
-        #hero-diagnostics h1 {
-            font-size: 4.5em; /* Larger hero title */
-            margin-bottom: 1.5rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            text-shadow: 4px 4px 10px rgba(0,0,0,0.9); /* Stronger shadow */
-            animation: slideInUp 0.8s ease-out forwards; /* Animation for title */
-            opacity: 0; /* Start hidden for animation */
-        }
-
-        #hero-diagnostics p {
-            font-size: 1.4em; /* Larger hero paragraph */
-            max-width: 900px; /* Wider text for readability */
-            margin: 0 auto 3rem auto; /* More margin */
-            line-height: 1.7;
-            font-family: 'Roboto', sans-serif;
-            animation: slideInUp 1s ease-out forwards 0.2s; /* Animation for paragraph */
-            opacity: 0;
-        }
-
-        #hero-diagnostics .btn {
-            animation: fadeIn 1s ease-out forwards 0.5s; /* Animation for button */
-            opacity: 0;
-        }
-
-        @media (max-width: 992px) {
-            #hero-diagnostics h1 {
-                font-size: 3.5em;
-            }
-            #hero-diagnostics p {
-                font-size: 1.2em;
-            }
-        }
-
-        @media (max-width: 768px) {
-            #hero-diagnostics {
-                padding: 100px 15px;
-                min-height: 40vh;
-            }
-            #hero-diagnostics h1 {
-                font-size: 2.5em;
-            }
-            #hero-diagnostics p {
-                font-size: 1em;
-            }
-            #hero-diagnostics .btn {
-                display: block;
-                margin: 15px auto;
-            }
-        }
-
-        /* Buttons (reused and refined) */
-        .btn {
-            display: inline-block;
-            padding: 14px 30px; /* Larger padding */
-            font-size: 1.15em; /* Slightly larger font */
-            border-radius: 8px; /* More rounded corners */
-            text-decoration: none;
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-            border: 2px solid var(--primary-color);
-        }
-        .btn-primary:hover {
-            background-color: var(--primary-light);
-            border-color: var(--primary-light);
-            transform: translateY(-3px); /* More pronounced lift */
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Stronger shadow on hover */
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.25); /* More visible fill */
-            border-color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-
-        /* Diagnostics Categories Grid (Similar to services-grid/product-grid) */
-        #diagnostic-services {
-            background: url('background.png') no-repeat center center/cover; /* Ensure background consistency */
-            position: relative;
-            z-index: 0; /* Keep behind hero */
-        }
-        #diagnostic-services::before { /* Add subtle overlay for dark section */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* Light dark overlay */
-            z-index: -1;
-        }
-
-        .diagnostic-services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider min width */
-            gap: 2.5rem; /* Consistent gap */
-            text-align: center;
-        }
-
-        .diagnostic-card {
-            background-color: var(--card-bg-dark-section);
-            backdrop-filter: blur(8px); /* Stronger blur */
-            border: 1px solid var(--card-border-dark-section);
-            padding: 3rem 2rem; /* More padding */
-            border-radius: 12px; /* More rounded corners */
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2); /* Refined shadow */
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            color: var(--text-on-dark);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .diagnostic-card:hover {
-            transform: translateY(-10px); /* More pronounced lift */
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-            background-color: rgba(255, 255, 255, 0.12); /* Slightly brighter on hover */
-        }
-
-        .diagnostic-card i {
-            font-size: 4em; /* Larger icons */
-            color: var(--primary-light); /* Use lighter primary for icons */
-            margin-bottom: 1.8rem; /* More spacing */
-        }
-
-        .diagnostic-card h3 {
-            font-size: 1.8em; /* Larger heading */
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700; /* Bolder heading */
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .diagnostic-card p {
-            font-size: 1.1em; /* Slightly larger text */
-            line-height: 1.8; /* Increased line height for readability */
-            font-family: 'Roboto', sans-serif;
-            color: var(--text-on-dark);
-        }
-
-        /* Why Choose Diagnostics Section */
-        #why-choose-diagnostics {
-            background-color: transparent;
-            position: relative;
-            z-index: 1;
-        }
-        #why-choose-diagnostics::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: -1;
-        }
-        #why-choose-diagnostics .section-title {
-            color: white;
-        }
-        #why-choose-diagnostics .feature-card {
-             background-color: var(--card-bg-dark-section);
-             border: 1px solid var(--card-border-dark-section);
-             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-             color: var(--text-on-dark);
-        }
-        #why-choose-diagnostics .feature-card i {
-             color: var(--primary-light);
-        }
-        #why-choose-diagnostics .feature-card h3 {
-            color: white;
-        }
-
-        /* FAQ Section */
-        #diagnostics-faq {
-            background: url('background.png') no-repeat center center/cover;
-            position: relative;
-            z-index: 1;
-        }
-        #diagnostics-faq::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: -1;
-        }
-
-        .faq-item {
-            background-color: var(--card-bg-dark-section);
-            border: 1px solid var(--card-border-dark-section);
-            border-radius: 10px;
-            margin-bottom: 1.2rem;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            transition: box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-        }
-        .faq-item:hover {
-            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-            background-color: rgba(255, 255, 255, 0.12);
-            transform: translateY(-5px);
-        }
-
-        .faq-question {
-            width: 100%;
-            text-align: left;
-            padding: 1.8rem 2rem;
-            font-size: 1.3em;
-            font-weight: 600;
-            color: white;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Montserrat', sans-serif;
-            transition: background-color 0.3s ease;
-        }
-
-        .faq-question:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .faq-question i {
-            font-size: 1.1em;
-            color: white;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-question[aria-expanded="true"] i {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            padding: 0 2rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-            font-size: 1.05em;
-            line-height: 1.8;
-            color: var(--text-on-dark);
-            background-color: transparent;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .faq-answer.active {
-            max-height: 400px;
-            padding: 1.5rem 2rem;
-        }
-
-        /* Call to Action Section (reused from repair-services, with refinements) */
-        .cta-section {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 6rem 1.5rem; /* More padding */
-            background: url('background.png') no-repeat center center/cover;
-            position: relative;
-            z-index: 1;
-        }
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Slightly lighter overlay */
-            z-index: -1;
-        }
-        .cta-section h2 {
-            font-size: 3.2rem; /* Larger CTA title */
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            margin-bottom: 2rem;
-        }
-        .cta-section p {
-            font-size: 1.4rem; /* Larger CTA paragraph */
-            max-width: 900px;
-            margin: 0 auto 3rem auto;
-            line-height: 1.7;
-            font-family: 'Roboto', sans-serif;
-        }
-        .cta-section .btn {
-            background-color: #fff;
-            color: var(--primary-color);
-            padding: 1.2rem 3rem; /* Larger button */
-            border-radius: 50px;
-            font-size: 1.2rem;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-        .cta-section .btn:hover {
-            background-color: #f0f0f0;
-            transform: translateY(-4px); /* More lift */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-        @media (max-width: 768px) {
-            .cta-section {
-                padding: 4rem 1rem;
-            }
-            .cta-section h2 {
-                font-size: 2.2rem;
-            }
-            .cta-section p {
-                font-size: 1.1rem;
-            }
-            .cta-section .btn {
-                padding: 1rem 2.5rem;
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Header Navigation Styles (copied and refined for consistency) */
-        header {
-            background-color: var(--dark-bg-color);
-            box-shadow: none;
-            padding: 1rem 0;
-        }
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .site-logo {
-            font-size: 1.9rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-        }
-        .header-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-        .header-nav li {
-            margin-left: 30px;
-        }
-        .header-nav a {
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: color 0.3s ease, transform 0.2s ease;
-            position: relative;
-        }
-        .header-nav a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-        .header-nav a:hover::after,
-        .header-nav a[aria-current="page"]::after {
-            width: 100%;
-        }
-        .header-nav a:hover,
-        .header-nav a[aria-current="page"] {
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-        .shop-btn {
-            margin-left: 25px;
-        }
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: white;
-            transition: color 0.3s ease;
-        }
-        .menu-toggle:hover {
-            color: var(--primary-color);
-        }
-
-        @media (max-width: 992px) {
-            .header-nav {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--dark-bg-color);
-                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-                z-index: 100;
-                padding-bottom: 1.5rem;
-            }
-            .header-nav.active {
-                display: flex;
-            }
-            .header-nav ul {
-                flex-direction: column;
-                align-items: center;
-                padding: 1.5rem 0;
-            }
-            .header-nav li {
-                margin: 0.8rem 0;
-            }
-            .header-nav a {
-                font-size: 1.2rem;
-            }
-            .header-nav a::after {
-                height: 3px;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .shop-btn {
-                display: none;
-            }
-        }
-
-        /* Footer Styles (copied and refined for consistency) */
-        .main-footer {
-            background-color: var(--dark-bg-color);
-            color: var(--footer-text-color);
-            padding-top: 4rem;
-            padding-bottom: 2rem;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2.5rem;
-            padding-bottom: 2.5rem;
-            border-top: 1px solid var(--footer-border-color);
-            padding-top: 3rem;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            color: white;
-            text-decoration: none;
-            margin-bottom: 1.2rem;
-            display: block;
-        }
-
-        .footer-col h3 {
-            font-size: 1.4rem;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: rgb(255, 255, 255);
-        }
-
-        .footer-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-nav li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-nav a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-nav a:hover {
-            color: var(--primary-light);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.2rem;
-        }
-
-        .social-links a {
-            color: rgb(255, 255, 255);
-            font-size: 1.8rem;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--primary-light);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgb(255, 255, 255);
-            font-size: 0.95rem;
-            color: rgb(255, 255, 255);
-        }
-
-        /* Footer responsiveness */
-        @media (max-width: 768px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-                padding-top: 2rem;
-            }
-            .footer-col.brand-info p {
-                margin-bottom: 1.5rem;
-            }
-            .footer-col h3 {
-                margin-top: 1.8rem;
-            }
-            .social-links {
-                justify-content: center;
-                margin-bottom: 1.8rem;
-            }
-            .copyright {
-                margin-top: 1.5rem;
-            }
-        }
-
-        /* Message box styles */
-        .message-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #333;
-            color: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            z-index: 1000;
-            display: none;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            font-size: 1.1em;
-        }
-        .message-box.success {
-            background-color: #4CAF50;
-        }
-        .message-box.error {
-            background-color: #f44336;
-        }
-        .message-box button {
-            background-color: #fff;
-            color: #333;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        .message-box button:hover {
-            background-color: #eee;
-        }
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* Reveal on scroll animation base (requires JS) */
-        .reveal-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .reveal-on-scroll.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Keyframe animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideInUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <a href="index.html" class="site-logo">UndergroundPC</a>
-            <nav class="header-nav" id="main-nav" aria-label="Main navigation">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#shop">Shop</a></li>
-                    <li><a href="custom-builds.html">Custom Builds</a></li>
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
-            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <main>
-        <section id="hero-diagnostics" class="hero-diagnostics reveal-on-scroll" aria-labelledby="diagnostics-hero-title">
-            <div class="container">
-                <h1 id="diagnostics-hero-title">PC Diagnostics & Troubleshooting</h1>
-                <p>Pinpoint and resolve issues with your PC, from hardware malfunctions to software glitches, ensuring optimal performance.</p>
-                <a href="#contact-diagnostics" class="btn btn-primary">Get a Diagnosis</a>
-            </div>
-        </section>
-
-        <section id="diagnostic-services" class="section-padding reveal-on-scroll" style="background: url('background.png') no-repeat center center/cover;" aria-labelledby="diagnostic-services-title">
-            <div class="container">
-                <h2 id="diagnostic-services-title" class="section-title">Our Diagnostic Services</h2>
-                <div class="diagnostic-services-grid">
-                    <div class="diagnostic-card">
-                        <i class="fas fa-microchip" aria-hidden="true"></i>
-                        <h3>Hardware Diagnostics</h3>
-                        <p>Comprehensive testing of CPU, GPU, RAM, storage, motherboard, and power supply for faults.</p>
-                    </div>
-                    <div class="diagnostic-card">
-                        <i class="fas fa-bug" aria-hidden="true"></i>
-                        <h3>Software Troubleshooting</h3>
-                        <p>Identifying and resolving operating system errors, application crashes, and software conflicts.</p>
-                    </div>
-                    <div class="diagnostic-card">
-                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-                        <h3>Performance Bottleneck Analysis</h3>
-                        <p>Discovering components limiting your PC's speed and suggesting effective solutions.</p>
-                    </div>
-                    <div class="diagnostic-card">
-                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
-                        <h3>Virus & Malware Detection</h3>
-                        <p>Advanced scanning and identification of malicious software hidden on your system.</p>
-                    </div>
-                    <div class="diagnostic-card">
-                        <i class="fas fa-network-wired" aria-hidden="true"></i>
-                        <h3>Connectivity & Network Issues</h3>
-                        <p>Diagnosing problems with Wi-Fi, Ethernet, and other network-related failures.</p>
-                    </div>
-                    <div class="diagnostic-card">
-                        <i class="fas fa-thermometer-half" aria-hidden="true"></i>
-                        <h3>Overheating & Stability Checks</h3>
-                        <p>Analyzing temperatures and system stability to prevent damage and improve longevity.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="why-choose-diagnostics" class="section-padding reveal-on-scroll faq-section" aria-labelledby="why-choose-diagnostics-title">
-            <div class="container">
-                <h2 id="why-choose-diagnostics-title" class="section-title light-text">Why Choose UndergroundPC for Diagnostics?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <i class="fas fa-crosshairs" aria-hidden="true"></i>
-                        <h3>Accurate Problem Identification</h3>
-                        <p>Our tools and expertise quickly pinpoint the root cause of your PC issues.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
-                        <h3>Clear & Actionable Solutions</h3>
-                        <p>We provide straightforward explanations and effective solutions for every problem.</p>
-                    </div>
-                    <div class="feature-card">
-                        <i class="fas fa-handshake" aria-hidden="true"></i>
-                        <h3>Transparent & Trustworthy Service</h3>
-                        <p>No hidden fees, just honest assessments and reliable service you can depend on.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="diagnostics-faq" class="section-padding reveal-on-scroll" style="background: url('background.png') no-repeat center center/cover;" aria-labelledby="diagnostics-faq-title">
-            <div class="container">
-                <h2 id="diagnostics-faq-title" class="section-title">Frequently Asked Questions About Diagnostics</h2>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false" aria-controls="faq1-answer">
-                            How long does a diagnostic typically take?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="faq1-answer" class="faq-answer">
-                            <p>Most basic diagnostics can be completed within 1-2 business days. More complex issues may require additional time for thorough testing.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false" aria-controls="faq2-answer">
-                            What happens after the diagnosis?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="faq2-answer" class="faq-answer">
-                            <p>After diagnosing the issue, we will provide you with a detailed report and a quote for the necessary repairs or solutions. You decide how to proceed.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false" aria-controls="faq3-answer">
-                            Can you diagnose intermittent problems?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="faq3-answer" class="faq-answer">
-                            <p>Yes, intermittent issues can be challenging, but our comprehensive testing methods are designed to identify even sporadic problems. Providing a detailed description of the issue helps greatly.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false" aria-controls="faq4-answer">
-                            Is data recovery part of the diagnostic service?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="faq4-answer" class="faq-answer">
-                            <p>While diagnostics can identify if data loss is a risk or if storage is failing, data recovery is a separate specialized service. We can recommend options if needed.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact-diagnostics" class="cta-section reveal-on-scroll" aria-labelledby="contact-diagnostics-title">
-            <div class="container">
-                <h2 id="contact-diagnostics-title">Experiencing PC Problems?</h2>
-                <p>Don't let unexplained issues hold you back. Get a professional diagnosis and a clear path to resolution today!</p>
-                <a href="contact.html" class="btn btn-primary">Schedule a Diagnostic</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col brand-info">
-                    <a href="index.html" class="site-logo footer-logo">UndergroundPC</a>
-                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
-                </div>
-                <div class="footer-col">
-                    <h3>Quick Links</h3>
-                    <nav class="footer-nav" aria-label="Quick links">
-                        <ul>
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="#shop">Shop All</a></li>
-                            <li><a href="custom-builds.html">Custom Builds</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="footer-col">
-                    <h3>Support</h3>
-                    <nav class="footer-nav" aria-label="Support links">
-                        <ul>
-                            <li><a href="faq.html">FAQs</a></li>
-                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
-                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="footer-col">
-                    <h3>Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
-        <p id="success-message-content"></p>
-        <button onclick="document.getElementById('success-message-box').classList.add('hidden');">OK</button>
-    </div>
-
-    <div id="error-message-box" class="message-box hidden" role="alert" aria-live="assertive">
-        <p id="error-message-content"></p>
-        <button onclick="document.getElementById('error-message-box').classList.add('hidden');">OK</button>
-    </div>
-
-    <script src="script.js"></script>
-    <script>
-        // Basic JavaScript for mobile menu toggle (if script.js doesn't handle it)
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainNav = document.getElementById('main-nav');
-            const shopBtn = document.querySelector('.shop-btn'); // Get the shop button
-
-            if (menuToggle && mainNav) {
-                menuToggle.addEventListener('click', () => {
-                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-                    menuToggle.setAttribute('aria-expanded', !isExpanded);
-                    mainNav.classList.toggle('active'); // Assumes 'active' class shows the nav
-
-                    if (shopBtn) {
-                        if (mainNav.classList.contains('active')) {
-                            shopBtn.style.display = 'none';
-                        } else {
-                             // This part is for resetting. Actual display is handled by CSS media queries.
-                            shopBtn.style.display = ''; // Revert to default, CSS will control visibility
-                        }
-                    }
-                });
-            }
-
-            // Reveal on scroll functionality
-            const revealElements = document.querySelectorAll('.reveal-on-scroll');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target); // Stop observing once revealed
-                    }
-                });
-            }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
-
-            revealElements.forEach(element => {
-                observer.observe(element);
-            });
-
-            // FAQ Accordion functionality
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', () => {
-                    const answer = question.nextElementSibling;
-                    const isExpanded = question.getAttribute('aria-expanded') === 'true';
-
-                    // Close any currently open FAQ item if different from the clicked one
-                    faqQuestions.forEach(otherQuestion => {
-                        if (otherQuestion !== question && otherQuestion.getAttribute('aria-expanded') === 'true') {
-                            otherQuestion.setAttribute('aria-expanded', 'false');
-                            otherQuestion.nextElementSibling.classList.remove('active');
-                        }
-                    });
-
-                    // Toggle the clicked FAQ item
-                    if (isExpanded) {
-                        question.setAttribute('aria-expanded', 'false');
-                        answer.classList.remove('active');
-                    } else {
-                        question.setAttribute('aria-expanded', 'true');
-                        answer.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
-    <script src="//code.tidio.co/g7unma5gpdcbgpmrhysgclurjvfmoama.js" async></script>
-</body>
-</html>
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-text-on-dark);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Global box-sizing for consistent layouts */
+    scroll-behavior: smooth; /* Smooth scrolling for internal anchor links */
+
+    /* --- CSS Generated Grid Background Styles --- */
+    background-color: var(--color-dark-gray); /* The main dark gray background color */
+    background-image:
+        /* Horizontal lines: 1px light gray line, then 29px transparent space, repeating every 30px */
+        repeating-linear-gradient(0deg, var(--color-light-gray) 0, var(--color-light-gray) 1px, transparent 1px, transparent 30px),
+        /* Vertical lines: 1px light gray line, then 29px transparent space, repeating every 30px */
+        repeating-linear-gradient(90deg, var(--color-light-gray) 0, var(--color-light-gray) 1px, transparent 1px, transparent 30px);
+    background-size: 30px 30px; /* Defines the size of each repeating square (grid cell) */
+    background-position: center center; /* Centers the pattern */
+    background-attachment: fixed; /* Keeps the grid fixed when the user scrolls */
+    background-repeat: repeat; /* Ensures the pattern repeats across the entire background */
+}   
+
+/* Add to the top of your CSS, or ensure this is present */
+html, body {
+    overflow-x: hidden; /* Prevents horizontal scrolling caused by overflowing elements */
+    width: 100%; /* Ensures body takes full width */
+}
+
+/* ==========================================================================
+   Mobile Menu Specific Styles - REFINED
+   ========================================================================== */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    font-size: 1.8em;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it's above header content */
+    /* Add padding for easier tapping */
+    padding: 10px;
+    /* Ensure it's not affected by text alignment of its parent */
+    line-height: 1;
+}
+
+/* Adjustments for when menu is active/open (JS will toggle 'active' class) */
+.header-nav {
+    /* Base styles for the navigation, applies to both desktop and mobile */
+    /* On desktop, it will typically be inline or flex */
+    /* On mobile, it will be positioned off-screen */
+}
+
+/* Mobile specific overrides */
+@media (max-width: 768px) {
+    /* Ensure the header container allows space for the menu toggle */
+    header .container {
+        padding: 0 var(--spacing-md); /* Consistent padding */
+        /* If you have a logo and menu toggle, ensure they are spaced well */
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        display: block; /* Show hamburger icon on mobile */
+        /* Potentially adjust positioning if it's not aligning well */
+        position: relative; /* Or 'absolute' if you need precise control within header */
+        right: 0; /* Align to the right of the header */
+    }
+
+    .header-nav {
+        position: fixed;
+        top: 0; /* Align to the very top */
+        left: -100%; /* Start off-screen to the left */
+        width: 70%; /* Width of the mobile menu */
+        max-width: 300px; /* Optional: set a max width */
+        height: 100%; /* Full height of the viewport */
+        background-color: var(--color-darker-gray); /* Use your defined variable */
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        transition: left 0.3s ease-in-out; /* Smooth slide transition */
+        z-index: 1000;
+        padding-top: 80px; /* Space for the fixed header content (adjust if your header is taller) */
+        overflow-y: auto; /* Enable scrolling if menu content is long */
+    }
+
+    /* When 'active' class is added by JS, slide menu into view */
+    .header-nav.active {
+        left: 0;
+    }
+
+    /* Stack menu items vertically on mobile */
+    .header-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .header-nav ul li {
+        margin: 15px 0; /* Vertical spacing between mobile menu items */
+        width: 100%;
+    }
+
+    .header-nav ul li a {
+        display: block; /* Make links full width for easier tapping */
+        padding: 10px 0;
+        text-align: left; /* Align text to the left within the menu */
+    }
+
+    /* Adjustments for other sections to prevent horizontal scroll */
+    .container {
+        padding: 0 var(--spacing-md); /* Use defined spacing variable */
+        /* Ensure max-width doesn't cause overflow on very small screens if padding is large */
+        box-sizing: border-box; /* Crucial for all elements */
+        width: 100%; /* Ensure containers take full available width */
+    }
+
+    /* General responsive adjustments for font sizes and padding */
+    .section-title {
+        font-size: 2em; /* Smaller font size for mobile titles */
+        margin-bottom: var(--spacing-md);
+    }
+
+    .hero-content h2 {
+        font-size: 2.5em; /* Adjust hero heading size for mobile */
+    }
+
+    .hero-content p {
+        font-size: 1em; /* Adjust hero paragraph size */
+    }
+
+    /* Ensure grid layouts collapse or adjust for mobile */
+    .builder-grid,
+    .contact-grid {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: var(--spacing-md); /* Reduced gap for mobile */
+    }
+
+    .build-summary-area {
+        position: static; /* Remove sticky behavior on mobile, or adjust top value */
+        margin-top: var(--spacing-lg); /* Add space if it's no longer sticky */
+    }
+
+    /* Footer grid adjustment for mobile */
+    .main-footer .footer-grid {
+        grid-template-columns: 1fr; /* Stack columns on mobile */
+        text-align: center; /* Center footer content */
+    }
+
+    .main-footer .brand-info,
+    .main-footer .footer-nav,
+    .main-footer .contact-info,
+    .main-footer .social-media {
+        margin-bottom: var(--spacing-lg); /* Add space between stacked footer sections */
+    }
+
+    .main-footer .social-links {
+        justify-content: center; /* Center social icons */
+    }
+
+    /* Ensure product grid also adapts */
+    .new-product-section .product-grid,
+    .featured-products .product-grid {
+        grid-template-columns: 1fr; /* Single column on mobile for product cards */
+    }
+
+    .new-product-section .product-card,
+    .featured-products .product-card {
+        margin-bottom: var(--spacing-md); /* Space between stacked cards */
+    }
+}
+
+/* Enhanced mobile styles for homepage */
+@media (max-width: 700px) {
+    .main-header, .sticky-header {
+        min-height: 56px;
+        padding: 0 8px;
+    }
+    .nav-flex {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 4px;
+    }
+    .header-nav ul {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        align-items: flex-start;
+    }
+    .header-nav .nav-link, .site-logo {
+        font-size: 1.1em;
+        padding: 6px 0;
+    }
+    .shop-btn {
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+    }
+    .hero-home, .modern-hero {
+        padding: 32px 0 16px 0;
+        min-height: 220px;
+    }
+    .hero-title {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+    }
+    .hero-subtitle {
+        font-size: 0.95em;
+        margin-bottom: 18px;
+    }
+    .hero-cta {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    #shop .product-grid {
+        gap: 12px;
+        padding-bottom: 10px;
+    }
+    #shop .product-card {
+        min-width: 90vw;
+        max-width: 98vw;
+        height: auto;
+    }
+    #shop .product-main-content img {
+        height: 80px;
+    }
+    .gallery-slideshow {
+        height: 120px;
+        border-radius: 10px;
+        max-width: 98vw;
+    }
+    #gallery-slideshow-img {
+        max-height: 90px;
+        border-radius: 6px;
+    }
+    .section-title {
+        font-size: 1.2em;
+        margin-bottom: 12px;
+    }
+    .container {
+        padding: 0 4px;
+    }
+}
+
+/* Original @media (max-width: 480px) block can remain for very small screens */
+@media (max-width: 480px) {
+    /* Further reduce padding on very small screens */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .hero-content h2 {
+        font-size: 2em;
+    }
+    .hero-content p {
+        font-size: 0.9em;
+    }
+    .component-category-card {
+        padding: var(--spacing-md);
+    }
+    .build-summary-card {
+        padding: var(--spacing-md);
+    }
+}
+
+/* Universal box-sizing inheritance for all elements */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* ==========================================================================
+   2. CSS Variables (Design Tokens)
+   ========================================================================== */
+:root {
+    /* Colors */
+    --text-color: #ffffff;
+    --color-dark-gray: #161616;
+    --color-darker-gray: #0f0f0f;
+    --color-light-gray: #3c3c3c;
+    --color-text-on-dark: #c5baba;
+    --color-red-primary: linear-gradient(to right, #820303, #5d045d); /* Red to Purple blend */
+    --color-red-dark: #d10000;   /* Darker shade for hover states/accents */
+    --color-green-compatible: #4CAF50; /* Green for success/compatibility */
+    --color-red-incompatible: #9d160c;  /* Red for errors/incompatibility */
+    --color-white: #ffffff;             /* Pure white for strong contrast */
+    --color-black-transparent: rgba(0, 0, 0, 0.3); /* For subtle shadows */
+    --color-red-transparent: rgba(255, 87, 34, 0.4); /* For primary button shadows */
+    --color-red-transparent-dark: rgba(209, 7, 7, 0.6); /* For primary button hover shadows */
+
+    /* Fonts */
+    --font-heading: 'Montserrat', sans-serif; /* Bold and modern font for headings */
+    --font-body: 'Roboto', sans-serif;       /* Clean and readable font for body text */
+
+    /* Spacing & Sizes */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+    --spacing-xl: 80px;
+
+    /* Border Radius */
+    --border-radius-sm: 5px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 10px;
+
+    /* Transitions */
+    --transition-speed-fast: 0.2s;
+    --transition-speed-normal: 0.3s;
+    --transition-speed-slow: 0.5s;
+    --transition-ease: ease;
+}
+
+/* ==========================================================================
+   3. General Layout & Utility Classes
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md); /* Consistent horizontal padding */
+}
+
+section {
+    padding: var(--spacing-xl) 0; /* More generous vertical spacing for sections */
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.8em;
+    color: var(--color-red-primary);
+    text-align: center;
+    margin-bottom: calc(var(--spacing-lg) + 20px); /* Adjust spacing below title */
+    position: relative;
+    padding-bottom: 15px; /* Space for the underline */
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-red-dark);
+    border-radius: var(--border-radius-sm);
+}
+
+/* ==========================================================================
+   4. Buttons
+   ========================================================================== */
+.btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: var(--border-radius-md); /* Slightly more rounded buttons */
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: background-color var(--transition-speed-normal) var(--transition-ease),
+                transform var(--transition-speed-fast) var(--transition-ease),
+                box-shadow var(--transition-speed-normal) var(--transition-ease);
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.btn-primary {
+    background: var(--color-red-primary); /* Use background for gradient */
+    color: var(--color-white);
+    box-shadow: 0 4px 10px var(--color-red-transparent);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--color-red-transparent-dark);
+}
+
+.btn-primary:focus-visible { /* For keyboard navigation accessibility */
+    outline: 2px solid var(--color-white);
+    outline-offset: 3px;
+}
+
+.btn-secondary {
+    background-color: var(--color-darker-gray);
+    color: var(--color-text-on-dark);
+    border: 2px solid var(--color-light-gray);
+    box-shadow: 0 4px 10px var(--color-black-transparent);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-dark-gray);
+    border-color: var(--color-red-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Slightly darker shadow on hover */
+}
+
+.btn-secondary:focus-visible { /* For keyboard navigation accessibility */
+    outline: 2px solid var(--color-red-primary);
+    outline-offset: 3px;
+}
+
+.btn:disabled {
+    background-color: #666;
+    color: #bbb; /* Make text a bit lighter for disabled state */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    opacity: 0.7; /* Indicate disabled state more clearly */
+}
+
+/* ==========================================================================
+   5. Header & Navigation
+   ========================================================================== */
+header {
+    background-color: var(--color-darker-gray);
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.05);
+    position: sticky; /* Makes header stick to the top */
+    top: 0; /* Sticks to the top of the viewport */
+    z-index: 1000; /* Ensures it stays above other content during scroll */
+    box-shadow: 0 2px 10px var(--color-black-transparent); /* Subtle shadow for depth */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.8em; /* Prominent size for the brand name */
+}
+
+header h1 a {
+    color: var(--color-red-primary); /* Ensures company name is red */
+    text-decoration: none;
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+header h1 a:hover,
+header h1 a:focus-visible {
+    color: var(--color-white);
+}
+
+.site-logo {
+    color: var(--color-red-primary); /* Explicitly set color for site logo */
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.8em;
+    font-weight: 700; /* Assuming logo text is bold */
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.site-logo:hover,
+.site-logo:focus-visible {
+    color: var(--color-white);
+}
+
+header nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 30px; /* Space between navigation items */
+}
+
+header nav ul li a {
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 700;
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+    position: relative; /* For the animated underline effect */
+    padding-bottom: 5px; /* Space for the underline */
+}
+
+header nav ul li a:hover,
+header nav ul li a:focus-visible {
+    color: var(--color-red-primary);
+}
+
+/* Underline effect on hover/focus */
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Starts hidden */
+    height: 3px;
+    background-color: var(--color-red-primary);
+    transition: width var(--transition-speed-normal) var(--transition-ease);
+}
+
+header nav ul li a:hover::after,
+header nav ul li a:focus-visible::after {
+    width: 100%; /* Expands on hover/focus */
+}
+
+
+/* ==========================================================================
+   6. Hero Section
+   ========================================================================== */
+.hero-section {
+    background-color: var(--color-darker-gray); /* Consistent background with other cards */
+    padding: 100px 0; /* Generous top/bottom padding for prominence */
+    text-align: center;
+    border-bottom: 1px solid rgba(238, 238, 238, 0.1);
+    border-radius: var(--border-radius-lg); /* Consistent rounded corners */
+    margin: var(--spacing-lg) auto; /* Center with margin */
+    max-width: 1200px; /* Align with container width */
+    box-shadow: 0 5px 15px var(--color-black-transparent); /* Consistent shadow */
+}
+
+.hero-content h2 {
+    font-family: var(--font-heading);
+    font-size: 3.8em; /* Large, impactful heading */
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Subtle text shadow for depth */
+}
+
+.hero-content p {
+    font-family: var(--font-body);
+    font-size: 1.3em; /* Readable paragraph size */
+    color: var(--color-light-gray);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg) auto; /* More margin below paragraph */
+}
+
+/* ==========================================================================
+   7. Build Section
+   ========================================================================== */
+.builder-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two columns: selection on left, summary on right */
+    gap: 60px; /* Increased gap for more breathing room */
+    margin-top: var(--spacing-lg); /* Increased margin-top */
+    align-items: start; /* Align grid items to the top */
+}
+
+.component-selection-area {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Increased gap between component category cards */
+}
+
+.component-category-card {
+    background-color: var(--color-darker-gray);
+    padding: 30px; /* Increased padding inside cards */
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 5px 15px var(--color-black-transparent);
+    border: 1px solid rgba(238, 238, 238, 0.1);
+    transition: border-color var(--transition-speed-normal) var(--transition-ease),
+                transform var(--transition-speed-fast) var(--transition-ease);
+}
+
+.component-category-card:hover {
+    border-color: var(--color-red-primary);
+    transform: translateY(-3px); /* Subtle lift effect */
+}
+
+.component-category-card h3 {
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: 1.8em; /* Larger heading for category titles */
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
+    padding-bottom: var(--spacing-sm);
+}
+
+.component-select {
+    width: 100%;
+    padding: 15px 20px; /* Larger padding for select inputs */
+    margin-bottom: 15px;
+    border: 1px solid #333;
+    border-radius: var(--border-radius-sm);
+    background-color: #2a2a2a;
+    color: var(--color-text-on-dark);
+    font-size: 1.1em; /* Larger font size */
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* Custom SVG arrow for dropdown */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23eeeeee%22%20d%3D%22M208%2096H48l80%2080z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 18px;
+    cursor: pointer;
+    transition: border-color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.component-select:focus {
+    outline: none; /* Remove default outline */
+    border-color: var(--color-red-primary);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5); /* Custom focus outline */
+}
+
+.component-select option {
+    background-color: #2a2a2a;
+    color: var(--color-text-on-dark);
+}
+
+.selected-component-display {
+    background-color: #2a2a2a;
+    padding: 15px; /* Consistent padding */
+    border-radius: var(--border-radius-sm);
+    min-height: 55px; /* Ensures consistent height even if no component selected */
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: var(--color-text-on-dark);
+    border: 1px dashed #444; /* Dashed border for visual distinction */
+}
+
+.selected-component-display .component-name {
+    font-weight: 700;
+    color: var(--color-red-primary); /* Highlight selected component name */
+}
+
+/* ==========================================================================
+   8. Build Summary Area
+   ========================================================================== */
+.build-summary-area {
+    position: sticky; /* Make summary sticky as user scrolls selection */
+    top: 120px; /* Stick it below the header (adjust if header height changes) */
+    align-self: start; /* Ensures it aligns to the top within the grid */
+}
+
+.build-summary-card {
+    background-color: var(--color-darker-gray);
+    padding: var(--spacing-lg); /* More generous padding */
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 5px 15px var(--color-black-transparent);
+    border: 1px solid rgba(238, 238, 238, 0.1);
+}
+
+.build-summary-card h3 {
+    font-family: var(--font-heading);
+    font-size: 2.2em; /* Larger heading for summary title */
+    color: var(--color-white);
+    margin-top: 0;
+    margin-bottom: 30px; /* More space below title */
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 15px;
+}
+
+.build-summary-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px; /* Space before compatibility/total */
+}
+
+/* Styles for individual component summary items */
+.build-summary-list li {
+    background-color: #2a2a2a; /* Slightly lighter background than card for distinction */
+    padding: 15px 20px; /* Padding inside the box */
+    margin-bottom: var(--spacing-sm); /* Space between boxes */
+    border-radius: var(--border-radius-md); /* Rounded corners for the boxes */
+    border: 1px solid #333; /* Subtle border for definition */
+    display: flex;
+    justify-content: space-between; /* Align name to left, value to right */
+    align-items: center;
+    font-size: 1.1em;
+    color: var(--color-light-gray);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.build-summary-list li:last-child {
+    margin-bottom: 0; /* No margin after the last item in the list */
+}
+
+.build-summary-list li span {
+    font-weight: 700;
+    color: var(--color-red-primary); /* Highlight the component name */
+}
+
+.build-summary-list li .summary-price {
+    font-size: 0.9em;
+    color: var(--color-light-gray);
+    /* Ensure price aligns well if component name is long */
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+
+/* Compatibility Status */
+.compatibility-status {
+    padding: 15px 20px;
+    border-radius: var(--border-radius-md);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Center the text within the block */
+    justify-content: center; /* Center the icon and text */
+}
+
+.compatibility-status.compatible {
+    background-color: var(--color-green-compatible);
+    color: var(--color-white);
+}
+
+.compatibility-status.incompatible {
+    background-color: var(--color-red-incompatible);
+    color: var(--color-white);
+}
+
+.compatibility-status i {
+    font-size: 1.3em;
+}
+
+.total-price-display {
+    font-family: var(--font-heading);
+    font-size: 2.8em; /* Prominent size for the total price */
+    color: var(--color-red-primary);
+    text-align: right;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid rgba(238, 238, 238, 0.1);
+    font-weight: 700;
+}
+
+#submit-build-btn {
+    width: 100%;
+    margin-top: 30px; /* Space below total price before the button */
+}
+
+
+/* ==========================================================================
+   9. About Us Section
+   ========================================================================== */
+.about-us-section {
+    background-color: var(--color-darker-gray); /* Consistent background */
+    border-top: 1px solid rgba(238, 238, 238, 0.1);
+    border-bottom: 1px solid rgba(238, 238, 238, 0.1);
+    border-radius: var(--border-radius-lg); /* Consistent rounded corners */
+    margin: var(--spacing-lg) auto; /* Center with margin */
+    max-width: 1200px; /* Align with container width */
+    box-shadow: 0 5px 15px var(--color-black-transparent); /* Consistent shadow */
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content p {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ==========================================================================
+   10. Contact Us Section
+   ========================================================================== */
+.contact-section {
+    background-color: var(--color-darker-gray);
+    padding: var(--spacing-xl) 0;
+    border-top: 1px solid rgba(238, 238, 238, 0.1);
+    border-radius: var(--border-radius-lg);
+    margin: var(--spacing-lg) auto;
+    max-width: 1200px;
+    box-shadow: 0 5px 15px var(--color-black-transparent);
+}
+
+.contact-intro {
+    font-size: 1.1em;
+    color: var(--color-light-gray);
+    margin-bottom: var(--spacing-lg);
+    text-align: center; /* Center the introductory text */
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Form wider than info */
+    gap: var(--spacing-lg);
+}
+
+.contact-form-card, .contact-info-card {
+    background-color: var(--color-dark-gray); /* Slightly lighter than darker-gray */
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 1px solid rgba(238, 238, 238, 0.05);
+}
+
+.contact-form-card h3, .contact-info-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6em;
+    color: var(--color-red-primary);
+    margin-bottom: 25px;
+}
+
+.contact-form .form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.contact-form label { /* Added label styling for accessibility and better appearance */
+    display: block;
+    color: var(--color-light-gray);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95em;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #333;
+    border-radius: var(--border-radius-sm);
+    font-size: 1em;
+    font-family: var(--font-body);
+    box-sizing: border-box; /* Ensures padding is included in element's total width/height */
+    background-color: #2a2a2a;
+    color: var(--color-text-on-dark);
+    transition: border-color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--color-red-primary);
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.5);
+}
+
+.contact-form textarea {
+    resize: vertical; /* Allow only vertical resizing */
+    min-height: 120px; /* Ensure a decent starting height */
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #888;
+    opacity: 0.7; /* Make placeholder text a bit softer */
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.contact-info-card p {
+    margin-bottom: 15px;
+    color: var(--color-light-gray);
+    font-size: 1.05em;
+    display: flex; /* Align icon and text */
+    align-items: center;
+}
+
+.contact-info-card p i {
+    color: var(--color-red-primary);
+    margin-right: var(--spacing-sm);
+    font-size: 1.2em;
+}
+
+
+/* ==========================================================================
+   11. Footer Styles (Professional Look)
+   ========================================================================== */
+.main-footer {
+    background-color: var(--color-darker-gray); /* Dark background matching header */
+    color: var(--text-color); /* Light grey text for readability */
+    padding: 60px 0; /* More vertical padding */
+    font-size: 0.95em;
+    border-top: 1px solid rgba(238, 238, 238, 0.1); /* Subtle line at the top */
+}
+
+.main-footer .footer-grid {
+    display: grid;
+    /* Adjusted grid-template-columns for a balanced, professional look */
+    grid-template-columns: 1.5fr 1fr 1fr 1.5fr; /* Distribute space logically */
+    gap: var(--spacing-lg); /* Space between columns */
+    margin-bottom: var(--spacing-lg); /* Space above copyright */
+}
+
+.main-footer .footer-logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5em;
+    color: var(--color-white); /* White for logo */
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: block; /* Ensures it takes up its own line */
+}
+
+.main-footer .brand-info p {
+    color: var(--text-color); /* Slightly lighter for description */
+    line-height: 1.7;
+}
+
+.main-footer h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--color-red-primary); /* Red for footer headings */
+    margin-bottom: var(--spacing-md);
+}
+
+.main-footer .footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-footer .footer-nav ul li {
+    margin-bottom: var(--spacing-sm);
+}
+
+.main-footer .footer-nav ul li a {
+    color: var(--text-color); /* Link color */
+    text-decoration: none;
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.main-footer .footer-nav ul li a:hover {
+    color: var(--color-red-primary); /* Red on hover */
+    text-decoration: underline; /* Add underline on hover for clarity */
+}
+
+.main-footer .social-links {
+    display: flex;
+    gap: 15px; /* Space between social icons */
+    margin-top: var(--spacing-md);
+}
+
+.main-footer .social-links a {
+    color: var(--color-text-on-dark); /* Social icon color */
+    font-size: 1.6em; /* Larger icons */
+    transition: color var(--transition-speed-normal) var(--transition-ease);
+}
+
+.main-footer .social-links a:hover {
+    color: var(--color-red-primary); /* Red on hover */
+}
+
+.main-footer .copyright {
+    text-align: center;
+    border-top: 1px solid rgba(238, 238, 238, 0.05); /* Separator for copyright */
+    padding-top: var(--spacing-md);
+    color: var(--color-light-gray); /* Softer color for copyright text */
+    font-size: 0.9em;
+}
+
+
+@media (max-width: 480px) {
+    /* Further reduce padding on very small screens */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+    .btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+    .hero-content h2 {
+        font-size: 2em;
+    }
+    .hero-content p {
+        font-size: 0.9em;
+    }
+    .component-category-card {
+        padding: var(--spacing-md);
+    }
+    .build-summary-card {
+        padding: var(--spacing-md);
+    }
+}
+/* Styling for the new product section */
+.new-product-section {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+.new-product-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.new-product-section .section-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+.new-product-section .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.new-product-section .product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+.new-product-section .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.new-product-section .product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+.new-product-section .card-content {
+    padding: 20px;
+}
+.new-product-section .card-content h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+.new-product-section .card-content p {
+    font-size: 0.95em;
+    color: #666;
+    line-height: 1.6;
+}
+/* Header/Navigation Bar */
+header {
+    background-color: rgba(51, 51, 51, 0.95); /* Slightly transparent dark background */
+    color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 1000; /* Ensure it stays on top */
+}
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.site-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.8em;
+    color: var(--color-red-primary); /* Using the updated variable */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.site-logo:hover {
+    color: #7b0707; /* Lighter red on hover */
+}
+.header-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+.header-nav ul li {
+    margin-left: 30px;
+}
+.header-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    padding: 5px 0;
+    position: relative; /* For underline effect */
+}
+.header-nav ul li a:hover {
+    color: #d80404;
+}
+/* Underline effect for navigation */
+.header-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--color-red-primary); /* Using the updated variable */
+    transition: width 0.3s ease-in-out;
+}
+.header-nav ul li a:hover::after {
+    width: 100%;
+}
+/* Primary Button Style */
+.btn-primary {
+    display: inline-block;
+    background: var(--color-red-primary); /* Using background for gradient */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background-color: #e00404;
+    transform: translateY(-2px);
+}
+/* Secondary Button Style (for product cards) */
+.btn-secondary {
+    display: inline-block;
+    background-color: #555;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+.btn-secondary:hover {
+    background-color: #777;
+    transform: translateY(-2px);
+}
+/* Featured Products Section */
+.featured-products {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #1a1a1a; /* Dark background */
+    color: #eeeeee; /* Light text */
+}
+.hero-home,
+.featured-products,
+.why-choose-us,
+.about-home,
+.cta-section {
+    background: url('images/background.png') no-repeat center center/cover;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+.featured-products .section-title {
+    color: #eeeeee; /* Adjust title color for dark background */
+}
+.featured-products .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.featured-products .product-card {
+    background-color: #2a2a2a; /* Slightly lighter card background */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    position: relative; /* Needed for hover info positioning */
+}
+.featured-products .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+.featured-products .product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #333;
+}
+.featured-products .card-content {
+    padding: 20px;
+    position: relative;
+    z-index: 2; /* Ensure content is above hover info initially */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.featured-products .card-content h3 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+    color: var(--color-red-primary); /* Highlight product titles with primary red */
+    font-family: 'Montserrat', sans-serif;
+}
+.featured-products .card-content .product-specs {
+    font-size: 0.95em;
+    color: #aaaaaa;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+.featured-products .card-content .product-price {
+    font-size: 1.8em;
+    color: #eeeeee;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.featured-products .card-content .btn-primary {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.05em;
+}
+
+/* Product Hover Info */
+.product-hover-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(34, 34, 34, 0.95); /* Semi-transparent dark overlay */
+    color: #fff;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 3; /* Ensure it appears above main content */
+    border-radius: 10px; /* Match card border-radius */
+    box-sizing: border-box; /* Include padding in dimensions */
+}
+
+.product-hover-info h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8em;
+    color: var(--color-red-primary); /* Using the updated variable */
+    margin-bottom: 15px;
+}
+
+.product-hover-info .hover-specs-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: #cccccc;
+}
+
+.product-hover-info .hover-specs-list li {
+    margin-bottom: 8px;
+}
+
+.product-hover-info .hover-specs-list li strong {
+    color: #ffffff;
+}
+
+.product-hover-info .tested-on-info {
+    font-size: 0.9em;
+    color: #aaaaaa;
+    margin-top: 15px;
+}
+
+.product-hover-info .btn-secondary {
+    margin-top: 20px;
+    width: 80%; /* Button width on hover */
+    padding: 10px 0;
+}
+
+/* Red and purple animated outline for product cards and task menu */
+.product-card {
+    position: relative;
+    z-index: 1;
+    border: 4px solid transparent;
+}
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 10px;
+    z-index: 2;
+    pointer-events: none;
+    border: 4px solid transparent;
+    background: linear-gradient(270deg, #ff1744, #8e24aa, #ff1744);
+    background-size: 400% 400%;
+    animation: rgbOutlineMove 4s linear infinite;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #181818;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.sticky-header::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 5px;
+    background: linear-gradient(270deg, #ff1744, #8e24aa, #ff1744);
+    background-size: 400% 400%;
+    animation: rgbOutlineMove 4s linear infinite;
+    z-index: 101;
+}
+@keyframes rgbOutlineMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+/* Horizontally scrollable Pre-built PCs grid with fixed card size */
+#shop .product-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 20px;
+}
+#shop .product-card {
+    min-width: 280px;
+    max-width: 280px;
+    height: 420px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+}
+#shop .product-main-content img {
+    max-width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+#shop .product-grid::-webkit-scrollbar {
+    height: 12px;
+}
+#shop .product-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #820303, #8e24aa);
+    border-radius: 6px;
+}
+#shop .product-grid::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 6px;
+}
+
