@@ -3,84 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - UndergroundPC</title>
+    <title>Cyberpunk Gaming PC - UndergroundPC</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Specific styles for Privacy Policy page */
-        .policy-section {
+    <link rel="stylesheet" href="style.css"> <style>
+        /* Specific styles for product details page */
+        .product-detail-section {
             padding: 80px 0;
             background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
             color: #eee;
             margin-bottom: 50px;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            text-align: left;
+            text-align: left; /* Align text to left */
         }
-        .policy-section h2 {
+        .product-detail-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start; /* Align items to the top */
+        }
+        .product-detail-image {
+            flex: 1 1 45%; /* Image takes roughly half width */
+            max-width: 500px; /* Max width for image */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .product-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .product-detail-info {
+            flex: 1 1 50%; /* Info takes other half */
+        }
+        .product-detail-info h2 {
             font-size: 3em;
             color: #7b0707;
-            margin-bottom: 40px;
-            text-align: center;
+            margin-bottom: 20px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        .policy-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .policy-content h3 {
-            font-size: 2em;
-            color: #fff;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #7b0707;
-            padding-bottom: 5px;
-        }
-        .policy-content p, .policy-content ul {
-            font-size: 1.05em;
-            line-height: 1.7;
+        .product-detail-info p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
             color: #ccc;
-            margin-bottom: 20px;
         }
-        .policy-content ul {
-            list-style: disc;
-            margin-left: 25px;
-            padding-left: 0;
+        .specs-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
         }
-        .policy-content ul li {
+        .specs-list li {
+            background-color: rgba(255, 255, 255, 0.05); /* Light transparent background for list items */
+            padding: 12px 20px;
             margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 1.05em;
+            border-left: 3px solid #7b0707; /* Accent border */
+            display: flex;
+            justify-content: space-between; /* Align key and value */
+            align-items: center;
         }
-        .policy-disclaimer {
-            background-color: rgba(255, 87, 34, 0.1);
-            border-left: 5px solid #7b0707;
-            padding: 20px;
-            margin-top: 40px;
-            border-radius: 8px;
+        .specs-list li strong {
             color: #fff;
-            font-size: 0.95em;
-            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0; /* Prevent strong from shrinking */
         }
-        .policy-disclaimer strong {
-            color: #7b0707;
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
         }
 
-        /* Responsive adjustments for Policy page */
+        /* Responsive adjustments for product details */
         @media (max-width: 768px) {
-            .policy-section {
-                padding: 60px 0;
+            .product-detail-content {
+                flex-direction: column;
+                align-items: center;
             }
-            .policy-section h2 {
+            .product-detail-image,
+            .product-detail-info {
+                flex: 1 1 100%; /* Stack on small screens */
+                max-width: 100%;
+            }
+            .product-detail-info {
+                text-align: center;
+            }
+            .specs-list li {
+                flex-direction: column; /* Stack key and value on very small screens */
+                align-items: flex-start;
+                padding: 10px 15px;
+            }
+            .specs-list li strong {
+                margin-bottom: 5px;
+            }
+            .product-detail-info h2 {
                 font-size: 2.5em;
-            }
-            .policy-content {
-                padding: 0 15px;
-            }
-            .policy-content h3 {
-                font-size: 1.7em;
-            }
-            .policy-content p, .policy-content ul {
-                font-size: 1em;
             }
         }
     </style>
@@ -107,56 +126,31 @@
     </header>
 
     <main>
-        <section class="policy-section">
+        <section class="product-detail-section">
             <div class="container">
-                <h2>Privacy Policy</h2>
-                <div class="policy-disclaimer">
-                    <strong>Disclaimer:</strong> This Privacy Policy has not been drafted by a legal professional.
-                </div>
-                <div class="policy-content">
-                    <p><strong>Last Updated: May 31, 2025</strong></p>
+                <div class="product-detail-content">
+                    <div class="product-detail-image">
+                        <img src="images/woodenpc.png" alt="Gaming PC Elite - High Performance Build">
+                    </div>
+                    <div class="product-detail-info">
+                        <h2>Cyberpunk Gaming PC</h2>
+                        <p>Price: 2000$ + shipping if needed</p>
+                        <p>Ready to buy? Email us <a href="mailto:info.undergroundpc@gmail.com" style="color: #7b0707; text-decoration: underline;">info.undergroundpc@gmail.com</a> </p>
 
-                    <p>UndergroundPC ("we," "our," or "us") is committed to protecting the privacy of our website visitors and customers. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website undergroundpc.com (the "Site") or interact with us.</p>
-
-                    <h3>1. Information We Collect</h3>
-                    <p>We may collect information about you in a variety of ways. The information we may collect on the Site includes:</p>
-                    <ul>
-                        <li><strong>Personal Data:</strong> Personally identifiable information, such as your name, shipping address, email address, and telephone number, that you voluntarily give to us when you make a purchase, send us an email inquiry, or otherwise contact us.</li>
-                        <li><strong>Derivative Data:</strong> Information our servers automatically collect when you access the Site, such as your IP address, your browser type, your operating system, your access times, and the pages you have viewed directly before and after accessing the Site.</li>
-                        <li><strong>Financial Data:</strong> Information related to your payment method (e.g., valid credit card number, card brand, expiration date) that we may collect when you purchase, order, return, exchange, or request information about our services from the Site. As we use third-party payment processors (e.g., PayPal, Stripe), we do not directly store any credit card information on our servers.</li>
-                    </ul>
-
-                    <h3>2. How We Use Your Information</h3>
-                    <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
-                    <ul>
-                        <li>Process your orders and manage your purchases.</li>
-                        <li>Communicate with you about your orders, products, and services.</li>
-                        <li>Respond to your customer service requests and support needs.</li>
-                        <li>Improve our website, products, and services.</li>
-                        <li>Monitor and analyze usage and trends to improve your experience with the Site.</li>
-                        <li>Prevent fraudulent transactions and monitor against theft.</li>
-                    </ul>
-
-                    <h3>3. Disclosure of Your Information</h3>
-                    <p>We may share information we have collected about you in certain situations. Your information may be disclosed as follows:</p>
-                    <ul>
-                        <li><strong>By Law or to Protect Rights:</strong> If we believe the release of information about you is necessary to respond to legal process, to investigate or remedy potential violations of our policies, or to protect the rights, property, and safety of others, we may share your information as permitted or required by any applicable law, rule, or regulation.</li>
-                        <li><strong>Third-Party Service Providers:</strong> We may share your information with third parties that perform services for us or on our behalf, including payment processing, data analysis, email delivery, hosting services, and customer service.</li>
-                        <li><strong>Business Transfers:</strong> If we reorganize or sell all or a portion of our assets, undergo a merger, or are acquired by another entity, we may transfer your information to the successor entity.</li>
-                    </ul>
-
-                    <h3>4. Data Security</h3>
-                    <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
-
-                    <h3>5. Policy for Children</h3>
-                    <p>We do not knowingly solicit information from or market to children under the age of 13. If you become aware of any data we have collected from children under age 13, please contact us using the contact information provided below.</p>
-
-                    <h3>6. Changes to This Privacy Policy</h3>
-                    <p>We may update this Privacy Policy from time to time in order to reflect, for example, changes to our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
-
-                    <h3>7. Contact Us</h3>
-                    <p>If you have questions or comments about this Privacy Policy, please contact us at:</p>
-                    <p>Email: <a href="mailto:info.undergroundpc@gmail.com" style="color: #7b0707; text-decoration: underline;">undergroundcustompc@gmail.com</a></p>
+                        <h3>Specifications:</h3>
+                        <ul class="specs-list">
+                            <li><strong>Processor:</strong> Intel I5-10400f</li>
+                            <li><strong>Graphics Card:</strong> XFX THICC III Ultra Radeon RX 5700 XT 8 GB Video Card</li>
+                            <li><strong>RAM:</strong> Corsair Vengeance LPX 64 GB (1 x 32 GB) DDR4-3200 CL16 Memory</li>
+                            <li><strong>Storage:</strong> 2x S500 Pro 256 GB M.2-2280</li>
+                            <li><strong>Motherboard:</strong> Asus ROG MAXIMUS XII FORMULA</li>
+                            <li><strong>Power Supply:</strong> Corsair RMe 850W Gold</li>
+                            <li><strong>Cooling:</strong> ID-COOLING FROSTFLOW AIO</li>
+                            <li><strong>Case:</strong> FOIFKIN M9 PC Case</li>
+                            <li><strong>Operating System:</strong> Windows 11 Home</li>
+                        </ul>
+                        <a href="index.html#shop" class="btn btn-primary">Back to Shop</a>
+                    </div>
                 </div>
             </div>
         </section>
