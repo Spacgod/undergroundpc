@@ -168,6 +168,80 @@ html, body {
     }
 }
 
+/* Enhanced mobile styles for homepage */
+@media (max-width: 700px) {
+    .main-header, .sticky-header {
+        min-height: 56px;
+        padding: 0 8px;
+    }
+    .nav-flex {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 4px;
+    }
+    .header-nav ul {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0;
+        margin: 0;
+        align-items: flex-start;
+    }
+    .header-nav .nav-link, .site-logo {
+        font-size: 1.1em;
+        padding: 6px 0;
+    }
+    .shop-btn {
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+    }
+    .hero-home, .modern-hero {
+        padding: 32px 0 16px 0;
+        min-height: 220px;
+    }
+    .hero-title {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+    }
+    .hero-subtitle {
+        font-size: 0.95em;
+        margin-bottom: 18px;
+    }
+    .hero-cta {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    #shop .product-grid {
+        gap: 12px;
+        padding-bottom: 10px;
+    }
+    #shop .product-card {
+        min-width: 90vw;
+        max-width: 98vw;
+        height: auto;
+    }
+    #shop .product-main-content img {
+        height: 80px;
+    }
+    .gallery-slideshow {
+        height: 120px;
+        border-radius: 10px;
+        max-width: 98vw;
+    }
+    #gallery-slideshow-img {
+        max-height: 90px;
+        border-radius: 6px;
+    }
+    .section-title {
+        font-size: 1.2em;
+        margin-bottom: 12px;
+    }
+    .container {
+        padding: 0 4px;
+    }
+}
+
 /* Original @media (max-width: 480px) block can remain for very small screens */
 @media (max-width: 480px) {
     /* Further reduce padding on very small screens */
@@ -1190,67 +1264,129 @@ header .container {
 .product-hover-info .btn-secondary {
     margin-top: 20px;
     width: 80%; /* Button width on hover */
-    padding: 10px 0;
 }
 
-/* Mobile Menu Specific Styles */
-.menu-toggle {
-    display: none; /* Hidden by default on desktop */
-    font-size: 1.8em;
-    color: #fff;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1001; /* Ensure it's above header content */
+/* Red and purple animated outline for product cards and task menu */
+.product-card {
+    position: relative;
+    z-index: 1;
+    border: 4px solid transparent;
+}
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 10px;
+    z-index: 2;
+    pointer-events: none;
+    border: 4px solid transparent;
+    background: linear-gradient(270deg, #ff1744, #8e24aa, #ff1744);
+    background-size: 400% 400%;
+    animation: rgbOutlineMove 4s linear infinite;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #181818;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.sticky-header::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 5px;
+    background: linear-gradient(270deg, #ff1744, #8e24aa, #ff1744);
+    background-size: 400% 400%;
+    animation: rgbOutlineMove 4s linear infinite;
+    z-index: 101;
+}
+@keyframes rgbOutlineMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+/* Horizontally scrollable Pre-built PCs grid with fixed card size */
+#shop .product-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 20px;
+}
+#shop .product-card {
+    min-width: 280px;
+    max-width: 280px;
+    height: 420px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+}
+#shop .product-main-content img {
+    max-width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+#shop .product-grid::-webkit-scrollbar {
+    height: 12px;
+}
+#shop .product-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #820303, #8e24aa);
+    border-radius: 6px;
+}
+#shop .product-grid::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 6px;
 }
 
-/* Adjustments for when menu is active/open (JS will toggle 'active' class) */
-.header-nav {
-    /* Base styles for the navigation, applies to both desktop and mobile */
-    /* On desktop, it will typically be inline or flex */
-    /* On mobile, it will be positioned off-screen */
-}
-
-/* Mobile specific overrides */
+/* Mobile horizontal scroll and RGB border for specs list */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block; /* Show hamburger icon on mobile */
+    .specs-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 12px;
+        padding-bottom: 8px;
+        scroll-snap-type: x mandatory;
     }
-
-    .header-nav {
-        position: fixed;
-        top: 0;
-        left: -100%; /* Start off-screen to the left */
-        width: 70%; /* Width of the mobile menu */
-        max-width: 300px; /* Optional: set a max width */
-        height: 100%; /* Full height of the viewport */
-        background-color: #222; /* Dark background for mobile menu */
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-        transition: left 0.3s ease-in-out; /* Smooth slide transition */
-        z-index: 1000;
-        padding-top: 80px; /* Space for the fixed header content */
-        overflow-y: auto; /* Enable scrolling if menu content is long */
+    .specs-list li {
+        min-width: 220px;
+        max-width: 240px;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        border-radius: 8px;
+        border: 3px solid transparent;
+        position: relative;
     }
-
-    /* When 'active' class is added by JS, slide menu into view */
-    .header-nav.active {
-        left: 0;
+    .specs-list li::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 8px;
+        z-index: 1;
+        pointer-events: none;
+        border: 3px solid transparent;
+        background: linear-gradient(270deg, #ff1744, #8e24aa, #ff1744);
+        background-size: 400% 400%;
+        animation: rgbSpecBorderMove 4s linear infinite;
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask:
+          linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
     }
-
-    /* Stack menu items vertically on mobile */
-    .header-nav ul {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
-    }
-
-    .header-nav ul li {
-        margin: 15px 0; /* Vertical spacing between mobile menu items */
-        width: 100%;
-    }
-
-    .header-nav ul li a {
-        display: block; /* Make links full width for easier tapping */
-        padding: 10px 0;
-    }
+}
+@keyframes rgbSpecBorderMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
 }
