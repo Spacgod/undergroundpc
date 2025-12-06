@@ -536,6 +536,7 @@
             padding: 10px 15px;
             font-size: 1em;
           }
+          
         }
         @media (max-width:400px) {
         .ml-form-formContent.horozintalForm { padding:20px!important; }
@@ -543,6 +544,11 @@
         .ml-form-formContent.horozintalForm .ml-button-horizontal { width: 100%!important; }
         .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { padding-top: 0px!important; }
       }
+        
+        /* Style added to make the Shapo widget text white */
+        #shapo-widget-e905b004810d3ef9b3b7 {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -566,14 +572,32 @@
     </header>
 
     <main>
-        <section id="hero-home" class="hero-home reveal-on-scroll" role="region" aria-labelledby="hero-home-title">
-            <div class="container">
-                <h1 id="hero-home-title" class="reveal-item">UndergroundPC</h1>
-                <p class="reveal-item">Crafted for gamers, creators, and professionals. Experience unparalleled performance and reliability.</p>
-                <a href="#shop" class="btn btn-primary reveal-item">Shop Pre-Built PCs</a>
-                <a href="custom-builds.html" class="btn btn-secondary reveal-item">Build Your Own PC</a>
-            </div>
-        </section>
+     <section id="hero-home" class="hero-home reveal-on-scroll" role="region" aria-labelledby="hero-main-heading">
+    <div class="container hero-content">
+        <div class="hero-overlay"></div> 
+        
+        <h1 id="hero-main-heading" class="reveal-item hero-title">
+            UndergroundPC
+        </h1>
+        
+        <h3 class="reveal-item hero-services-tagline text-small"> 
+            Custom PCs &bull; Repairs &bull; Upgrades
+        </h3>
+        
+        <div class="hero-actions reveal-item">
+            <a href="#shop" class="btn btn-primary btn-large" aria-label="Shop our selection of pre-built custom computers">
+                <i class="fas fa-shopping-cart"></i> Shop Pre-Built Systems
+            </a>
+            
+            <a href="custom-builds.html" class="btn btn-secondary" aria-label="Design and configure your own custom PC build">
+                <i class="fas fa-tools"></i> Start Your Custom Build
+            </a>
+        </div>
+        
+        <div id="shapo-widget-e905b004810d3ef9b3b7" class="hero-utility"></div>
+        
+    </div>
+</section>
 
         <section class="featured-products section-padding reveal-on-scroll" id="shop" role="region" aria-labelledby="featured-products-title">
             <div class="container">
@@ -1218,7 +1242,11 @@
     </script>
 
     <script src="//code.tidio.co/g7unma5gpdcbgpmrhysgclurjvfmoama.js" async></script>
+
+    <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
+    
     
 </body>
 </html>
+
 
