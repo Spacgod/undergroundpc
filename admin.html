@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Admin Panel - UndergroundPC</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1f1f 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        /* Login Screen Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 50px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(123, 7, 7, 0.3);
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid rgba(123, 7, 7, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-header i {
+            font-size: 4em;
+            color: #7b0707;
+            margin-bottom: 20px;
+        }
+
+        .login-header h1 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: #aaa;
+            font-size: 0.95em;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 25px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #7b0707;
+            box-shadow: 0 0 0 3px rgba(123, 7, 7, 0.2);
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 15px;
+            background: #7b0707;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .login-form button:hover {
+            background: #e64a19;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(123, 7, 7, 0.4);
+        }
+
+        .error-message {
+            background: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: none;
+            color: #ff9999;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Admin Dashboard Styles */
+        .admin-container {
+            display: none;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-container.active {
+            display: block;
+        }
+
+        .admin-header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5em;
+            color: #7b0707;
+            margin: 0;
+        }
+
+        .admin-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logout-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #7b0707;
+            border-color: #7b0707;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(123, 7, 7, 0.3);
+            border-color: #7b0707;
+        }
+
+        .dashboard-card .icon {
+            font-size: 3em;
+            color: #7b0707;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .dashboard-card p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        .dashboard-card .count {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #7b0707;
+            margin-top: 15px;
+        }
+
+        .quick-links {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-links h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #7b0707;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .quick-link {
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: rgba(123, 7, 7, 0.2);
+            border-color: #7b0707;
+            transform: translateX(5px);
+        }
+
+        .quick-link i {
+            color: #7b0707;
+            font-size: 1.3em;
+        }
+
+        .info-section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 25px;
+        }
+
+        .info-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #7b0707;
+        }
+
+        .info-section p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            list-style-position: inside;
+            color: #ccc;
+            line-height: 2;
+            margin-left: 20px;
+        }
+
+        .info-section a {
+            color: #7b0707;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-section a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 40px 25px;
+            }
+
+            .admin-header {
+                padding: 20px;
+            }
+
+            .admin-header h1 {
+                font-size: 2em;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-lock"></i>
+                <h1>Admin Access</h1>
+                <p>UndergroundPC Control Panel</p>
+            </div>
+            
+            <div id="error-message" class="error-message">
+                <i class="fas fa-exclamation-triangle"></i> Incorrect password. Please try again.
+            </div>
+
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="admin-password">
+                        <i class="fas fa-key"></i> Enter Admin Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="admin-password" 
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+                <button type="submit">
+                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+            <div class="user-info">
+                <span><i class="fas fa-user-shield"></i> Administrator</span>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card" onclick="window.open('https://formspree.io/forms/xnnvaaeg/submissions', '_blank')">
+                <div class="icon"><i class="fas fa-envelope-open-text"></i></div>
+                <h3>Form Submissions</h3>
+                <p>View custom build requests and contact form submissions</p>
+            </div>
+
+            <div class="dashboard-card" onclick="window.location.href='analytics.html'">
+                <div class="icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Analytics Dashboard</h3>
+                <p>View website traffic and performance metrics</p>
+            </div>
+
+            <div class="dashboard-card" onclick="window.location.href='products-admin.html'">
+                <div class="icon"><i class="fas fa-boxes"></i></div>
+                <h3>Product Management</h3>
+                <p>Edit products, prices, and inventory</p>
+            </div>
+
+            <div class="dashboard-card" onclick="alert('File management coming soon')">
+                <div class="icon"><i class="fas fa-images"></i></div>
+                <h3>Media Library</h3>
+                <p>Manage images and assets for your website</p>
+            </div>
+        </div>
+
+        <!-- Analytics Preview Section -->
+        <div class="info-section" style="margin-bottom: 25px;">
+            <h2><i class="fas fa-chart-line"></i> Analytics Overview</h2>
+            <p style="margin-bottom: 20px;">Real-time website statistics from Google Analytics (Last 30 days)</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                <div style="background: rgba(123, 7, 7, 0.1); border: 1px solid rgba(123, 7, 7, 0.3); border-radius: 8px; padding: 20px; text-align: center;">
+                    <i class="fas fa-users" style="font-size: 2.5em; color: #7b0707; margin-bottom: 10px;"></i>
+                    <div style="font-size: 2em; font-weight: 700; color: #7b0707; margin: 10px 0;">---</div>
+                    <div style="color: #aaa; font-size: 0.95em;">Total Visitors</div>
+                    <a href="https://analytics.google.com" target="_blank" style="display: inline-block; margin-top: 10px; color: #7b0707; text-decoration: none; font-size: 0.85em;">
+                        <i class="fas fa-external-link-alt"></i> View in GA
+                    </a>
+                </div>
+
+                <div style="background: rgba(123, 7, 7, 0.1); border: 1px solid rgba(123, 7, 7, 0.3); border-radius: 8px; padding: 20px; text-align: center;">
+                    <i class="fas fa-eye" style="font-size: 2.5em; color: #7b0707; margin-bottom: 10px;"></i>
+                    <div style="font-size: 2em; font-weight: 700; color: #7b0707; margin: 10px 0;">---</div>
+                    <div style="color: #aaa; font-size: 0.95em;">Page Views</div>
+                    <a href="https://analytics.google.com" target="_blank" style="display: inline-block; margin-top: 10px; color: #7b0707; text-decoration: none; font-size: 0.85em;">
+                        <i class="fas fa-external-link-alt"></i> View in GA
+                    </a>
+                </div>
+
+                <div style="background: rgba(123, 7, 7, 0.1); border: 1px solid rgba(123, 7, 7, 0.3); border-radius: 8px; padding: 20px; text-align: center;">
+                    <i class="fas fa-clock" style="font-size: 2.5em; color: #7b0707; margin-bottom: 10px;"></i>
+                    <div style="font-size: 2em; font-weight: 700; color: #7b0707; margin: 10px 0;">---</div>
+                    <div style="color: #aaa; font-size: 0.95em;">Avg. Session Duration</div>
+                    <a href="https://analytics.google.com" target="_blank" style="display: inline-block; margin-top: 10px; color: #7b0707; text-decoration: none; font-size: 0.85em;">
+                        <i class="fas fa-external-link-alt"></i> View in GA
+                    </a>
+                </div>
+
+                <div style="background: rgba(123, 7, 7, 0.1); border: 1px solid rgba(123, 7, 7, 0.3); border-radius: 8px; padding: 20px; text-align: center;">
+                    <i class="fas fa-percentage" style="font-size: 2.5em; color: #7b0707; margin-bottom: 10px;"></i>
+                    <div style="font-size: 2em; font-weight: 700; color: #7b0707; margin: 10px 0;">---</div>
+                    <div style="color: #aaa; font-size: 0.95em;">Bounce Rate</div>
+                    <a href="https://analytics.google.com" target="_blank" style="display: inline-block; margin-top: 10px; color: #7b0707; text-decoration: none; font-size: 0.85em;">
+                        <i class="fas fa-external-link-alt"></i> View in GA
+                    </a>
+                </div>
+            </div>
+
+            <div style="text-align: center; padding: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 8px;">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    <i class="fas fa-info-circle"></i> Real-time analytics data is available in your Google Analytics dashboard
+                </p>
+                <a href="analytics.html" style="display: inline-block; padding: 12px 30px; background: #7b0707; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+                    <i class="fas fa-chart-area"></i> View Full Analytics Dashboard
+                </a>
+                <a href="https://analytics.google.com/analytics/web/#/p468694825/reports/intelligenthome?params=_u..nav%3Dmaui" target="_blank" style="display: inline-block; padding: 12px 30px; background: rgba(255, 255, 255, 0.1); color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; margin-left: 10px; transition: all 0.3s ease;">
+                    <i class="fas fa-external-link-alt"></i> Open Google Analytics
+                </a>
+            </div>
+        </div>
+
+        <div class="quick-links">
+            <h2><i class="fas fa-link"></i> Quick Links</h2>
+            <div class="quick-links-grid">
+                <a href="index.html" target="_blank" class="quick-link">
+                    <i class="fas fa-home"></i> View Website
+                </a>
+                <a href="custom-builds.html" target="_blank" class="quick-link">
+                    <i class="fas fa-desktop"></i> Custom Builds Page
+                </a>
+                <a href="contact.html" target="_blank" class="quick-link">
+                    <i class="fas fa-envelope"></i> Contact Page
+                </a>
+                <a href="https://formspree.io/forms/xnnvaaeg" target="_blank" class="quick-link">
+                    <i class="fas fa-cog"></i> Formspree Settings
+                </a>
+                <a href="about-us.html" target="_blank" class="quick-link">
+                    <i class="fas fa-info-circle"></i> About Us
+                </a>
+                <a href="faq.html" target="_blank" class="quick-link">
+                    <i class="fas fa-question-circle"></i> FAQ Page
+                </a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2><i class="fas fa-info-circle"></i> Admin Panel Information</h2>
+            <p><strong>Current Password:</strong> Change the password by editing the JavaScript in this file (search for "adminPassword")</p>
+            <p><strong>Security Note:</strong> This is a basic client-side password protection. For production use with sensitive data, implement server-side authentication.</p>
+            
+            <h3 style="color: #7b0707; margin-top: 30px; margin-bottom: 15px;">Available Features:</h3>
+            <ul>
+                <li><strong>Form Submissions:</strong> Click to view submissions on Formspree dashboard</li>
+                <li><strong>Quick Access:</strong> Direct links to all important pages</li>
+                <li><strong>Secure Login:</strong> Password-protected access</li>
+            </ul>
+
+            <h3 style="color: #7b0707; margin-top: 30px; margin-bottom: 15px;">To Change Password:</h3>
+            <p>1. Open <code style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 3px;">admin.html</code> in a text editor</p>
+            <p>2. Find the line: <code style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 3px;">const adminPassword = "admin123";</code></p>
+            <p>3. Replace "admin123" with your desired password</p>
+            <p>4. Save the file</p>
+        </div>
+    </div>
+
+    <script>
+        // CHANGE THIS PASSWORD TO YOUR OWN
+        const adminPassword = "admin123";
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            showDashboard();
+        }
+
+        // Login form handler
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('admin-password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (password === adminPassword) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                showDashboard();
+            } else {
+                errorMessage.classList.add('show');
+                document.getElementById('admin-password').value = '';
+                document.getElementById('admin-password').focus();
+                
+                // Hide error after 3 seconds
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+        });
+
+        function showDashboard() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('admin-dashboard').classList.add('active');
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.removeItem('adminLoggedIn');
+                document.getElementById('admin-dashboard').classList.remove('active');
+                document.getElementById('login-screen').style.display = 'flex';
+                document.getElementById('admin-password').value = '';
+            }
+        }
+
+        // Prevent back button after logout
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Gaming PC - UndergroundPC</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> <style>
+        /* Specific styles for product details page */
+        .product-detail-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent dark background */
+            color: #eee;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-align: left; /* Align text to left */
+        }
+        .product-detail-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: flex-start; /* Align items to the top */
+        }
+        .product-detail-image {
+            flex: 1 1 45%; /* Image takes roughly half width */
+            max-width: 500px; /* Max width for image */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .product-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .product-detail-info {
+            flex: 1 1 50%; /* Info takes other half */
+        }
+        .product-detail-info h2 {
+            font-size: 3em;
+            color: #7b0707;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .product-detail-info p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        .specs-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        .specs-list li {
+            background-color: rgba(255, 255, 255, 0.05); /* Light transparent background for list items */
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 1.05em;
+            border-left: 3px solid #7b0707; /* Accent border */
+            display: flex;
+            justify-content: space-between; /* Align key and value */
+            align-items: center;
+        }
+        .specs-list li strong {
+            color: #fff;
+            margin-right: 15px;
+            flex-shrink: 0; /* Prevent strong from shrinking */
+        }
+        .back-button-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .purchase-section {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        .purchase-section h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        .purchase-note {
+            background-color: rgba(123, 7, 7, 0.2);
+            border-left: 4px solid #7b0707;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .purchase-note i {
+            color: #7b0707;
+            margin-right: 10px;
+        }
+
+        /* Responsive adjustments for product details */
+        @media (max-width: 768px) {
+            .product-detail-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .product-detail-image,
+            .product-detail-info {
+                flex: 1 1 100%; /* Stack on small screens */
+                max-width: 100%;
+            }
+            .product-detail-info {
+                text-align: center;
+            }
+            .specs-list li {
+                flex-direction: column; /* Stack key and value on very small screens */
+                align-items: flex-start;
+                padding: 10px 15px;
+            }
+            .specs-list li strong {
+                margin-bottom: 5px;
+            }
+            .product-detail-info h2 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail-section">
+            <div class="container">
+                <div class="product-detail-content">
+                    <div class="product-detail-image">
+                        <img src="images/woodenpc.png" alt="Gaming PC Elite - High Performance Build">
+                    </div>
+                    <div class="product-detail-info">
+                        <h2>Cyberpunk Gaming PC</h2>
+                        <p>Price: 2000$ + shipping if needed</p>
+                        <p>Ready to buy? Email us <a href="mailto:info.undergroundpc@gmail.com" style="color: #7b0707; text-decoration: underline;">info.undergroundpc@gmail.com</a> </p>
+
+                        <h3>Specifications:</h3>
+                        <ul class="specs-list">
+                            <li><strong>Processor:</strong> Intel I5-10400f</li>
+                            <li><strong>Graphics Card:</strong> XFX THICC III Ultra Radeon RX 5700 XT 8 GB Video Card</li>
+                            <li><strong>RAM:</strong> Corsair Vengeance LPX 64 GB (1 x 32 GB) DDR4-3200 CL16 Memory</li>
+                            <li><strong>Storage:</strong> 2x S500 Pro 256 GB M.2-2280</li>
+                            <li><strong>Motherboard:</strong> Asus ROG MAXIMUS XII FORMULA</li>
+                            <li><strong>Power Supply:</strong> Corsair RMe 850W Gold</li>
+                            <li><strong>Cooling:</strong> ID-COOLING FROSTFLOW AIO</li>
+                            <li><strong>Case:</strong> FOIFKIN M9 PC Case</li>
+                            <li><strong>Operating System:</strong> Windows 11 Home</li>
+                        </ul>
+
+                        <div class="purchase-section">
+                            <h3>How to Purchase:</h3>
+                            <div class="purchase-note">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Contact us to complete your purchase!</strong>
+                            </div>
+                            <p style="margin-bottom: 15px;">Ready to get this custom PC? Get in touch with us:</p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;"><i class="fas fa-envelope" style="color: #7b0707; margin-right: 10px;"></i> Email: info.undergroundpc@gmail.com</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-phone" style="color: #7b0707; margin-right: 10px;"></i> Phone: +1 (480) 382-1251 <span style="color: #aaa; font-size: 0.9em;">(text is best)</span></li>
+                                <li style="margin-bottom: 10px;"><i class="fab fa-instagram" style="color: #7b0707; margin-right: 10px;"></i> Message us on Instagram</li>
+                            </ul>
+                            <a href="contact.html" class="btn btn-primary" style="margin-top: 20px; display: inline-block;">Contact Us to Order</a>
+                        </div>
+
+                        <a href="index.html#shop" class="btn btn-primary" style="margin-top: 20px;">Back to Shop</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="index.html#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UndergroundPC - All Links | Custom Gaming PCs</title>
+    <meta name="description" content="All important UndergroundPC links in one place. Custom gaming PCs, builds, support, and more.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-red: #7b0707;
+            --primary-red-light: #a00505;
+            --primary-red-dark: #5d0505;
+            --gradient-start: #e74c3c;
+            --gradient-end: #8e44ad;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 20, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: rgba(123, 7, 7, 0.3);
+            --glow-color: rgba(123, 7, 7, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--dark-bg);
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(123, 7, 7, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(142, 68, 173, 0.15) 0%, transparent 50%),
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 40px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 40px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 60px var(--glow-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(123, 7, 7, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            animation: gradientFlow 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tagline {
+            font-size: 1.15em;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .link-category {
+            margin-bottom: 20px;
+        }
+
+        .category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-title i {
+            font-size: 0.9em;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .link-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(123, 7, 7, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .link-btn:hover::before {
+            left: 100%;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary-red);
+            box-shadow: 0 10px 30px rgba(123, 7, 7, 0.4), 0 0 40px var(--glow-color);
+            background: linear-gradient(135deg, rgba(123, 7, 7, 0.1), rgba(142, 68, 173, 0.1));
+        }
+
+        .link-btn:active {
+            transform: translateY(-2px) scale(1);
+        }
+
+        .link-icon {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .link-icon i {
+            font-size: 1.4em;
+            color: var(--primary-red);
+            width: 30px;
+            text-align: center;
+        }
+
+        .link-arrow {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .link-btn:hover .link-arrow {
+            transform: translateX(5px);
+            color: var(--primary-red);
+        }
+
+        .social-section {
+            text-align: center;
+            padding: 35px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(123, 7, 7, 0.1);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            color: var(--text-primary);
+            font-size: 1.8em;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-red), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-8px) scale(1.1);
+            border-color: var(--primary-red);
+            box-shadow: 0 10px 30px rgba(123, 7, 7, 0.5), 0 0 40px var(--glow-color);
+        }
+
+        .social-icon:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .social-icon i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+
+        .footer a {
+            color: var(--primary-red);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary-red-light);
+            text-decoration: underline;
+        }
+
+        /* Stats Counter */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 2.5em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            .link-btn {
+                padding: 15px 20px;
+                font-size: 0.95em;
+            }
+
+            .link-icon i {
+                font-size: 1.2em;
+            }
+
+            .social-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1 class="logo">UndergroundPC</h1>
+            <p class="tagline">Premium Custom Gaming PCs Built for Champions</p>
+            <p class="subtitle">All your links to performance, support, and domination</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">PCs Built</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5★</div>
+                    <div class="stat-label">Rated</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Links -->
+        <div class="links-container">
+            <div class="link-category">
+                <div class="category-title">
+                    <i class="fas fa-rocket"></i> Start Here
+                </div>
+                <a href="index.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-home"></i>
+                        <span>Main Website</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="custom-builds.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-wrench"></i>
+                        <span>Build Your Custom PC</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="index.html#shop" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Shop Pre-Built Systems</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+            </div>
+
+            <div class="link-category">
+                <div class="category-title">
+                    <i class="fas fa-star"></i> Customer Reviews
+                </div>
+                <a href="https://www.facebook.com/profile.php?id=61575249959626&sk=reviews" class="link-btn" target="_blank">
+                    <div class="link-icon">
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>Read Our Reviews</span>
+                    </div>
+                    <i class="fas fa-external-link-alt link-arrow"></i>
+                </a>
+            </div>
+
+            <div class="link-category">
+                <div class="category-title">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </div>
+                <a href="about-us.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-users"></i>
+                        <span>About Us</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="faq.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQ</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+            </div>
+
+            <div class="link-category">
+                <div class="category-title">
+                    <i class="fas fa-headset"></i> Support
+                </div>
+                <a href="contact.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact Support</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="software-help.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-download"></i>
+                        <span>Software & Drivers</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="troubleshooting.html" class="link-btn">
+                    <div class="link-icon">
+                        <i class="fas fa-tools"></i>
+                        <span>Troubleshooting Guide</span>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="social-section">
+            <h3 class="social-title">Follow Us on Social Media</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/undergroundcustompc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="social-icon"
+                   aria-label="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61575249959626" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="social-icon"
+                   aria-label="Like us on Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.tiktok.com/@undergroundpc" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="social-icon"
+                   aria-label="Follow us on TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            <p>
+                <a href="privacy-policy.html">Privacy Policy</a> | 
+                <a href="shipping-returns.html">Shipping & Returns</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Add click tracking (optional)
+        document.querySelectorAll('.link-btn').forEach(link => {
+            link.addEventListener('click', function() {
+                const linkText = this.querySelector('span').textContent;
+                console.log('Link clicked:', linkText);
+                
+                // Track with Google Analytics if available
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'click', {
+                        'event_category': 'Links Page',
+                        'event_label': linkText
+                    });
+                }
+            });
+        });
+
+        // Animate stats on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach((stat, index) => {
+                stat.style.opacity = '0';
+                setTimeout(() => {
+                    stat.style.transition = 'opacity 0.6s ease';
+                    stat.style.opacity = '1';
+                }, 300 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html>

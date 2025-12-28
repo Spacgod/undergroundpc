@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UndergroundPC – Casa Grande | computer Repairs & Upgrades</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pc-builder-css.css">
+    
+    <style>
+        /* General Utility & Message Box */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            text-align: center;
+        }
+        .message-box.success {
+            background-color: #4CAF50;
+        }
+        .message-box.error {
+            background-color: #f44336;
+        }
+        .message-box button {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .message-box button:hover {
+            background-color: #eee;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Christmas Sale Popup */
+        .christmas-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .christmas-popup.active {
+            display: flex;
+        }
+
+        .christmas-popup-content {
+            background: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 450px;
+            text-align: center;
+            color: #333;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .christmas-popup-content h2 {
+            font-size: 2.2em;
+            margin: 0 0 15px 0;
+            color: #7b0707;
+            font-weight: 700;
+        }
+
+        .popup-subtitle {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .discount-badge {
+            background-color: #7b0707;
+            color: #fff;
+            font-size: 2em;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .christmas-popup-content p {
+            font-size: 1em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #666;
+        }
+
+        .popup-offer-details {
+            background: #f5f5f5;
+            border-left: 4px solid #7b0707;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .christmas-popup-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .christmas-popup-buttons button {
+            padding: 12px 30px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup-btn-shop {
+            background: #7b0707;
+            color: #fff;
+        }
+
+        .popup-btn-shop:hover {
+            background: #a01010;
+        }
+
+        .popup-btn-close {
+            background: #ddd;
+            color: #333;
+            border: 1px solid #999;
+        }
+
+        .popup-btn-close:hover {
+            background: #ccc;
+        }
+
+        .popup-close-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8em;
+            color: #999;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .popup-close-icon:hover {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .christmas-popup-content {
+                padding: 30px 20px;
+                max-width: 90%;
+                margin: 20px;
+            }
+
+            .christmas-popup-content h2 {
+                font-size: 1.8em;
+            }
+
+            .discount-badge {
+                font-size: 1.5em;
+                padding: 12px 25px;
+            }
+
+            .christmas-popup-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .popup-btn-shop,
+            .popup-btn-close {
+                width: 100%;
+            }
+        }
+
+        /* Section Layout & Typography */
+        .section-padding {
+            padding: 100px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 60px;
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #d0d0d0;
+            max-width: 700px;
+            margin: -40px auto 50px auto;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Grid Layouts */
+        .features-grid, .product-grid, .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 42px; /* Increased spacing between cards */
+            text-align: center;
+        }
+
+        /* Card Styling (Product & Feature) */
+        .product-card, .feature-card {
+            background-color: rgba(12,12,12,0.6);
+            backdrop-filter: blur(6px);
+            border: none;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+            color: #e6e6e6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            min-height: 440px;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+            will-change: transform, opacity;
+        }
+        .product-card:hover, .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 38px rgba(0,0,0,0.32);
+        }
+        /* Hide original content on hover (soft fade) */
+        .product-card:hover .product-main-content {
+            opacity: 0.02;
+            transition: opacity 0.28s ease;
+        }
+        .product-main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .product-main-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .product-main-content h3 {
+            font-size: 1.25em;
+            margin-bottom: 10px;
+            color: #f6f7f9;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        .product-main-content p {
+            color: rgba(230,230,230,0.9);
+            flex-grow: 1;
+            margin-bottom: 16px;
+            font-size: 0.95em;
+            line-height: 1.48;
+        }
+
+        .feature-card i {
+            font-size: 3.5em;
+            color: #e04b4b; /* muted red accent */
+            margin-bottom: 20px;
+            opacity: 0.92;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .feature-card p {
+            font-size: 0.95em;
+            color: #d0d0d0;
+            line-height: 1.7;
+        }
+
+        /* Button Styling - Specific to sections with background.png */
+        .btn-primary {
+            background: linear-gradient(90deg,#e24b4b 0%, #b82b2b 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+            box-shadow: 0 8px 26px rgba(226,75,75,0.12);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(226,75,75,0.18);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 14px 32px;
+            font-size: 1.05em;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255,255,255,0.14);
+            color: #f6f7f9;
+            transform: translateY(-2px);
+        }
+
+
+        /* Section Backgrounds & Overlays */
+        .hero-home,
+        .featured-products,
+        .why-choose-us,
+        .about-home,
+        .cta-section {
+            background: url('') no-repeat center center/cover;
+            position: relative;
+            z-index: 1;
+            color: white;
+        }
+
+        /* Hero Section Specifics */
+        .hero-home {
+            background: url('images/home screen/homescreen.jpg') no-repeat center center/cover !important;
+            text-align: center;
+            padding: 180px 20px; /* Increased padding */
+            min-height: 100vh; /* Full viewport height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-home h1 {
+            font-size: 4em; /* Larger title */
+            margin-bottom: 25px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.9); /* More prominent shadow */
+        }
+        .hero-home p {
+            font-size: 1.3em; /* Larger text */
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        .hero-home .btn {
+            margin: 0 10px; /* Spacing between buttons */
+        }
+
+        /* CTA Section Specifics */
+        .cta-section {
+            text-align: center;
+            padding: 120px 40px;
+            border-radius: 16px;
+            margin: 100px auto;
+            max-width: 1100px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(232, 44, 44, 0.1));
+        }
+        .cta-section h2 {
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            color: white;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.9);
+        }
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 50px;
+            max-width: 850px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            color: #e0e0e0;
+        }
+
+        /* About Us Section Specifics */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-content p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+        .about-content .btn {
+            margin-top: 30px;
+        }
+
+        /* Product Card Hover Info - New Styles for the game stats overlay */
+        .product-hover-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.88); /* slightly softer overlay for better visual balance */
+            color: white;
+            visibility: hidden; /* Initially hidden */
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute items with space, push button to bottom */
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+            transition: opacity 0.28s ease, visibility 0.28s ease;
+        }
+
+        .product-card:hover .product-hover-info {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .fps-image-container {
+            position: relative;
+            width: 90%; /* Adjust width of each game image container */
+            max-width: 220px; /* Max width to keep them from getting too big */
+            margin-bottom: 10px; /* Space between game stat blocks */
+            overflow: hidden; /* Ensure text stays within bounds if it goes outside */
+            border-radius: 8px; /* Rounded corners for image containers */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4); /* Shadow for pop-out effect */
+        }
+        .fps-image-container:last-of-type {
+            margin-bottom: 0; /* No margin after the last one */
+        }
+
+        .fps-image-container img {
+            width: 100%;
+            height: 100px; /* Fixed height for consistency */
+            object-fit: cover; /* Cover the container without distortion */
+            display: block; /* Remove extra space below image */
+        }
+
+        .fps-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for text */
+            padding: 8px 5px;
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.2;
+            color: white;
+            display: flex; /* Use flex to align elements horizontally */
+            flex-direction: column; /* Stack text vertically */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fps-overlay .game-name {
+            font-weight: 600;
+            color: #d1d1d1; /* Lighter grey for game name */
+            font-size: 1em;
+            margin-bottom: 2px;
+        }
+
+        .fps-overlay .fps {
+            font-weight: 700;
+            font-size: 1.3em; /* Larger FPS number */
+            color: #4CAF50; /* Green color for FPS */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            margin-bottom: 2px;
+        }
+
+        .fps-overlay .settings-text {
+            font-style: italic;
+            font-size: 0.8em;
+            color: #b0b0b0; /* Slightly lighter grey for settings */
+        }
+
+        .tested-on-text {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            margin-top: 15px; /* Space between last game and this text */
+            text-align: center;
+        }
+        /* Style for the button inside hover info */
+        .product-hover-info .btn-secondary {
+            margin-top: 15px; /* Add some space above the button */
+        }
+
+        /* NEW: Styles to remove hover effect for merchandise and repair cards */
+        .merch-card:hover, .repair-card:hover {
+            transform: translateY(0); /* Reset lift effect */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Reset original shadow */
+        }
+        /* Ensure main content of merch and repair cards doesn't hide */
+        .merch-card:hover .product-main-content,
+        .repair-card:hover .product-main-content {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Specific Fix for Windows Keys Section (2 items must be 1/3 width and centered) */
+        /* Overrides the product-grid for this section to use flexbox for centering 2 cards */
+        #shop-windows-keys .product-grid {
+            display: flex; 
+            justify-content: center; 
+            gap: 30px; 
+        }
+        
+        #shop-windows-keys .product-card {
+            /* Max width ensures the two cards don't grow past the size of one card in a 3-card layout (~1/3 of container width) */
+            max-width: 380px; 
+            flex-grow: 0; 
+            flex-shrink: 0; 
+            flex-basis: 300px; /* Minimum width constraint */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-home h1 {
+                font-size: 3.2em;
+            }
+            .hero-home p {
+                font-size: 1.1em;
+            }
+            .section-title {
+                font-size: 2.2em;
+            }
+            .cta-section h2 {
+                font-size: 2.8em;
+            }
+            .cta-section p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-home h1 {
+                font-size: 2.8em;
+            }
+            .hero-home p {
+                font-size: 1em;
+            }
+            .hero-home .btn {
+                display: block;
+                margin: 15px auto;
+            }
+            .section-padding {
+                padding: 60px 0;
+            }
+            .section-title {
+                font-size: 1.8em;
+                margin-bottom: 40px;
+            }
+            .product-card, .feature-card {
+                padding: 25px;
+            }
+            .product-card, .feature-card { /* Reset min-height for mobile if needed, but keeping it consistent for now */
+                min-height: auto; 
+            }
+            .product-card h3, .feature-card h3 {
+                font-size: 1.4em;
+            }
+            .feature-card i {
+                font-size: 3em;
+            }
+            .cta-section {
+                padding: 80px 20px;
+                margin: 50px auto;
+            }
+            .cta-section h2 {
+                font-size: 2.2em;
+                margin-bottom: 20px;
+            }
+            .cta-section p {
+                font-size: 1em;
+                margin-bottom: 40px;
+            }
+            .btn-primary, .btn-secondary {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .fps-image-container {
+                max-width: 180px; /* Adjust for smaller screens */
+            }
+            .fps-overlay .fps {
+                font-size: 1.1em; /* Smaller FPS for mobile */
+            }
+            
+            /* Responsive adjustments for the Windows Keys section */
+            #shop-windows-keys .product-grid {
+                flex-direction: column; /* Stack the cards vertically */
+                align-items: center; /* Center them horizontally */
+            }
+            #shop-windows-keys .product-card {
+                max-width: 100%; /* Allow to take full width of the grid container (minus padding) */
+                flex-grow: 1; 
+                flex-basis: auto;
+            }
+        }
+
+        /* MailerLite Form Specific Styles */
+        /* ... (rest of the styles are unchanged) ... */
+
+        /* Stacking cards: desktop-only stacked layout and scroll-to-spread animation */
+        @media (min-width: 992px) {
+            /* Put #shop product grid into a positioned container for absolute cards */
+            #shop .product-grid {
+                display: block;
+                position: relative;
+                height: auto; /* computed by JS */
+                padding-top: 40px;
+                overflow: visible; /* allow cards to extend beyond grid bounds */
+            }
+
+            /* Base styling for stacked cards */
+            #shop .product-card {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 340px;
+                transform-origin: center top;
+                transition: transform 0.5s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease, z-index 0s;
+                margin: 0;
+                will-change: transform;
+                border: 1px solid rgba(255,255,255,0.04);
+                box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+                outline: none;
+                border-color: rgba(255,255,255,0.04) !important;
+            }
+
+            /* Give each card a small vertical offset so they appear stacked */
+            #shop .product-card:nth-child(1) { --i: 0; }
+            #shop .product-card:nth-child(2) { --i: 1; }
+            #shop .product-card:nth-child(3) { --i: 2; }
+            #shop .product-card:nth-child(4) { --i: 3; }
+            #shop .product-card:nth-child(5) { --i: 4; }
+            #shop .product-card:nth-child(6) { --i: 5; }
+            #shop .product-card:nth-child(7) { --i: 6; }
+            #shop .product-card:nth-child(8) { --i: 7; }
+
+            #shop .product-card { transform: translateX(-50%) translateY(calc(var(--i) * 14px)); }
+
+            /* When the stack is activated, cards spread horizontally out to the side */
+            #shop .product-grid.stack-open .product-card {
+                /* transforms will be set from JS for better centering and spacing */
+                box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+            }
+            /* Ensure hover still works on spread cards */
+            #shop .product-grid.stack-open .product-card:hover {
+                transform: translateY(0) scale(1.015);
+                z-index: 9999 !important;
+                box-shadow: 0 30px 60px rgba(0,0,0,0.36);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html" aria-current="page">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+     <section id="hero-home" class="hero-home reveal-on-scroll" role="region" aria-labelledby="hero-main-heading">
+    <div class="container hero-content">
+        <div class="hero-overlay"></div> 
+        
+        <h1 id="hero-main-heading" class="reveal-item hero-title">
+            UndergroundPC
+        </h1>
+        
+        <h3 class="reveal-item hero-services-tagline text-small"> 
+            Custom PCs &bull; Repairs &bull; Upgrades
+        </h3>
+        
+        <div class="hero-actions reveal-item">
+            <a href="#shop" class="btn btn-primary btn-large" aria-label="Shop our selection of pre-built custom computers">
+                <i class="fas fa-shopping-cart"></i> Shop Pre-Built Systems
+            </a>
+            
+            <a href="custom-builds.html" class="btn btn-secondary" aria-label="Design and configure your own custom PC build">
+                <i class="fas fa-tools"></i> Start Your Custom Build
+            </a>
+        </div>
+        
+        <div id="shapo-widget-e905b004810d3ef9b3b7" class="hero-utility"></div>
+        
+    </div>
+</section>
+
+        <section class="featured-products section-padding reveal-on-scroll" id="shop" role="region" aria-labelledby="featured-products-title">
+            <div class="container">
+                <h2 id="featured-products-title" class="section-title reveal-item">Premium Pre-Built Gaming PCs</h2>
+                <p class="section-subtitle reveal-item">Hand-built, rigorously tested, and ready to dominate. Each system is optimized for peak performance.</p>
+                <div class="product-grid">
+                    <div class="product-card reveal-item"
+                         data-game1-name="Fortnite" data-game1-fps="90" data-game1-image="images/fn.png"
+                         data-game2-name="Counter Strike 2" data-game2-fps="150" data-game2-settings="High" data-game2-image="images/cs-2.png"
+                         data-game3-name="Call of Duty" data-game3-fps="80" data-game3-settings="high" data-game3-image="images/cod.png"
+                         data-tested-on="Tested at high or ultra settings on 1080p">
+                        <div class="product-main-content">
+                            <img src="images/woodenpc.png" alt="High-Performance Gaming PC - Coming Soon">
+                            <h3>Cyberpunk Gaming PC</h3>
+                            <p>Experience cutting-edge performance with our latest gaming rigs, designed for immersive gameplay.</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <h4 class="sr-only">Performance Benchmarks</h4>
+                            <div class="fps-image-container">
+                                <img src="" alt="Fortnite Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Counter Strike 2 Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Call of Duty Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <p class="tested-on-text"></p>
+                            <a href="product-details.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card reveal-item"
+                         data-game1-name="Blender" data-game1-fps="30s Render" data-game1-image="images/bd.png"
+                         data-game2-name="Premiere Pro" data-game2-fps="5min Export" data-game2-image="images/premiere.png"
+                         data-game3-name="AutoCAD" data-game3-fps="very Smooth"  data-game3-image="images/autocad.png"
+                         data-tested-on="Optimized for professional workloads">
+                        <div class="product-main-content">
+                            <img src="images/workstation.png" alt="Professional Creator Workstation PC">
+                            <h3>Ultra Workstation</h3>
+                            <p>Unleash your creativity with powerful workstations optimized for demanding design and rendering tasks.</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <h4 class="sr-only">Application Performance Benchmarks</h4>
+                            <div class="fps-image-container">
+                                <img src="" alt="Blender Application Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Premiere Pro Application Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="AutoCAD Application Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span>
+                                </div>
+                            </div>
+                            <p class="tested-on-text"></p>
+                            <a href="product-details2.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card reveal-item"
+                         data-game1-name="Rocket League" data-game1-fps="110" data-game1-settings="High" data-game1-image="images/rl.png"
+                         data-game2-name="Minecraft" data-game2-fps="110" data-game2-settings="High" data-game2-image="images/mc.png"
+                         data-game3-name="CS2" data-game3-fps="160" data-game3-settings="Medium" data-game3-image="images/cs-2.png"
+                         data-tested-on="Compact power, big performance">
+                        <div class="product-main-content">
+                            <img src="images/micropc.png" alt="Compact Gaming PC Rig - Coming Soon">
+                            <h3>Micro PC </h3>
+                            <p>Big power in a small form factor. Perfect for limited spaces without compromising on performance.</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <h4 class="sr-only">Performance Benchmarks</h4>
+                            <div class="fps-image-container">
+                                <img src="" alt="Rocket League Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Minecraft Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="CS2 Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <p class="tested-on-text"></p>
+                            <a href="product-details3.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card reveal-item"
+                         data-game1-name="Valorant" data-game1-fps="200" data-game1-settings="Ultra" data-game1-image="images/cs-2.png"
+                         data-game2-name="Apex Legends" data-game2-fps="120" data-game2-settings="High" data-game2-image="images/rl.png"
+                         data-game3-name="Overwatch 2" data-game3-fps="180" data-game3-settings="Ultra" data-game3-image="images/fn.png"
+                         data-tested-on="Tested at ultra settings on 1080p">
+                        <div class="product-main-content">
+                            <img src="images/budget.png" alt="Valorant Pro Gaming PC">
+                            <h3>Ultra Budget Build</h3>
+                            <p>The ultimate Budget Build For Your Gaming Needs</p>
+                        </div>
+                        <div class="product-hover-info">
+                            <h4 class="sr-only">Performance Benchmarks</h4>
+                            <div class="fps-image-container">
+                                <img src="" alt="Valorant Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Apex Legends Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <div class="fps-image-container">
+                                <img src="" alt="Overwatch 2 Gameplay Screenshot">
+                                <div class="fps-overlay">
+                                    <span class="game-name"></span>
+                                    <span class="fps"></span> FPS
+                                    <span class="settings-text"></span>
+                                </div>
+                            </div>
+                            <p class="tested-on-text"></p>
+                            <a href="product-details4.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Removed two "coming soon" product cards -->
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products section-padding reveal-on-scroll" id="shop-merch" role="region" aria-labelledby="featured-merch-title">
+            <div class="container">
+                <h2 id="featured-merch-title" class="section-title reveal-item">UndergroundPC Merchandise</h2>
+                <div class="product-grid">
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="merchimages/mousepad3.webp" alt="UndergroundPC Hoodie">
+                            <h3>Custom Mouse Pad</h3>
+                            <p>Design your ultimate gaming or work setup with a custom mouse pad. Personalize it with your unique image for comfort and smooth mouse tracking.</p>
+                            <a href="mousepad.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="merchimages/yourlogo.jpg" alt="Custom PC Stickers">
+                            <h3>Custom PC Stickers</h3>
+                            <p>UndergroundPC offers custom, durable stickers to personalize your PC, laptop, or gaming setup. Express yourself!</p>
+                            <a href="stickers.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/coming-soon.png" alt="UndergroundPC Gaming Mousepad">
+                            <h3>coming-soon</h3>
+                            <p>Enhance your gaming setup with our large, high-performance gaming mousepad, featuring the UndergroundPC logo.</p>
+                            <a href="merch-details3.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products section-padding reveal-on-scroll" id="shop-windows-keys" role="region" aria-labelledby="featured-keys-title">
+            <div class="container">
+                <h2 id="featured-keys-title" class="section-title reveal-item">Windows Keys</h2>
+                <div class="product-grid">
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="windowsimages/Windows-11-Home-Key-2-340x340.webp" alt="Windows 11 Home Product Key">
+                            <h3>Windows 11 Home Key</h3>
+                            <p>Instantly upgrade your computer with an official Windows 11 Home product key for a secure and modern experience.</p>
+                            <a href="product-details-win11.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card merch-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="windowsimages/Windows-10-pro-key-2.webp" alt="Windows 10 Home Product Key">
+                            <h3>Windows 10 Home Key</h3>
+                            <p>The trusted operating system. Purchase an official Windows 10 Home product key for stability and familiarity.</p>
+                            <a href="product-details-win10.html" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products section-padding reveal-on-scroll" id="shop-repair-services" role="region" aria-labelledby="featured-repair-services-title">
+            <div class="container">
+                <h2 id="featured-repair-services-title" class="section-title reveal-item">Repair Services</h2>
+                <div class="product-grid">
+                    <div class="product-card repair-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/repairs.png" alt="PC Diagnostics and Troubleshooting"> <h3>Diagnostics & Troubleshooting</h3>
+                            <p>Comprehensive analysis to pinpoint issues with your PC, ensuring an accurate and efficient repair plan.</p>
+                            <a href="troubleshooting.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card repair-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/repairs.png" alt="Hardware Repair and Upgrades"> <h3>Upgrade Components</h3>
+                            <p>From component replacement to performance upgrades, we handle all your PC hardware needs with expertise.</p>
+                            <a href="Upgrade-Components.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card repair-card reveal-item">
+                        <div class="product-main-content">
+                            <img src="images/repairs.png" alt="Software and Virus Removal"> <h3>Software & Virus Removal</h3>
+                            <p>Expert solutions for operating system errors, malware, viruses, and software conflicts to restore system health.</p>
+                            <a href="software-help.html" class="btn btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="why-choose-us section-padding about-home reveal-on-scroll" role="region" aria-labelledby="why-choose-us-title">
+            <div class="container">
+                <h2 id="why-choose-us-title" class="section-title reveal-item">Why Choose UndergroundPC?</h2>
+                <p class="section-subtitle reveal-item">Experience the difference with Arizona's premier custom PC builder</p>
+                <div class="features-grid">
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-microchip" aria-hidden="true"></i>
+                        <h3>Premium Components Only</h3>
+                        <p>We exclusively use top-tier parts from industry leaders like NVIDIA, AMD, Intel, and Corsair. Every component is hand-selected for maximum performance and reliability.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-bolt" aria-hidden="true"></i>
+                        <h3>Built for Peak Performance</h3>
+                        <p>Optimized cable management, precision thermal solutions, and professional overclocking ensure your system runs at its absolute best.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-tools" aria-hidden="true"></i>
+                        <h3>Expert Craftsmanship</h3>
+                        <p>Every build is meticulously assembled, stress-tested for 24+ hours, and benchmarked by certified technicians before it ships to your door.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-trophy" aria-hidden="true"></i>
+                        <h3>Warranty & Support</h3>
+                        <p>Industry-leading warranty coverage, lifetime technical support, and local Casa Grande service. We stand behind every system we build.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-rocket" aria-hidden="true"></i>
+                        <h3>Future-Proof Designs</h3>
+                        <p>Scalable builds with upgrade paths in mind. Your PC grows with your needs, protecting your investment for years to come.</p>
+                    </div>
+                    <div class="feature-card reveal-item">
+                        <i class="fas fa-dollar-sign" aria-hidden="true"></i>
+                        <h3>Unbeatable Value</h3>
+                        <p>Direct pricing with no middleman markup. Get more performance per dollar than big-box brands, plus free shipping on qualifying orders.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section reveal-on-scroll" role="region" aria-labelledby="custom-build-cta-title">
+            <div class="container">
+                <h2 id="custom-build-cta-title" class="reveal-item">Can't Find Your Perfect PC?</h2>
+                <p class="reveal-item">Design your dream machine from the ground up with our intuitive PC Builder. Choose every component to match your exact needs and budget, and let us bring your vision to life.</p>
+                <a href="custom-builds.html" class="btn btn-primary reveal-item">Start Your Custom Build</a>
+            </div>
+        </section>
+
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                if (card) {
+                    card.addEventListener('mouseenter', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            mainContent.style.opacity = '0';
+                            mainContent.style.visibility = 'hidden';
+                            hoverInfo.style.visibility = 'visible';
+                            hoverInfo.style.opacity = '1';
+                        }
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            hoverInfo.style.opacity = '0';
+                            hoverInfo.style.visibility = 'hidden';
+                            mainContent.style.visibility = 'visible';
+                            mainContent.style.opacity = '1';
+                        }
+                    });
+                }
+            });
+
+            /* Stacking cards behavior for #shop: adaptive sizing and spread, smooth staggered animations */
+            const shopSection = document.querySelector('#shop');
+            const shopGrid = shopSection ? shopSection.querySelector('.product-grid') : null;
+
+            function setupStacking() {
+                if (!shopGrid) return;
+                const cards = shopGrid.querySelectorAll('.product-card');
+                if (window.innerWidth < 992 || cards.length === 0) {
+                    shopGrid.classList.remove('stack-open');
+                    shopGrid.classList.remove('stack-enabled');
+                    shopGrid.style.height = '';
+                    cards.forEach(card => {
+                        card.style.position = '';
+                        card.style.left = '';
+                        card.style.transform = '';
+                        card.style.width = '';
+                        card.style.zIndex = '';
+                        card.style.transitionDelay = '';
+                        card.style.boxShadow = '';
+                    });
+                    // remove side padding and reset parent overflow
+                    shopGrid.style.paddingLeft = '';
+                    shopGrid.style.paddingRight = '';
+                    const parentContainer = shopGrid.closest('.container');
+                    if (parentContainer) parentContainer.style.overflow = '';
+                    return;
+                }
+
+                shopGrid.classList.add('stack-enabled');
+                const gridWidth = shopGrid.clientWidth || shopSection.clientWidth || window.innerWidth;
+                const cardWidth = Math.max(260, Math.min(360, Math.floor(gridWidth * 0.24)));
+                const baseHeight = Math.max(...Array.from(cards).map(c => c.offsetHeight || 480));
+                shopGrid.style.height = (baseHeight + 80) + 'px';
+
+                // compute center offset so stack centers in the viewport (not just the container)
+                const gridRect = shopGrid.getBoundingClientRect();
+                const containerCenter = gridRect.left + (gridRect.width / 2);
+                const viewportCenter = window.innerWidth / 2;
+                const centerOffset = Math.round(viewportCenter - containerCenter);
+
+                // ensure parent container allows visible overflow so left-most card isn't clipped
+                const parentContainer = shopGrid.closest('.container');
+                if (parentContainer) parentContainer.style.overflow = 'visible';
+
+                // add side padding so the first and last cards have room to show
+                const sidePad = Math.ceil(cardWidth / 2) + 40 + Math.abs(centerOffset); // extra breathing room and offset
+                shopGrid.style.paddingLeft = sidePad + 'px';
+                shopGrid.style.paddingRight = sidePad + 'px';
+
+                const centerIndex = Math.floor(cards.length / 2);
+                const zBase = 100;
+                cards.forEach((card, idx) => {
+                    card.style.position = 'absolute';
+                    card.style.top = '0';
+                    card.style.left = '50%';
+                    card.style.width = cardWidth + 'px';
+                    // collapsed: center around middle card with small fan; include centerOffset to center stack in viewport
+                    const collapsedSpread = 44; // larger fan for collapsed state to increase horizontal spacing
+                    const collapsedY = 6; // vertical offset between stacked cards
+                    card.style.transform = `translateX(calc(-50% + ${centerOffset + ((idx - centerIndex) * collapsedSpread)}px)) translateY(${idx * collapsedY}px) scale(0.985)`;
+                    card.style.transition = 'transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s, opacity 0.45s';
+                    card.style.willChange = 'transform, opacity';
+                    card.style.boxShadow = '';
+                    // collapsed: higher zIndex for cards closer to center so center card sits on top
+                    const distance = Math.abs(idx - centerIndex);
+                    card.style.zIndex = (zBase + (cards.length - distance)).toString();
+                    card.style.transitionDelay = `${idx * 18}ms`;
+                });
+            }
+
+            setupStacking();
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(setupStacking, 120);
+            });
+
+            if (shopSection && shopGrid) {
+                let lastScrollY = window.scrollY;
+                let scrollVelocity = 0;
+                let spreadProgress = 0;
+                let animationFrame;
+
+                // Update spread based on scroll position and velocity
+                function updateCardSpread() {
+                    const cards = shopGrid.querySelectorAll('.product-card');
+                    if (cards.length === 0) return;
+                    
+                    const centerIndex = Math.floor(cards.length / 2);
+                    const gridRect = shopGrid.getBoundingClientRect();
+                    const cardWidth = parseInt(cards[0].style.width, 10) || 340;
+                    const maxAvailable = Math.max(0, gridRect.width - cardWidth);
+                    const maxSpread = Math.min(280, Math.max(150, Math.floor(maxAvailable / Math.max(1, cards.length - 1))));
+                    
+                    const containerCenter = gridRect.left + (gridRect.width / 2);
+                    const viewportCenter = window.innerWidth / 2;
+                    const centerOffset = Math.round(viewportCenter - containerCenter);
+                    
+                    // Calculate scroll-based progress (0 to 1)
+                    const sectionTop = shopSection.offsetTop;
+                    const sectionHeight = shopSection.offsetHeight;
+                    const scrollPosition = window.scrollY + window.innerHeight / 2;
+                    const relativeScroll = (scrollPosition - sectionTop) / sectionHeight;
+                    const targetProgress = Math.max(0, Math.min(1, relativeScroll * 2 - 0.3));
+                    
+                    // Smooth interpolation based on scroll velocity
+                    const velocityFactor = Math.min(Math.abs(scrollVelocity) / 20, 1);
+                    const lerpSpeed = 0.1 + (velocityFactor * 0.15);
+                    spreadProgress += (targetProgress - spreadProgress) * lerpSpeed;
+                    
+                    cards.forEach((card, idx) => {
+                        const distance = idx - centerIndex;
+                        const capped = Math.max(-3, Math.min(3, distance));
+                        
+                        // Interpolate between collapsed and spread states
+                        const collapsedOffset = capped * 30;
+                        const spreadOffset = capped * maxSpread;
+                        const offset = collapsedOffset + (spreadOffset - collapsedOffset) * spreadProgress;
+                        
+                        const collapsedY = Math.abs(distance) * 6;
+                        const spreadY = Math.abs(capped) * 3;
+                        const y = collapsedY + (spreadY - collapsedY) * spreadProgress;
+                        
+                        const scale = 0.985 + (0.015 * spreadProgress);
+                        
+                        card.style.transform = `translateX(calc(-50% + ${centerOffset + offset}px)) translateY(${y}px) scale(${scale})`;
+                        card.style.transition = `transform ${0.3 + velocityFactor * 0.3}s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s, opacity 0.45s`;
+                        
+                        // Adjust shadow and opacity based on spread
+                        const shadowIntensity = 20 + (30 * spreadProgress);
+                        card.style.boxShadow = `0 ${shadowIntensity}px ${shadowIntensity * 2}px rgba(0,0,0,${0.2 + 0.18 * spreadProgress})`;
+                        
+                        const absDist = Math.abs(distance);
+                        card.style.zIndex = (200 - absDist + Math.floor(spreadProgress * 20)).toString();
+                        
+                        // Opacity based on spread
+                        const minOpacity = absDist === 0 ? 1 : (absDist === 1 ? 0.92 : 0.7);
+                        const maxOpacity = absDist === 0 ? 1 : (absDist === 1 ? 0.95 : 0.8);
+                        card.style.opacity = (minOpacity + (maxOpacity - minOpacity) * spreadProgress).toString();
+                    });
+                    
+                    animationFrame = requestAnimationFrame(updateCardSpread);
+                }
+                
+                // Track scroll velocity
+                function handleScroll() {
+                    const currentScrollY = window.scrollY;
+                    scrollVelocity = currentScrollY - lastScrollY;
+                    lastScrollY = currentScrollY;
+                }
+                
+                // Hover effect for full spread
+                shopGrid.addEventListener('mouseenter', () => {
+                    spreadProgress = 1;
+                });
+                
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                
+                // Start animation loop
+                updateCardSpread();
+                
+                // Cleanup on page unload
+                window.addEventListener('beforeunload', () => {
+                    if (animationFrame) cancelAnimationFrame(animationFrame);
+                });
+            }
+        });
+    </script>
+    <script>
+        function ml_webform_success_26959171() {
+          var $ = ml_jQuery || jQuery;
+          $('.ml-subscribe-form-26959171 .row-success').show();
+          $('.ml-subscribe-form-26959171 .row-form').hide();
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1579745/forms/1565840/js/webforms.min.js?v2")
+            .then(res => res.text())
+            .then(data => {
+                const script = document.createElement('script');
+                script.text = data.replace('/**/ typeof ml_webform_success_26959171 === \'function\' && ml_webform_success_26959171();', 'try { typeof ml_webform_success_26959171 === \'function\' && ml_webform_success_26959171(); } catch (e) { /* ignore */ }');
+                document.head.appendChild(script);
+            })
+            .catch(error => console.error('Error loading MailerLite form script:', error));
+    </script>
+    
+</body>
+        <section id="about-us" class="about-home section-padding reveal-on-scroll" role="region" aria-labelledby="about-us-home-title">
+            <div class="container">
+                <h2 id="about-us-home-title" class="section-title reveal-item">About UndergroundPC</h2>
+                <div class="about-content">
+                    <p class="reveal-item">At UndergroundPC, we're passionate about bringing high-performance computing to everyone. From cutting-edge gaming rigs to powerful workstations, we build systems that empower your digital life, whether you're gaming, creating, or working.</p>
+                    <p class="reveal-item">Our unwavering commitment to quality, customer satisfaction, and continuous innovation drives everything we do. Discover how our dedication translates into superior performance and a seamless experience for you.</p>
+                    <a href="about-us.html" class="btn btn-secondary reveal-item">Learn More About Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="site-logo footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav" aria-label="Quick links">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav" aria-label="Support links">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Christmas Sale Popup -->
+    <div id="christmasPopup" class="christmas-popup">
+        <button class="popup-close-icon" onclick="closeChristmasPopup()">✕</button>
+        <div class="christmas-popup-content">
+            <h2>Christmas Sale</h2>
+            <p class="popup-subtitle">Limited Time Offer</p>
+            <div class="discount-badge">45% OFF</div>
+            <div class="popup-offer-details">
+                Labor Fee on PC Repairs, Upgrades & Builds
+            </div>
+            <p>Enjoy special holiday discounts on repair and upgrade labor services.</p>
+            <p style="font-size: 0.9em; color: #888;">Valid through January 1st, 2026</p>
+            <div class="christmas-popup-buttons">
+                <button class="popup-btn-shop" onclick="shopNow()">Shop Now</button>
+                <button class="popup-btn-close" onclick="closeChristmasPopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
+        <p id="success-message-content"></p>
+        <button onclick="document.getElementById('success-message-box').classList.add('hidden');">OK</button>
+    </div>
+
+    <div id="error-message-box" class="message-box hidden" role="alert" aria-live="assertive">
+        <p id="error-message-content"></p>
+        <button onclick="document.getElementById('error-message-box').classList.add('hidden');">OK</button>
+    </div>
+    
+   
+    <script src="script.js"></script>
+    <script>
+        // Transparent header on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const form = event.target;
+                    const formData = new FormData(form);
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        if (response.ok) {
+                            // Assuming showMessageBox is defined in script.js or globally
+                            if (typeof showMessageBox === 'function') {
+                                showMessageBox('success', 'Your message has been sent successfully! We will get back to you soon.');
+                            } else {
+                                console.log('Message sent successfully!');
+                            }
+                            form.reset(); // Clear the form
+                        } else {
+                            const data = await response.json();
+                            let errorMessage = 'An error occurred during submission. Please try again.';
+                            if (data.errors) {
+                                errorMessage = `Submission failed: ${data.errors.map(e => e.message).join(', ')}`;
+                            }
+                            if (typeof showMessageBox === 'function') {
+                                showMessageBox('error', errorMessage);
+                            } else {
+                                console.error('Error:', errorMessage);
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Network error or problem submitting the form:', error);
+                        if (typeof showMessageBox === 'function') {
+                            showMessageBox('error', 'Network error or problem submitting the form. Please check your internet connection and try again.');
+                        }
+                    }
+                });
+            }
+
+            // JavaScript for Product Hover Effect (Modified to exclude merch cards and repair cards)
+            const productCards = document.querySelectorAll('.product-grid .product-card'); // Select all product cards
+
+            productCards.forEach(card => {
+                // Check if the card has specific data attributes for game performance and is NOT a merch or repair card
+                const isPcCard = card.hasAttribute('data-game1-name') &&
+                                 !card.classList.contains('merch-card') &&
+                                 !card.classList.contains('repair-card');
+
+                if (isPcCard) { // Only apply hover effect logic to PC cards
+                    card.addEventListener('mouseenter', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            // Populate data for each of the 3 game performance displays
+                            const fpsImageContainers = hoverInfo.querySelectorAll('.fps-image-container');
+                            for (let i = 1; i <= 3; i++) {
+                                const gameName = card.dataset[`game${i}Name`];
+                                const fps = card.dataset[`game${i}Fps`];
+                                const settings = card.dataset[`game${i}Settings`];
+                                const image = card.dataset[`game${i}Image`];
+
+                                if (fpsImageContainers[i - 1]) {
+                                    const imgElement = fpsImageContainers[i - 1].querySelector('img');
+                                    const gameNameElement = fpsImageContainers[i - 1].querySelector('.game-name');
+                                    const fpsElement = fpsImageContainers[i - 1].querySelector('.fps');
+                                    const settingsElement = fpsImageContainers[i - 1].querySelector('.settings-text'); // Corrected selector
+
+                                    if (imgElement) imgElement.src = image || ''; // Set image source
+                                    if (gameNameElement) gameNameElement.textContent = gameName || '';
+                                    if (fpsElement) fpsElement.textContent = fps || '';
+                                    if (settingsElement && settings) settingsElement.textContent = `(${settings})`; // Add parentheses for settings
+                                    else if (settingsElement) settingsElement.textContent = ''; // Clear if no settings
+                                }
+                            }
+
+                            // Populate the general tested-on text
+                            const testedOnTextElement = hoverInfo.querySelector('.tested-on-text');
+                            if (testedOnTextElement) {
+                                testedOnTextElement.textContent = card.dataset.testedOn || '';
+                            }
+
+                            // Hide main content and show hover info
+                            mainContent.style.opacity = '0';
+                            mainContent.style.visibility = 'hidden';
+                            hoverInfo.style.visibility = 'visible';
+                            hoverInfo.style.opacity = '1';
+                        }
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        const mainContent = card.querySelector('.product-main-content');
+                        const hoverInfo = card.querySelector('.product-hover-info');
+
+                        if (mainContent && hoverInfo) {
+                            // Hide hover info and show main content
+                            hoverInfo.style.opacity = '0';
+                            hoverInfo.style.visibility = 'hidden';
+                            mainContent.style.visibility = 'visible';
+                            mainContent.style.opacity = '1';
+                        }
+                    });
+                }
+            });
+
+            // >>>>> NEW PROMO BANNER JAVASCRIPT START <<<<<
+            const promoBanner = document.getElementById('promo-banner');
+            const closeButton = promoBanner.querySelector('.close-btn');
+
+            // Function to show the banner
+            const showBanner = () => {
+                // Check if the user has already dismissed the banner in this session
+                if (sessionStorage.getItem('promoBannerDismissed') !== 'true') {
+                    promoBanner.classList.add('visible');
+                }
+            };
+
+            // Function to hide the banner and set a session flag
+            const hideBanner = () => {
+                promoBanner.classList.remove('visible');
+                sessionStorage.setItem('promoBannerDismissed', 'true');
+            };
+
+            // Show the banner after a delay (e.g., 2 seconds)
+            setTimeout(showBanner, 2000);
+
+            // Add event listener to the close button
+            closeButton.addEventListener('click', hideBanner);
+            // >>>>> NEW PROMO BANNER JAVASCRIPT END <<<<<
+
+        });
+    </script>
+    <script>
+        function ml_webform_success_26959171() {
+          var $ = ml_jQuery || jQuery;
+          $('.ml-subscribe-form-26959171 .row-success').show();
+          $('.ml-subscribe-form-26959171 .row-form').hide();
+        }
+    </script>
+    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+    <script>
+        fetch("https://assets.mailerlite.com/jsonp/1579745/forms/156584617523021128/takel")
+    </script>
+
+    <script src="//code.tidio.co/g7unma5gpdcbgpmrhysgclurjvfmoama.js" async></script>
+
+    <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
+    
+    <!-- Christmas Popup Script -->
+    <script>
+        function showChristmasPopup() {
+            const popup = document.getElementById('christmasPopup');
+            popup.classList.add('active');
+            // Store in sessionStorage so it doesn't show again during this session
+            sessionStorage.setItem('christmasPopupShown', 'true');
+        }
+
+        function closeChristmasPopup() {
+            const popup = document.getElementById('christmasPopup');
+            popup.classList.remove('active');
+        }
+
+        function shopNow() {
+            // Redirect to shop section
+            window.location.href = '#shop';
+            closeChristmasPopup();
+        }
+
+        // Show popup on page load if not already shown this session
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('christmasPopupShown')) {
+                setTimeout(function() {
+                    showChristmasPopup();
+                }, 1000); // Show after 1 second
+            }
+        });
+
+        // Close popup when clicking outside the content
+        document.getElementById('christmasPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeChristmasPopup();
+            }
+        });
+    </script>
+    
+</body>
+</html>

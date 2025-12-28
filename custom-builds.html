@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom PC Builds - UndergroundPC</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styles for Custom Builds page */
+        .custom-builds-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #eee;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .custom-builds-section h2 {
+            font-size: 3em;
+            color: #7b0707;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .custom-builds-intro {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .custom-builds-intro p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .custom-builds-intro .highlight {
+            color: #7b0707;
+            font-weight: 600;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+        
+        .benefit-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(123, 7, 7, 0.3);
+        }
+        
+        .benefit-card i {
+            font-size: 3em;
+            color: #7b0707;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .custom-form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 50px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .custom-form-container h3 {
+            font-size: 2.2em;
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .custom-form-container .form-subtitle {
+            text-align: center;
+            color: #ccc;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        
+        .custom-builds-form .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .custom-builds-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.05em;
+        }
+        
+        .custom-builds-form label .required {
+            color: #7b0707;
+        }
+        
+        .custom-builds-form input[type="text"],
+        .custom-builds-form input[type="email"],
+        .custom-builds-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #eee;
+            font-size: 1em;
+            font-family: 'Roboto', sans-serif;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .custom-builds-form input[type="text"]::placeholder,
+        .custom-builds-form input[type="email"]::placeholder,
+        .custom-builds-form textarea::placeholder {
+            color: #888;
+        }
+        
+        .custom-builds-form input[type="text"]:focus,
+        .custom-builds-form input[type="email"]:focus,
+        .custom-builds-form textarea:focus {
+            border-color: #7b0707;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(123, 7, 7, 0.3);
+        }
+        
+        .custom-builds-form textarea {
+            resize: vertical;
+            min-height: 180px;
+        }
+        
+        .form-helper-text {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+        
+        .form-helper-text a {
+            color: #7b0707;
+            text-decoration: underline;
+        }
+        
+        .form-helper-text a:hover {
+            color: #e64a19;
+        }
+        
+        .custom-builds-form button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 5px;
+            background-color: #7b0707;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+        
+        .custom-builds-form button[type="submit"]:hover {
+            background-color: #e64a19;
+            transform: translateY(-2px);
+        }
+        
+        .custom-builds-form button[type="submit"]:active {
+            transform: translateY(0);
+        }
+        
+        .info-box {
+            background-color: rgba(123, 7, 7, 0.2);
+            border-left: 4px solid #7b0707;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 5px;
+        }
+        
+        .info-box h4 {
+            color: #7b0707;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .info-box p {
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            list-style-position: inside;
+            color: #ccc;
+            line-height: 1.8;
+            margin-left: 15px;
+        }
+        
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .custom-builds-section {
+                padding: 60px 0;
+            }
+            
+            .custom-builds-section h2 {
+                font-size: 2.5em;
+                margin-bottom: 15px;
+            }
+            
+            .custom-builds-intro p {
+                font-size: 1.1em;
+            }
+            
+            .benefits-grid {
+                gap: 20px;
+            }
+            
+            .custom-form-container {
+                padding: 30px 20px;
+            }
+            
+            .custom-form-container h3 {
+                font-size: 1.9em;
+                margin-bottom: 10px;
+            }
+            
+            .custom-form-container .form-subtitle {
+                font-size: 1em;
+                margin-bottom: 30px;
+            }
+            
+            .custom-builds-form label,
+            .custom-builds-form input[type="text"],
+            .custom-builds-form input[type="email"],
+            .custom-builds-form textarea {
+                font-size: 0.95em;
+            }
+            
+            .custom-builds-form button[type="submit"] {
+                font-size: 1em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="custom-builds-section">
+            <div class="container">
+                <h2>Custom PC Builds</h2>
+                
+                <div class="custom-builds-intro">
+                    <p>At <span class="highlight">UndergroundPC</span>, we believe your PC should be as unique as you are. Whether you're a competitive gamer, content creator, or enthusiast, we'll bring your dream build to life.</p>
+                    <p>Submit your PCPartPicker list below, and our expert team will review your configuration, provide professional recommendations, and give you a custom quote.</p>
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <i class="fas fa-tools"></i>
+                        <h3>Expert Assembly</h3>
+                        <p>Professional building and testing by experienced technicians</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Quality Guarantee</h3>
+                        <p>Thorough testing and quality assurance before delivery</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>Ongoing Support</h3>
+                        <p>Dedicated support for troubleshooting and upgrades</p>
+                    </div>
+                </div>
+
+                <div class="custom-form-container">
+                    <h3>Submit Your Custom Build</h3>
+                    <p class="form-subtitle">Fill out the form below with your build details</p>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> How to Submit Your Build</h4>
+                        <p>To get started, you'll need a PCPartPicker list:</p>
+                        <ul>
+                            <li>Visit <a href="https://pcpartpicker.com" target="_blank" rel="noopener">PCPartPicker.com</a></li>
+                            <li>Create your ideal PC build</li>
+                            <li>Click "Copy/Share Permalink" to get your list URL</li>
+                            <li>Paste the link in the form below</li>
+                        </ul>
+                        <p style="margin-top: 15px;">We'll review your build within 24-48 hours and contact you with our recommendations and pricing!</p>
+                    </div>
+
+                    <form action="https://formspree.io/f/xnnvaaeg" method="POST" class="custom-builds-form">
+                        <div class="form-group">
+                            <label for="name">
+                                Your Name: <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                required 
+                                placeholder="Enter your full name"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">
+                                Your Email: <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                placeholder="your.email@example.com"
+                            >
+                            <div class="form-helper-text">
+                                We'll use this email to send you our quote and build recommendations
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pcpartpicker-list">
+                                PCPartPicker List URL: <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="url" 
+                                id="pcpartpicker-list" 
+                                name="pcpartpicker-list" 
+                                required 
+                                pattern="https://pcpartpicker\.com/list/.*"
+                                placeholder="https://pcpartpicker.com/list/xxxxxx"
+                                title="Please enter a valid PCPartPicker list URL starting with https://pcpartpicker.com/list/"
+                            >
+                            <div class="form-helper-text">
+                                Don't have a list yet? <a href="https://pcpartpicker.com" target="_blank" rel="noopener">Create one on PCPartPicker</a>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additional-notes">
+                                Additional Notes (Optional)
+                            </label>
+                            <textarea 
+                                id="additional-notes" 
+                                name="additional-notes" 
+                                placeholder="Tell us about your budget, specific needs, gaming preferences, or any questions you have..."
+                            ></textarea>
+                            <div class="form-helper-text">
+                                Any additional information helps us provide better recommendations
+                            </div>
+                        </div>
+
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i> Submit Custom Build Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="index.html#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

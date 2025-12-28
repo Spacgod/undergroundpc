@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Analytics Dashboard - UndergroundPC</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1f1f 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .analytics-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .analytics-header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .analytics-header h1 {
+            font-size: 2.5em;
+            color: #7b0707;
+            margin: 0;
+        }
+
+        .analytics-header .date-range {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .date-selector {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .date-selector:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #7b0707;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #e64a19;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(123, 7, 7, 0.3);
+            border-color: #7b0707;
+        }
+
+        .stat-card .icon {
+            font-size: 2.5em;
+            color: #7b0707;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .label {
+            font-size: 0.95em;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .change {
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-card .change.positive {
+            color: #4caf50;
+        }
+
+        .stat-card .change.negative {
+            color: #f44336;
+        }
+
+        .analytics-section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .analytics-section h2 {
+            font-size: 1.8em;
+            color: #7b0707;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .chart-placeholder {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .chart-placeholder i {
+            font-size: 4em;
+            color: #7b0707;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .iframe-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .quick-link-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .quick-link-card:hover {
+            background: rgba(123, 7, 7, 0.2);
+            border-color: #7b0707;
+            transform: translateX(5px);
+        }
+
+        .quick-link-card i {
+            font-size: 2em;
+            color: #7b0707;
+        }
+
+        .quick-link-card .link-info h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .quick-link-card .link-info p {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .info-box {
+            background: rgba(123, 7, 7, 0.2);
+            border-left: 4px solid #7b0707;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #7b0707;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .info-box p {
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            list-style-position: inside;
+            color: #ccc;
+            line-height: 1.8;
+            margin-left: 15px;
+        }
+
+        .info-box a {
+            color: #7b0707;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-box a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .analytics-header {
+                padding: 20px;
+            }
+
+            .analytics-header h1 {
+                font-size: 2em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-section {
+                padding: 20px;
+            }
+
+            .chart-container {
+                padding: 20px;
+                min-height: 300px;
+            }
+
+            .iframe-container iframe {
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="analytics-container">
+        <div class="analytics-header">
+            <div>
+                <h1><i class="fas fa-chart-line"></i> Analytics Dashboard</h1>
+                <p class="date-range">Last 30 days • Updated in real-time</p>
+            </div>
+            <div class="header-actions">
+                <select class="date-selector" onchange="updateDateRange(this.value)">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                    <option value="365">Last Year</option>
+                </select>
+                <a href="admin.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+                <a href="https://analytics.google.com/analytics/web/#/p465804829/reports/intelligenthome" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Full Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <div class="label">Total Visitors</div>
+                <div class="value" id="total-visitors">---</div>
+                <div class="change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>View in Google Analytics</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-eye"></i></div>
+                <div class="label">Page Views</div>
+                <div class="value" id="page-views">---</div>
+                <div class="change positive">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>View in Google Analytics</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <div class="label">Avg. Session Duration</div>
+                <div class="value" id="avg-duration">---</div>
+                <div class="change">
+                    <i class="fas fa-minus"></i>
+                    <span>View in Google Analytics</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="icon"><i class="fas fa-percentage"></i></div>
+                <div class="label">Bounce Rate</div>
+                <div class="value" id="bounce-rate">---</div>
+                <div class="change">
+                    <i class="fas fa-minus"></i>
+                    <span>View in Google Analytics</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2><i class="fas fa-chart-area"></i> Traffic Overview</h2>
+            <div class="chart-container">
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                    <p style="margin-bottom: 15px;">Real-time analytics data is available in your Google Analytics dashboard.</p>
+                    <a href="https://analytics.google.com/analytics/web/#/p465804829/reports/intelligenthome" target="_blank" class="btn btn-primary">
+                        View Full Analytics Dashboard
+                    </a>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h3><i class="fas fa-info-circle"></i> About Your Analytics</h3>
+                <p><strong>Tracking ID:</strong> G-2RYELKS92V</p>
+                <p>Google Analytics is now tracking all visitor activity across your website. Data typically appears within 24-48 hours after installation.</p>
+                <p style="margin-top: 15px;"><strong>What you can track:</strong></p>
+                <ul>
+                    <li>Real-time visitor activity</li>
+                    <li>Page views and popular content</li>
+                    <li>Visitor demographics and locations</li>
+                    <li>Traffic sources (Google, social media, direct, etc.)</li>
+                    <li>Device types (desktop, mobile, tablet)</li>
+                    <li>User behavior and navigation patterns</li>
+                    <li>Conversion tracking and goals</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2><i class="fas fa-file-alt"></i> Top Pages</h2>
+            <div class="chart-container" style="min-height: 300px;">
+                <table style="width: 100%; color: #fff; text-align: left;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid rgba(123, 7, 7, 0.5);">
+                            <th style="padding: 15px; color: #7b0707; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px;">Page</th>
+                            <th style="padding: 15px; color: #7b0707; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px; text-align: center;">Views</th>
+                            <th style="padding: 15px; color: #7b0707; text-transform: uppercase; font-size: 0.9em; letter-spacing: 1px; text-align: center;">Avg. Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 15px;"><i class="fas fa-home" style="color: #7b0707; margin-right: 10px;"></i> Home Page</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">View in GA</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">--:--</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 15px;"><i class="fas fa-shopping-cart" style="color: #7b0707; margin-right: 10px;"></i> Shop</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">View in GA</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">--:--</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 15px;"><i class="fas fa-desktop" style="color: #7b0707; margin-right: 10px;"></i> Custom Builds</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">View in GA</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">--:--</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                            <td style="padding: 15px;"><i class="fas fa-envelope" style="color: #7b0707; margin-right: 10px;"></i> Contact</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">View in GA</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">--:--</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px;"><i class="fas fa-info-circle" style="color: #7b0707; margin-right: 10px;"></i> About Us</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">View in GA</td>
+                            <td style="padding: 15px; text-align: center; color: #aaa;">--:--</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box">
+                <p style="margin: 0;"><i class="fas fa-info-circle"></i> <strong>Note:</strong> Detailed page-level analytics are available in your Google Analytics dashboard. Click "Full Dashboard" to view comprehensive data.</p>
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2><i class="fas fa-share-alt"></i> Traffic Sources</h2>
+            <div class="quick-links-grid">
+                <div class="stat-card" style="text-align: center;">
+                    <div class="icon"><i class="fab fa-google"></i></div>
+                    <div class="label">Organic Search</div>
+                    <div class="value">---</div>
+                    <div class="change"><span>Google, Bing, etc.</span></div>
+                </div>
+                <div class="stat-card" style="text-align: center;">
+                    <div class="icon"><i class="fas fa-link"></i></div>
+                    <div class="label">Direct Traffic</div>
+                    <div class="value">---</div>
+                    <div class="change"><span>URL typed directly</span></div>
+                </div>
+                <div class="stat-card" style="text-align: center;">
+                    <div class="icon"><i class="fas fa-share-nodes"></i></div>
+                    <div class="label">Social Media</div>
+                    <div class="value">---</div>
+                    <div class="change"><span>Facebook, Instagram</span></div>
+                </div>
+                <div class="stat-card" style="text-align: center;">
+                    <div class="icon"><i class="fas fa-arrow-up-right-from-square"></i></div>
+                    <div class="label">Referrals</div>
+                    <div class="value">---</div>
+                    <div class="change"><span>Other websites</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h2><i class="fas fa-link"></i> Quick Access</h2>
+            <div class="quick-links-grid">
+                <a href="https://analytics.google.com/analytics/web/#/p465804829/reports/intelligenthome" target="_blank" class="quick-link-card">
+                    <i class="fas fa-home"></i>
+                    <div class="link-info">
+                        <h3>Analytics Home</h3>
+                        <p>Main dashboard overview</p>
+                    </div>
+                </a>
+
+                <a href="https://analytics.google.com/analytics/web/#/p465804829/reports/reportinghub?params=_u..nav%3Dmaui" target="_blank" class="quick-link-card">
+                    <i class="fas fa-chart-bar"></i>
+                    <div class="link-info">
+                        <h3>Reports</h3>
+                        <p>Detailed analytics reports</p>
+                    </div>
+                </a>
+
+                <a href="https://analytics.google.com/analytics/web/#/p465804829/reports/explorer" target="_blank" class="quick-link-card">
+                    <i class="fas fa-search"></i>
+                    <div class="link-info">
+                        <h3>Explore</h3>
+                        <p>Custom data exploration</p>
+                    </div>
+                </a>
+
+                <a href="https://analytics.google.com/analytics/web/#/p465804829/realtime/overview" target="_blank" class="quick-link-card">
+                    <i class="fas fa-wifi"></i>
+                    <div class="link-info">
+                        <h3>Real-time</h3>
+                        <p>Live visitor activity</p>
+                    </div>
+                </a>
+
+                <a href="https://formspree.io/forms/xnnvaaeg/submissions" target="_blank" class="quick-link-card">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <div class="link-info">
+                        <h3>Form Submissions</h3>
+                        <p>Custom build requests</p>
+                    </div>
+                </a>
+
+                <a href="admin.html" class="quick-link-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div class="link-info">
+                        <h3>Admin Dashboard</h3>
+                        <p>Return to admin panel</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+       
+
+    <script>
+        // Date range selector
+        function updateDateRange(days) {
+            const dateRangeText = document.querySelector('.date-range');
+            if (dateRangeText) {
+                dateRangeText.textContent = `Last ${days} days • Updated in real-time`;
+            }
+            console.log(`Updated to show last ${days} days of data`);
+        }
+
+        // Animate stats on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Analytics dashboard loaded');
+            console.log('Tracking ID: G-2RYELKS92V');
+            
+            // Animate stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+
+            // Add refresh functionality
+            const refreshButton = document.createElement('button');
+            refreshButton.className = 'btn btn-secondary';
+            refreshButton.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+            refreshButton.style.display = 'none'; // Hidden for now
+            refreshButton.onclick = function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check"></i> Data Updated!';
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Data';
+                    }, 2000);
+                }, 1500);
+            };
+        });
+
+        // Auto-refresh timer (optional - currently disabled)
+        let autoRefreshEnabled = false;
+        if (autoRefreshEnabled) {
+            setInterval(() => {
+                console.log('Auto-refreshing analytics data...');
+                // Add your data refresh logic here
+            }, 300000); // Refresh every 5 minutes
+        }
+    </script>
+</body>
+</html>

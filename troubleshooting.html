@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UndergroundPC - Hardware Diagnostics & Repair</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2RYELKS92V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2RYELKS92V');
+    </script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pc-builder-css.css">
+
+    <style>
+        /* Define a primary color variable for consistency if not already in style.css */
+        :root {
+            --primary-color: #e82c2c; /* Red from index.html buttons */
+            --primary-light: #ff3f3f; /* Lighter red for hover states */
+            --text-color: #ffffff;
+            --light-bg-color: #f0f2f5; /* Softer light background */
+            --dark-bg-color: #1a1a1a; /* Deeper dark background */
+            --card-bg-dark-section: rgba(255, 255, 255, 0.08); /* Slightly less opaque for better depth */
+            --card-border-dark-section: rgba(255, 255, 255, 0.15); /* Softer border */
+            --text-on-dark: #ffffff; /* Consistent light text on dark backgrounds */
+            --footer-text-color: rgb(255, 255, 255);
+            --footer-border-color: rgba(255, 255, 255, 0.08);
+            --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08); /* Softer shadow for light elements */
+            --shadow-dark: 0 8px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow for dark elements */
+        }
+
+        /* General Container for Consistency */
+        .container {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem; /* Increased padding */
+            padding-right: 1.5rem;
+        }
+
+        /* Section Padding */
+        .section-padding {
+            padding-top: 6rem; /* More generous vertical padding */
+            padding-bottom: 6rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 3em; /* Slightly larger titles */
+            margin-bottom: 4rem; /* More spacing */
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8); /* Refined shadow */
+        }
+
+        /* For sections with light background (like FAQ, if needed for other transparent sections) */
+        .section-title.light-text {
+            color: var(--text-color);
+            text-shadow: none;
+        }
+
+        @media (max-width: 992px) {
+            .section-title {
+                font-size: 2.5em;
+                margin-bottom: 3rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2em;
+                margin-bottom: 2.5rem;
+            }
+        }
+
+        /* Hero Section Specifics */
+        #hero-diag {
+            background: url('background.png') no-repeat center center/cover; /* Consistent background image */
+            position: relative;
+            z-index: 1;
+            padding: 150px 20px; /* More padding for hero */
+            min-height: 60vh; /* Taller hero */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Subtle gradient overlay for hero section background image */
+        #hero-diag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); /* Gradient overlay */
+            z-index: -1;
+        }
+
+        #hero-diag h1 {
+            font-size: 4.5em; /* Larger hero title */
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-shadow: 4px 4px 10px rgba(0,0,0,0.9); /* Stronger shadow */
+            animation: slideInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        #hero-diag p {
+            font-size: 1.4em; /* Larger hero paragraph */
+            max-width: 900px; /* Wider text for readability */
+            margin: 0 auto 3rem auto; /* More margin */
+            line-height: 1.7;
+            font-family: 'Roboto', sans-serif;
+            animation: slideInUp 1s ease-out forwards 0.2s;
+            opacity: 0;
+        }
+
+        #hero-diag .btn {
+            animation: fadeIn 1s ease-out forwards 0.5s;
+            opacity: 0;
+        }
+
+        @media (max-width: 992px) {
+            #hero-diag h1 {
+                font-size: 3.5em;
+            }
+            #hero-diag p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #hero-diag {
+                padding: 100px 15px;
+                min-height: 40vh;
+            }
+            #hero-diag h1 {
+                font-size: 2.5em;
+            }
+            #hero-diag p {
+                font-size: 1em;
+            }
+            #hero-diag .btn {
+                display: block;
+                margin: 15px auto;
+            }
+        }
+
+        /* Buttons (reused and refined) */
+        .btn {
+            display: inline-block;
+            padding: 14px 30px; /* Larger padding */
+            font-size: 1.15em; /* Slightly larger font */
+            border-radius: 8px; /* More rounded corners */
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Subtle shadow for buttons */
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            transform: translateY(-3px); /* More pronounced lift */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Stronger shadow on hover */
+        }
+
+        /* Service Categories Grid */
+        #service-categories {
+            background: url('background.png') no-repeat center center/cover; /* Ensure background consistency */
+            position: relative;
+            z-index: 0;
+        }
+        #service-categories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Light dark overlay */
+            z-index: -1;
+        }
+
+        .service-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider min width */
+            gap: 2.5rem; /* Consistent gap */
+            text-align: center;
+        }
+
+        .service-card {
+            background-color: var(--card-bg-dark-section);
+            backdrop-filter: blur(8px); /* Stronger blur */
+            border: 1px solid var(--card-border-dark-section);
+            padding: 3rem 2rem; /* More padding */
+            border-radius: 12px; /* More rounded corners */
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2); /* Refined shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            color: var(--text-on-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px); /* More pronounced lift */
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            background-color: rgba(255, 255, 255, 0.12); /* Slightly brighter on hover */
+        }
+
+        .service-card i {
+            font-size: 4em; /* Larger icons */
+            color: var(--primary-light); /* Use lighter primary for icons */
+            margin-bottom: 1.8rem; /* More spacing */
+        }
+
+        .service-card h3 {
+            font-size: 1.8em; /* Larger heading */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; /* Bolder heading */
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .service-card p {
+            font-size: 1.1em; /* Slightly larger text */
+            line-height: 1.8; /* Increased line height for readability */
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-on-dark);
+        }
+
+        /* Why Choose Section (Used same ID, ensured consistency) */
+        #why-choose-upgrade {
+            background-color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+        #why-choose-upgrade::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        #why-choose-upgrade .section-title {
+            color: white;
+        }
+        #why-choose-upgrade .feature-card {
+             background-color: var(--card-bg-dark-section);
+             border: 1px solid var(--card-border-dark-section);
+             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+             color: var(--text-on-dark);
+        }
+        #why-choose-upgrade .feature-card i {
+             color: var(--primary-light);
+        }
+        #why-choose-upgrade .feature-card h3 {
+            color: white;
+        }
+        
+        /* FAQ Section */
+        #upgrade-faq {
+            background: url('background.png') no-repeat center center/cover;
+            position: relative;
+            z-index: 1;
+        }
+        #upgrade-faq::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .faq-item {
+            background-color: var(--card-bg-dark-section);
+            border: 1px solid var(--card-border-dark-section);
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+        }
+        .faq-item:hover {
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            background-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 1.8rem 2rem;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-question i {
+            font-size: 1.1em;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question[aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: var(--text-on-dark);
+            background-color: transparent;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .faq-answer.active {
+            max-height: 400px;
+            padding: 1.5rem 2rem;
+        }
+
+        /* Call to Action Section (Used same ID, ensured consistency) */
+        #contact-upgrade {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 6rem 1.5rem;
+            background: url('background.png') no-repeat center center/cover;
+            position: relative;
+            z-index: 1;
+        }
+        #contact-upgrade::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        #contact-upgrade h2 {
+            font-size: 3.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        #contact-upgrade p {
+            font-size: 1.4rem;
+            max-width: 900px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+            font-family: 'Roboto', sans-serif;
+        }
+        #contact-upgrade .btn {
+            background-color: #fff;
+            color: var(--primary-color);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        #contact-upgrade .btn:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        @media (max-width: 768px) {
+            #contact-upgrade {
+                padding: 4rem 1rem;
+            }
+            #contact-upgrade h2 {
+                font-size: 2.2rem;
+            }
+            #contact-upgrade p {
+                font-size: 1.1rem;
+            }
+            #contact-upgrade .btn {
+                padding: 1rem 2.5rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Header Navigation Styles (copied for consistency) */
+        header {
+            background-color: var(--dark-bg-color);
+            box-shadow: none;
+            padding: 1rem 0;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .site-logo {
+            font-size: 1.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        .header-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .header-nav li {
+            margin-left: 30px;
+        }
+        .header-nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+        .header-nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header-nav a:hover::after,
+        .header-nav a[aria-current="page"]::after {
+            width: 100%;
+        }
+        .header-nav a:hover,
+        .header-nav a[aria-current="page"] {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        .shop-btn {
+            margin-left: 25px;
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
+            transition: color 0.3s ease;
+        }
+        .menu-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 992px) {
+            .header-nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-bg-color);
+                box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+                z-index: 100;
+                padding-bottom: 1.5rem;
+            }
+            .header-nav.active {
+                display: flex;
+            }
+            .header-nav ul {
+                flex-direction: column;
+                align-items: center;
+                padding: 1.5rem 0;
+            }
+            .header-nav li {
+                margin: 0.8rem 0;
+            }
+            .header-nav a {
+                font-size: 1.2rem;
+            }
+            .header-nav a::after {
+                height: 3px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .shop-btn {
+                display: none;
+            }
+        }
+
+        /* Footer Styles (copied for consistency) */
+        .main-footer {
+            background-color: var(--dark-bg-color);
+            color: var(--footer-text-color);
+            padding-top: 4rem;
+            padding-bottom: 2rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            padding-bottom: 2.5rem;
+            border-top: 1px solid var(--footer-border-color);
+            padding-top: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+
+        .footer-col h3 {
+            font-size: 1.4rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: rgb(255, 255, 255);
+        }
+
+        .footer-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-nav li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--primary-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        .social-links a {
+            color: rgb(255, 255, 255);
+            font-size: 1.8rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-light);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgb(255, 255, 255);
+            font-size: 0.95rem;
+            color: rgb(255, 255, 255);
+        }
+
+        /* Footer responsiveness */
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 2rem;
+            }
+            .footer-col.brand-info p {
+                margin-bottom: 1.5rem;
+            }
+            .footer-col h3 {
+                margin-top: 1.8rem;
+            }
+            .social-links {
+                justify-content: center;
+                margin-bottom: 1.8rem;
+            }
+            .copyright {
+                margin-top: 1.5rem;
+            }
+        }
+
+        /* Animation Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="site-logo">UndergroundPC</a>
+            <nav class="header-nav" id="main-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#shop">Shop</a></li>
+                    <li><a href="custom-builds.html">Custom Builds</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="index.html#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero-diag" class="hero-upgrade reveal-on-scroll" aria-labelledby="diag-hero-title">
+            <div class="container">
+                <h1 id="diag-hero-title">PC Hardware Diagnostics & Repair</h1>
+                <p>Experiencing physical component failure or unexplained shutdowns? We specialize in diagnosing and fixing all critical PC hardware issues.</p>
+                <a href="#contact-upgrade" class="btn btn-primary">Start a Hardware Repair Inquiry</a>
+            </div>
+        </section>
+
+        <section id="service-categories" class="section-padding reveal-on-scroll" style="background: url('background.png') no-repeat center center/cover;" aria-labelledby="service-categories-title">
+            <div class="container">
+                <h2 id="service-categories-title" class="section-title">Common Hardware Diagnostics & Services</h2>
+                <div class="service-categories-grid">
+                    <div class="service-card">
+                        <i class="fas fa-microchip" aria-hidden="true"></i>
+                        <h3>Component Failure Diagnosis</h3>
+                        <p>Advanced testing to pinpoint faulty CPUs, GPUs, RAM, and storage that are causing stability issues.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-cogs" aria-hidden="true"></i>
+                        <h3>Motherboard & Logic Board Repair</h3>
+                        <p>Diagnosis and repair of non-starting systems, faulty ports, and complex mainboard component damage.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-bolt" aria-hidden="true"></i>
+                        <h3>Power & Electrical Testing</h3>
+                        <p>Full testing of Power Supply Units (PSUs) and internal electrical integrity to prevent short circuits and component damage.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-desktop" aria-hidden="true"></i>
+                        <h3>Advanced Stress Testing</h3>
+                        <p>Maximum load testing on all components to ensure stability and reliable performance under demanding use cases.</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-hdd" aria-hidden="true"></i>
+                        <h3>Data Recovery from Physical Drives</h3>
+                        <p>Safe extraction and recovery of data from mechanically failed or corrupted Hard Disk Drives (HDDs) and Solid State Drives (SSDs).</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-fan" aria-hidden="true"></i>
+                        <h3>Cooling System Maintenance</h3>
+                        <p>Cleaning, thermal paste reapplication, and repair/replacement of fans, radiators, and custom liquid cooling loops.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-upgrade" class="section-padding reveal-on-scroll faq-section" aria-labelledby="why-choose-diag-title">
+            <div class="container">
+                <h2 id="why-choose-diag-title" class="section-title light-text">The UndergroundPC Hardware Advantage</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-tools" aria-hidden="true"></i>
+                        <h3>Advanced Component Testing</h3>
+                        <p>We use dedicated testing benches and diagnostic cards for 100% accurate component failure identification.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                        <h3>Upfront, Transparent Pricing</h3>
+                        <p>You receive a clear quote for parts and labor before any replacement work begins, with no hidden fees.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        <h3>Manufacturer Component Warranty</h3>
+                        <p>All replacement components installed are covered exclusively by the original **manufacturer's warranty**.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="upgrade-faq" class="section-padding reveal-on-scroll" style="background: url('background.png') no-repeat center center/cover;" aria-labelledby="diag-faq-title">
+            <div class="container">
+                <h2 id="diag-faq-title" class="section-title">Common Hardware Repair Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq1-answer">
+                            How long does the hardware diagnostic process take?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq1-answer" class="faq-answer">
+                            <p>Hardware diagnostics typically take 24-48 hours. This allows us to run extensive stress tests and rule out intermittent component failures under various load conditions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq2-answer">
+                            What warranty applies to replacement parts?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq2-answer" class="faq-answer">
+                            <p>We strictly honor the warranty provided by the original component **manufacturer**. UndergroundPC does not offer a separate in-house warranty on replaced parts or repair labor.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq3-answer">
+                            What happens if a critical component needs ordering?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq3-answer" class="faq-answer">
+                            <p>If a required part is not in stock, we provide you with a full timeline and quote. We prioritize fast shipping to minimize downtime and keep you informed every step of the way.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false" aria-controls="faq4-answer">
+                            Do you service custom liquid cooling loops?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div id="faq4-answer" class="faq-answer">
+                            <p>Absolutely. Our technicians are experienced in inspecting, draining, cleaning, and repairing custom hard-line and soft-line liquid cooling systems, including pump replacement and leak testing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-upgrade" class="cta-section reveal-on-scroll" aria-labelledby="contact-diag-title">
+            <div class="container">
+                <h2 id="contact-diag-title">Experiencing Hardware Failure? Let's Fix It.</h2>
+                <p>Don't risk data loss or further damage. Our certified technicians specialize in complex hardware repair and replacement to get you back in the game.</p>
+                <a href="contact.html" class="btn btn-primary">Book Your Diagnostic Appointment</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-info">
+                    <a href="index.html" class="site-logo footer-logo">UndergroundPC</a>
+                    <p>Your ultimate destination for high-performance custom PCs and components.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-nav" aria-label="Quick links">
+                        <ul>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="#shop">Shop All</a></li>
+                            <li><a href="custom-builds.html">Custom Builds</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <nav class="footer-nav" aria-label="Support links">
+                        <ul>
+                            <li><a href="faq.html">FAQs</a></li>
+                            <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/undergroundcustompc/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/people/Underground-PC/61575249959626/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 UndergroundPC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
+        <p id="success-message-content"></p>
+        <button onclick="document.getElementById('success-message-box').classList.add('hidden');">OK</button>
+    </div>
+
+    <div id="error-message-box" class="message-box hidden" role="alert" aria-live="assertive">
+        <p id="error-message-content"></p>
+        <button onclick="document.getElementById('error-message-box').classList.add('hidden');">OK</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+            const shopBtn = document.querySelector('.shop-btn');
+
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', () => {
+                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                    menuToggle.setAttribute('aria-expanded', !isExpanded);
+                    mainNav.classList.toggle('active');
+
+                    if (shopBtn) {
+                        // This logic is for mobile view only
+                        if (mainNav.classList.contains('active') && window.innerWidth <= 992) {
+                            shopBtn.style.display = 'none';
+                        } else if (window.innerWidth <= 992) {
+                             shopBtn.style.display = 'none'; // Ensure it's hidden in the mobile header
+                        } else {
+                            shopBtn.style.display = ''; // Revert to default for desktop
+                        }
+                    }
+                });
+            }
+
+            // Reveal on scroll functionality
+            const revealElements = document.querySelectorAll('.reveal-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // FAQ Accordion functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    const isExpanded = question.getAttribute('aria-expanded') === 'true';
+
+                    // Close any currently open FAQ item if different from the clicked one
+                    faqQuestions.forEach(otherQuestion => {
+                        if (otherQuestion !== question && otherQuestion.getAttribute('aria-expanded') === 'true') {
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                            otherQuestion.nextElementSibling.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle the clicked FAQ item
+                    if (isExpanded) {
+                        question.setAttribute('aria-expanded', 'false');
+                        answer.classList.remove('active');
+                    } else {
+                        question.setAttribute('aria-expanded', 'true');
+                        answer.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="//code.tidio.co/g7unma5gpdcbgpmrhysgclurjvfmoama.js" async></script>
+</body>
+</html>
