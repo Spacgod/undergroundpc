@@ -1345,24 +1345,7 @@
         </div>
     </footer>
 
-    <!-- Christmas Sale Popup -->
-    <div id="christmasPopup" class="christmas-popup">
-        <button class="popup-close-icon" onclick="closeChristmasPopup()">✕</button>
-        <div class="christmas-popup-content">
-            <h2>Christmas Sale</h2>
-            <p class="popup-subtitle">Limited Time Offer</p>
-            <div class="discount-badge">45% OFF</div>
-            <div class="popup-offer-details">
-                Labor Fee on PC Repairs, Upgrades & Builds
-            </div>
-            <p>Enjoy special holiday discounts on repair and upgrade labor services.</p>
-            <p style="font-size: 0.9em; color: #888;">Valid through January 1st, 2026</p>
-            <div class="christmas-popup-buttons">
-                <button class="popup-btn-shop" onclick="shopNow()">Shop Now</button>
-                <button class="popup-btn-close" onclick="closeChristmasPopup()">Close</button>
-            </div>
-        </div>
-    </div>
+    <!-- Christmas popup removed -->
 
     <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
         <p id="success-message-content"></p>
@@ -1543,42 +1526,7 @@
 
     <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
     
-    <!-- Christmas Popup Script -->
-    <script>
-        function showChristmasPopup() {
-            const popup = document.getElementById('christmasPopup');
-            popup.classList.add('active');
-            // Store in sessionStorage so it doesn't show again during this session
-            sessionStorage.setItem('christmasPopupShown', 'true');
-        }
-
-        function closeChristmasPopup() {
-            const popup = document.getElementById('christmasPopup');
-            popup.classList.remove('active');
-        }
-
-        function shopNow() {
-            // Redirect to shop section
-            window.location.href = '#shop';
-            closeChristmasPopup();
-        }
-
-        // Show popup on page load if not already shown this session
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!sessionStorage.getItem('christmasPopupShown')) {
-                setTimeout(function() {
-                    showChristmasPopup();
-                }, 1000); // Show after 1 second
-            }
-        });
-
-        // Close popup when clicking outside the content
-        document.getElementById('christmasPopup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeChristmasPopup();
-            }
-        });
-    </script>
+    <!-- Christmas popup script removed -->
     
 </body>
 </html>
