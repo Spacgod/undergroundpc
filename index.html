@@ -728,6 +728,7 @@
                 </ul>
             </nav>
             <a href="#shop" class="btn btn-primary shop-btn">Shop Now</a>
+            <a href="#reviews" class="btn btn-secondary reviews-btn" aria-label="Read our reviews"><i class="fas fa-star"></i> Reviews</a>
             <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
@@ -1301,6 +1302,125 @@
                 </div>
             </div>
         </section>
+
+    <!-- Reviews Section (improved) -->
+    <section id="reviews" class="section-padding reveal-on-scroll" role="region" aria-labelledby="reviews-title">
+        <div class="container">
+            <h2 id="reviews-title" class="section-title reveal-item">Customer Reviews</h2>
+            <p class="section-subtitle reveal-item">Real feedback from customers who trust UndergroundPC.</p>
+
+            <style>
+                .reviews-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                    gap: 22px;
+                    margin-top: 28px;
+                }
+                .testimonial-card {
+                    background: rgba(12,12,12,0.6);
+                    padding: 18px;
+                    border-radius: 10px;
+                    color: #e6e6e6;
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+                    transition: transform 0.18s ease, box-shadow 0.18s ease;
+                    min-height: 170px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
+                .testimonial-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(0,0,0,0.32); }
+                .star-rating { color: #f5c518; font-size: 1.05em; margin-bottom: 8px; }
+                .testimonial-title { margin: 0 0 8px 0; font-size: 1.05em; font-weight:700; }
+                .review-text { color: #dcdcdc; margin: 0 0 12px 0; line-height:1.5; }
+                .review-author { font-weight:600; color:#f1f1f1; font-size:0.95em; }
+                .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+            </style>
+
+            <div class="reviews-grid reveal-item">
+                <article class="testimonial-card" itemscope itemtype="http://schema.org/Review" aria-labelledby="r1-title">
+                    <div>
+                        <div class="star-rating" aria-hidden="true">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="sr-only">5 out of 5 stars</span>
+                        </div>
+                        <h3 id="r1-title" class="testimonial-title" itemprop="name">Fantastic Builds</h3>
+                        <p class="review-text" itemprop="reviewBody">Underground PC does an amazing job building gaming systems. Low overhead means low priced, quality systems. They are quick to respond to questions and do a great job building the components to match the needs of the buyer. Will build to your specs and needs. I didn’t need fancy lighting because it was going in a virtual pin cabinet so he built a small form factor system without the lighting.</p>
+                    </div>
+                    <div>
+                        <p class="review-author"><span itemprop="author">Richard</span>, <span>Casa Grande</span></p>
+                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" style="display:none;">
+                            <meta itemprop="ratingValue" content="5" />
+                            <meta itemprop="bestRating" content="5" />
+                        </div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card" itemscope itemtype="http://schema.org/Review" aria-labelledby="r2-title">
+                    <div>
+                        <div class="star-rating" aria-hidden="true">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="sr-only">5 out of 5 stars</span>
+                        </div>
+                        <h3 id="r2-title" class="testimonial-title" itemprop="name">Great Support</h3>
+                        <p class="review-text" itemprop="reviewBody">Absolutely no complaints here. Requested service due to problems putting PC together, and just 2 days after everything is working perfectly. Top of the line in terms of response time and communication as well. Couldn't be happier 👍</p>
+                    </div>
+                    <div>
+                        <p class="review-author"><span itemprop="author">SBT THO</span>, <span>Casa Grande</span></p>
+                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" style="display:none;"></div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card" itemscope itemtype="http://schema.org/Review" aria-labelledby="r3-title">
+                    <div>
+                        <div class="star-rating" aria-hidden="true">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="sr-only">5 out of 5 stars</span>
+                        </div>
+                        <h3 id="r3-title" class="testimonial-title" itemprop="name">Reliable & Fast</h3>
+                        <p class="review-text" itemprop="reviewBody">I bought this PC and it only took a few weeks to get all built and ready. I loved it and my PC works phenomenal, recommended.</p>
+                    </div>
+                    <div>
+                        <p class="review-author"><span itemprop="author">Adrian Landegent</span>, <span>Casa Grande</span></p>
+                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" style="display:none;"></div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card" itemscope itemtype="http://schema.org/Review" aria-labelledby="r4-title">
+                    <div>
+                        <div class="star-rating" aria-hidden="true">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="sr-only">5 out of 5 stars</span>
+                        </div>
+                        <h3 id="r4-title" class="testimonial-title" itemprop="name">Quick Turnaround</h3>
+                        <p class="review-text" itemprop="reviewBody">T was great to work with, he fixed a computer issue I had been struggling with for a few days in no time. Very responsive and knowledgeable, I will definitely call him again for any issues. Thank you so much!</p>
+                    </div>
+                    <div>
+                        <p class="review-author"><span itemprop="author">Meli Monzon</span>, <span>Casa Grande</span></p>
+                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" style="display:none;"></div>
+                    </div>
+                </article>
+
+                <article class="testimonial-card" itemscope itemtype="http://schema.org/Review" aria-labelledby="r5-title">
+                    <div>
+                        <div class="star-rating" aria-hidden="true">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <span class="sr-only">5 out of 5 stars</span>
+                        </div>
+                        <h3 id="r5-title" class="testimonial-title" itemprop="name">very skibibi</h3>
+                        <p class="review-text" itemprop="reviewBody">Yes they were so skibibi at making my pc.</p>
+                    </div>
+                    <div>
+                        <p class="review-author"><span itemprop="author">Car Magnuson</span>, <span>Casa Grande</span></p>
+                        <div itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating" style="display:none;"></div>
+                    </div>
+                </article>
+            </div>
+
+            <div style="text-align:center;margin-top:22px;">
+                <a href="https://www.google.com/search?client=opera-gx&hs=Ph5&sca_esv=fc287096e33095a1&sxsrf=AE3TifPmUX9cNGl9MOcRdm-lXQtsSzL_mg:1766966766491&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E2EsPHQdK67KaoKUDTlMf1QgN6gws4fMKcg2FXHQEZWmJ2_qWlj7rOtN4vsMgMZHCBRlRf8e1rymTQj03cG6V-BtAB1k&q=Undergroundpc+Reviews&sa=X&ved=2ahUKEwjqh8mTwOGRAxXgIUQIHcnoDfwQ0bkNegQIQxAD&biw=1878&bih=1002&dpr=1" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Leave a review on Google">Leave a Review</a>
+            </div>
+        </div>
+    </section>
     </main>
 
     <footer class="main-footer">
@@ -1344,8 +1464,26 @@
             </div>
         </div>
     </footer>
+    </footer>
 
-    <!-- Christmas popup removed -->
+    <!-- Christmas Sale Popup -->
+    <div id="christmasPopup" class="christmas-popup">
+        <button class="popup-close-icon" onclick="closeChristmasPopup()">✕</button>
+        <div class="christmas-popup-content">
+            <h2>Christmas Sale</h2>
+            <p class="popup-subtitle">Limited Time Offer</p>
+            <div class="discount-badge">45% OFF</div>
+            <div class="popup-offer-details">
+                Labor Fee on PC Repairs, Upgrades & Builds
+            </div>
+            <p>Enjoy special holiday discounts on repair and upgrade labor services.</p>
+            <p style="font-size: 0.9em; color: #888;">Valid through January 1st, 2026</p>
+            <div class="christmas-popup-buttons">
+                <button class="popup-btn-shop" onclick="shopNow()">Shop Now</button>
+                <button class="popup-btn-close" onclick="closeChristmasPopup()">Close</button>
+            </div>
+        </div>
+    </div>
 
     <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
         <p id="success-message-content"></p>
@@ -1526,7 +1664,42 @@
 
     <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
     
-    <!-- Christmas popup script removed -->
+    <!-- Christmas Popup Script -->
+    <script>
+        function showChristmasPopup() {
+            const popup = document.getElementById('christmasPopup');
+            popup.classList.add('active');
+            // Store in sessionStorage so it doesn't show again during this session
+            sessionStorage.setItem('christmasPopupShown', 'true');
+        }
+
+        function closeChristmasPopup() {
+            const popup = document.getElementById('christmasPopup');
+            popup.classList.remove('active');
+        }
+
+        function shopNow() {
+            // Redirect to shop section
+            window.location.href = '#shop';
+            closeChristmasPopup();
+        }
+
+        // Show popup on page load if not already shown this session
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!sessionStorage.getItem('christmasPopupShown')) {
+                setTimeout(function() {
+                    showChristmasPopup();
+                }, 1000); // Show after 1 second
+            }
+        });
+
+        // Close popup when clicking outside the content
+        document.getElementById('christmasPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeChristmasPopup();
+            }
+        });
+    </script>
     
 </body>
 </html>
