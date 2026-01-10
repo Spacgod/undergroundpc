@@ -67,158 +67,7 @@
             border-width: 0;
         }
 
-        /* Christmas Sale Popup */
-        .christmas-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .christmas-popup.active {
-            display: flex;
-        }
-
-        .christmas-popup-content {
-            background: #fff;
-            border-radius: 10px;
-            padding: 40px;
-            max-width: 450px;
-            text-align: center;
-            color: #333;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            position: relative;
-        }
-
-        .christmas-popup-content h2 {
-            font-size: 2.2em;
-            margin: 0 0 15px 0;
-            color: #7b0707;
-            font-weight: 700;
-        }
-
-        .popup-subtitle {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .discount-badge {
-            background-color: #7b0707;
-            color: #fff;
-            font-size: 2em;
-            font-weight: bold;
-            padding: 15px 30px;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 20px 0;
-        }
-
-        .christmas-popup-content p {
-            font-size: 1em;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            color: #666;
-        }
-
-        .popup-offer-details {
-            background: #f5f5f5;
-            border-left: 4px solid #7b0707;
-            padding: 12px 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            font-size: 0.95em;
-            color: #555;
-        }
-
-        .christmas-popup-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 25px;
-            flex-wrap: wrap;
-        }
-
-        .christmas-popup-buttons button {
-            padding: 12px 30px;
-            font-size: 1em;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .popup-btn-shop {
-            background: #7b0707;
-            color: #fff;
-        }
-
-        .popup-btn-shop:hover {
-            background: #a01010;
-        }
-
-        .popup-btn-close {
-            background: #ddd;
-            color: #333;
-            border: 1px solid #999;
-        }
-
-        .popup-btn-close:hover {
-            background: #ccc;
-        }
-
-        .popup-close-icon {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.8em;
-            color: #999;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            transition: color 0.3s ease;
-        }
-
-        .popup-close-icon:hover {
-            color: #333;
-        }
-
-        @media (max-width: 600px) {
-            .christmas-popup-content {
-                padding: 30px 20px;
-                max-width: 90%;
-                margin: 20px;
-            }
-
-            .christmas-popup-content h2 {
-                font-size: 1.8em;
-            }
-
-            .discount-badge {
-                font-size: 1.5em;
-                padding: 12px 25px;
-            }
-
-            .christmas-popup-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .popup-btn-shop,
-            .popup-btn-close {
-                width: 100%;
-            }
-        }
+        
 
         /* Section Layout & Typography */
         .section-padding {
@@ -1466,24 +1315,7 @@
     </footer>
     </footer>
 
-    <!-- Christmas Sale Popup -->
-    <div id="christmasPopup" class="christmas-popup">
-        <button class="popup-close-icon" onclick="closeChristmasPopup()">✕</button>
-        <div class="christmas-popup-content">
-            <h2>Christmas Sale</h2>
-            <p class="popup-subtitle">Limited Time Offer</p>
-            <div class="discount-badge">45% OFF</div>
-            <div class="popup-offer-details">
-                Labor Fee on PC Repairs, Upgrades & Builds
-            </div>
-            <p>Enjoy special holiday discounts on repair and upgrade labor services.</p>
-            <p style="font-size: 0.9em; color: #888;">Valid through January 1st, 2026</p>
-            <div class="christmas-popup-buttons">
-                <button class="popup-btn-shop" onclick="shopNow()">Shop Now</button>
-                <button class="popup-btn-close" onclick="closeChristmasPopup()">Close</button>
-            </div>
-        </div>
-    </div>
+    
 
     <div id="success-message-box" class="message-box hidden" role="alert" aria-live="polite">
         <p id="success-message-content"></p>
@@ -1664,42 +1496,7 @@
 
     <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
     
-    <!-- Christmas Popup Script -->
-    <script>
-        function showChristmasPopup() {
-            const popup = document.getElementById('christmasPopup');
-            popup.classList.add('active');
-            // Store in sessionStorage so it doesn't show again during this session
-            sessionStorage.setItem('christmasPopupShown', 'true');
-        }
-
-        function closeChristmasPopup() {
-            const popup = document.getElementById('christmasPopup');
-            popup.classList.remove('active');
-        }
-
-        function shopNow() {
-            // Redirect to shop section
-            window.location.href = '#shop';
-            closeChristmasPopup();
-        }
-
-        // Show popup on page load if not already shown this session
-        document.addEventListener('DOMContentLoaded', function() {
-            if (!sessionStorage.getItem('christmasPopupShown')) {
-                setTimeout(function() {
-                    showChristmasPopup();
-                }, 1000); // Show after 1 second
-            }
-        });
-
-        // Close popup when clicking outside the content
-        document.getElementById('christmasPopup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeChristmasPopup();
-            }
-        });
-    </script>
+    
     
 </body>
 </html>
